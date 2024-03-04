@@ -11,15 +11,22 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Tag(name = "Example", description = "Example API")
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/example")
 public class ExampleApiController {
 
-    @PostMapping("/{pathValue}")
+    // Log4j Logger
+    private static final Logger logger = LogManager.getLogger(ExampleApiController.class);
+
+    @PostMapping("/test")
     @Operation(summary = "Example API Summary", description = "Your description")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
@@ -27,11 +34,6 @@ public class ExampleApiController {
             @ApiResponse(responseCode = "404", description = "Not Found"),
     })
     public BasicResponseDto exampleAPI(
-            //Path Parameter
-            @PathVariable
-            @Schema(description = "Path Value", example = "1")
-            Long pathValue,
-
             //Query Parameter
             @Parameter(name = "paramValue", description = "Parameter Value", example = "3", required = true)
             @RequestParam final Long paramValue,
@@ -39,8 +41,10 @@ public class ExampleApiController {
             //Request Body
             @RequestBody @Valid MemberJoinRequestDto requestBody
     ) {
-        String s = String.format("PathValue = %d , ParamValue = %s, Request Email : %s", pathValue, paramValue, requestBody.getEmail());
+        logger.info("request : " + requestBody);
+        String s = String.format("ParamValue = %s, Request Email : %s", paramValue, requestBody.getEmail());
         BasicResponseDto response = new BasicResponseDto(true, "Example API Success", s);
+        logger.info("response : " + response);
         return response;
     }
 

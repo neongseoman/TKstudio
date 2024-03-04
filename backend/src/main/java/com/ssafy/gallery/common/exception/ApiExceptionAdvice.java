@@ -1,4 +1,4 @@
-package com.ssafy.gallery.common.error;
+package com.ssafy.gallery.common.exception;
 
 import com.ssafy.gallery.common.response.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
