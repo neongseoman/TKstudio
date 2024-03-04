@@ -1,4 +1,4 @@
-package com.ssafy.gallery.common.error;
+package com.ssafy.gallery.common.exception;
 
 public class ApiExceptionFactory {
 
