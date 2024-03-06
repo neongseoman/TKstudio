@@ -1,0 +1,4 @@
+[2024-03-06 10:48:17.362]  WARN 22104 --- [nio-8080-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+[2024-03-06 10:48:22.280]  INFO 22104 --- [nio-8080-exec-7] c.s.g.i.c.ImageController                : image/jpeg
+[2024-03-06 10:48:22.280]  INFO 22104 --- [nio-8080-exec-7] c.s.g.i.c.ImageController                : people-3237648_1920.jpg
+[2024-03-06 10:48:22.280]  INFO 22104 --- [nio-8080-exec-7] c.s.g.i.c.ImageController                : 572371

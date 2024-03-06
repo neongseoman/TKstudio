@@ -1,0 +1,31 @@
+[2024-03-06 12:16:13.989]  INFO 20012 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+[2024-03-06 12:16:14.005]  INFO 20012 --- [      Thread-11] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8080"]
+[2024-03-06 12:16:14.024]  INFO 20012 --- [      Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 12:16:14.025]  INFO 20012 --- [      Thread-11] c.z.h.HikariDataSource                   : HikariPool-3 - Shutdown initiated...
+[2024-03-06 12:16:14.028]  INFO 20012 --- [      Thread-11] c.z.h.HikariDataSource                   : HikariPool-3 - Shutdown completed.
+[2024-03-06 12:16:14.111]  INFO 20012 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 20012 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 12:16:14.112]  INFO 20012 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 12:16:14.253]  INFO 20012 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 12:16:14.259]  INFO 20012 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+[2024-03-06 12:16:14.330]  INFO 20012 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 12:16:14.331]  INFO 20012 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 12:16:14.331]  INFO 20012 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 12:16:14.331]  INFO 20012 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 12:16:14.341]  INFO 20012 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 12:16:14.342]  INFO 20012 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 229 ms
+[2024-03-06 12:16:14.361]  INFO 20012 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Starting...
+[2024-03-06 12:16:14.370]  INFO 20012 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@665ec93d
+[2024-03-06 12:16:14.370]  INFO 20012 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Start completed.
+[2024-03-06 12:16:14.371]  INFO 20012 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 12:16:14.373]  INFO 20012 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 12:16:14.376]  INFO 20012 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 12:16:14.394]  INFO 20012 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 12:16:14.395]  INFO 20012 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 12:16:14.457]  WARN 20012 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 12:16:14.465]  INFO 20012 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 12:16:14.508]  INFO 20012 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65dac57a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@17b88b91, org.springframework.security.web.context.SecurityContextHolderFilter@4fdb2dad, org.springframework.security.web.header.HeaderWriterFilter@13441db1, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@58522e17, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6171f7cf, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5f7ef08d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39194271, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6ce4c135, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ed33de7, org.springframework.security.web.access.ExceptionTranslationFilter@260e64db, org.springframework.security.web.access.intercept.AuthorizationFilter@70004202]
+[2024-03-06 12:16:14.552]  INFO 20012 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+[2024-03-06 12:16:14.558]  INFO 20012 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+[2024-03-06 12:16:14.560]  INFO 20012 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path ''
+[2024-03-06 12:16:14.563]  INFO 20012 --- [  restartedMain] c.s.g.GalleryApplication                 : Started GalleryApplication in 0.486 seconds (process running for 3478.055)
+[2024-03-06 12:16:14.564]  INFO 20012 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged

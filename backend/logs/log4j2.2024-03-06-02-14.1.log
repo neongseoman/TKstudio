@@ -1,0 +1,35 @@
+[2024-03-06 14:14:48.948]  INFO 12372 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 14:14:48.952]  INFO 12372 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown initiated...
+[2024-03-06 14:14:48.956]  INFO 12372 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown completed.
+[2024-03-06 14:14:52.685]  INFO 5916 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 5916 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 14:14:52.691]  INFO 5916 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 14:14:52.726]  INFO 5916 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-03-06 14:14:52.726]  INFO 5916 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-03-06 14:14:53.440]  INFO 5916 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 14:14:53.487]  INFO 5916 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 1 JPA repository interface.
+[2024-03-06 14:14:53.978]  INFO 5916 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 14:14:53.988]  INFO 5916 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:14:53.990]  INFO 5916 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 14:14:53.990]  INFO 5916 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 14:14:54.042]  INFO 5916 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 14:14:54.043]  INFO 5916 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1317 ms
+[2024-03-06 14:14:54.173]  INFO 5916 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+[2024-03-06 14:14:54.413]  INFO 5916 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6a5135a8
+[2024-03-06 14:14:54.415]  INFO 5916 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+[2024-03-06 14:14:54.451]  INFO 5916 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 14:14:54.503]  INFO 5916 --- [  restartedMain] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.4.Final
+[2024-03-06 14:14:54.536]  INFO 5916 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 14:14:54.765]  INFO 5916 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 14:14:55.514]  INFO 5916 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 14:14:55.517]  INFO 5916 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 14:14:55.876]  WARN 5916 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 14:14:55.939]  INFO 5916 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 14:14:56.096]  INFO 5916 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@49fd070b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@43b7b1bc, org.springframework.security.web.context.SecurityContextHolderFilter@41b44c7f, org.springframework.security.web.header.HeaderWriterFilter@e727f70, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@1d0df147, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@707f57e7, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1d02bd40, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b067b85, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5b8ebf9c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@11d4af8b, org.springframework.security.web.access.ExceptionTranslationFilter@a5c9de0, org.springframework.security.web.access.intercept.AuthorizationFilter@29a64232]
+[2024-03-06 14:14:56.303]  INFO 5916 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+[2024-03-06 14:14:56.320]  INFO 5916 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:14:56.335]  INFO 5916 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path ''
+[2024-03-06 14:14:56.343]  INFO 5916 --- [  restartedMain] c.s.g.GalleryApplication                 : Started GalleryApplication in 4.006 seconds (process running for 5.037)
+[2024-03-06 14:14:58.808]  INFO 5916 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-03-06 14:14:58.808]  INFO 5916 --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+[2024-03-06 14:14:58.810]  INFO 5916 --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+[2024-03-06 14:14:58.887]  INFO 5916 --- [nio-8080-exec-1] c.s.g.i.s.ImageService                   : ImageOption{background='1', suit='1', hair='1'}
