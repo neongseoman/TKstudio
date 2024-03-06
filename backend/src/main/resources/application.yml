@@ -1,6 +1,7 @@
-server.port: 8080
-server.ssl.enabled: false
-
+server:
+  port: 8080
+  ssl:
+    enabled: false
 
 spring:
   # MySQL
@@ -9,6 +10,17 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+#  # jwt
+#  profiles:
+#    include: jwt
 
   # Oauth2
   security:
