@@ -1,3 +1,62 @@
-[2024-03-05 18:01:49.515]  INFO 11420 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-[2024-03-05 18:01:49.519]  INFO 11420 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
-[2024-03-05 18:01:49.523]  INFO 11420 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+[2024-03-06 14:08:46.143]  INFO 12372 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 24 class path changes (0 additions, 24 deletions, 0 modifications)
+[2024-03-06 14:08:46.150]  INFO 12372 --- [       Thread-7] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:08:46.190]  INFO 12372 --- [       Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 14:08:46.191]  INFO 12372 --- [       Thread-7] c.z.h.HikariDataSource                   : HikariPool-2 - Shutdown initiated...
+[2024-03-06 14:08:46.200]  INFO 12372 --- [       Thread-7] c.z.h.HikariDataSource                   : HikariPool-2 - Shutdown completed.
+[2024-03-06 14:08:46.513]  INFO 12372 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 12372 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 14:08:46.514]  INFO 12372 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 14:08:47.343]  INFO 12372 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 14:08:47.373]  INFO 12372 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 1 JPA repository interface.
+[2024-03-06 14:08:47.552]  INFO 12372 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 14:08:47.554]  INFO 12372 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:08:47.554]  INFO 12372 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 14:08:47.554]  INFO 12372 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 14:08:47.583]  INFO 12372 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 14:08:47.583]  INFO 12372 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1064 ms
+[2024-03-06 14:08:47.627]  INFO 12372 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-3 - Starting...
+[2024-03-06 14:08:47.644]  INFO 12372 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@27aad28c
+[2024-03-06 14:08:47.644]  INFO 12372 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-3 - Start completed.
+[2024-03-06 14:08:47.645]  INFO 12372 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 14:08:47.648]  INFO 12372 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 14:08:47.655]  INFO 12372 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 14:08:47.692]  INFO 12372 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 14:08:47.692]  INFO 12372 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 14:08:47.800]  WARN 12372 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 14:08:47.820]  INFO 12372 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 14:08:47.891]  INFO 12372 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@327d655a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2d4d9637, org.springframework.security.web.context.SecurityContextHolderFilter@5bbc4b5c, org.springframework.security.web.header.HeaderWriterFilter@28ca9381, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@71f97595, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@551f5e5c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@77ba6f11, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1d9597b2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b90b379, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@17a21bd6, org.springframework.security.web.access.ExceptionTranslationFilter@3875dccd, org.springframework.security.web.access.intercept.AuthorizationFilter@7ffc0a68]
+[2024-03-06 14:08:47.972]  INFO 12372 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+[2024-03-06 14:08:47.983]  INFO 12372 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:08:47.986]  INFO 12372 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path ''
+[2024-03-06 14:08:47.992]  INFO 12372 --- [  restartedMain] c.s.g.GalleryApplication                 : Started GalleryApplication in 1.628 seconds (process running for 315.705)
+[2024-03-06 14:08:47.994]  INFO 12372 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+[2024-03-06 14:08:49.405]  INFO 12372 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 24 class path changes (21 additions, 0 deletions, 3 modifications)
+[2024-03-06 14:08:49.408]  INFO 12372 --- [      Thread-11] o.a.c.h.Http11NioProtocol                : Stopping ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:08:49.442]  INFO 12372 --- [      Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 14:08:49.448]  INFO 12372 --- [      Thread-11] c.z.h.HikariDataSource                   : HikariPool-3 - Shutdown initiated...
+[2024-03-06 14:08:49.456]  INFO 12372 --- [      Thread-11] c.z.h.HikariDataSource                   : HikariPool-3 - Shutdown completed.
+[2024-03-06 14:08:49.628]  INFO 12372 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 12372 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 14:08:49.629]  INFO 12372 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 14:08:50.004]  INFO 12372 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 14:08:50.017]  INFO 12372 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+[2024-03-06 14:08:50.145]  INFO 12372 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 14:08:50.146]  INFO 12372 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:08:50.147]  INFO 12372 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 14:08:50.147]  INFO 12372 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 14:08:50.166]  INFO 12372 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 14:08:50.166]  INFO 12372 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 534 ms
+[2024-03-06 14:08:50.203]  INFO 12372 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Starting...
+[2024-03-06 14:08:50.218]  INFO 12372 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@427f9b62
+[2024-03-06 14:08:50.218]  INFO 12372 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Start completed.
+[2024-03-06 14:08:50.220]  INFO 12372 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 14:08:50.223]  INFO 12372 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 14:08:50.228]  INFO 12372 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 14:08:50.264]  INFO 12372 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 14:08:50.264]  INFO 12372 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 14:08:50.387]  WARN 12372 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 14:08:50.409]  INFO 12372 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 14:08:50.520]  INFO 12372 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@8fee989, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a344589, org.springframework.security.web.context.SecurityContextHolderFilter@f0bdf46, org.springframework.security.web.header.HeaderWriterFilter@87a9e90, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@59de0fb2, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3553a8cd, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@24c90509, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@ad0509e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@789b8a94, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@733e62e2, org.springframework.security.web.access.ExceptionTranslationFilter@152ce2a2, org.springframework.security.web.access.intercept.AuthorizationFilter@7d35e5aa]
+[2024-03-06 14:08:50.666]  INFO 12372 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+[2024-03-06 14:08:50.683]  INFO 12372 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+[2024-03-06 14:08:50.689]  INFO 12372 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path ''
+[2024-03-06 14:08:50.696]  INFO 12372 --- [  restartedMain] c.s.g.GalleryApplication                 : Started GalleryApplication in 1.15 seconds (process running for 318.409)
+[2024-03-06 14:08:50.699]  INFO 12372 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged

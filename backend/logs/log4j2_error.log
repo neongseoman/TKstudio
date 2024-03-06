@@ -1,7 +1,12 @@
-[2024-03-05 16:59:44.713] ERROR 7532 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because "authentication" is null] with root cause
+[2024-03-06 11:18:25.786] ERROR 20012 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"] with root cause
 
-java.lang.NullPointerException: Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because "authentication" is null
-	at com.ssafy.gallery.user.controller.UserController.getJson(UserController.java:26) ~[main/:?]
+java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"
+	at org.springframework.util.MimeType.checkToken(MimeType.java:223) ~[spring-core-6.1.4.jar:6.1.4]
+	at org.springframework.util.MimeType.<init>(MimeType.java:182) ~[spring-core-6.1.4.jar:6.1.4]
+	at org.springframework.util.MimeType.<init>(MimeType.java:133) ~[spring-core-6.1.4.jar:6.1.4]
+	at org.springframework.util.MimeType.<init>(MimeType.java:122) ~[spring-core-6.1.4.jar:6.1.4]
+	at org.springframework.http.MediaType.<init>(MediaType.java:478) ~[spring-web-6.1.4.jar:6.1.4]
+	at com.ssafy.gallery.image.controller.ImageController.createImage(ImageController.java:32) ~[main/:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -15,8 +20,8 @@ java.lang.NullPointerException: Cannot invoke "org.springframework.security.core
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.4.jar:6.1.4]
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.4.jar:6.1.4]
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.4.jar:6.1.4]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.1.4.jar:6.1.4]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.19.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.4.jar:6.1.4]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.19.jar:6.0]
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.4.jar:6.1.4]
 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.19.jar:6.0]
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.19.jar:10.1.19]
