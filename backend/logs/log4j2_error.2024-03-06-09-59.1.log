@@ -1,4 +1,4 @@
-[2024-03-06 10:42:15.780] ERROR 22636 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Exception during pool initialization.
+[2024-03-06 09:59:56.318] ERROR 19940 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Exception during pool initialization.
 
 java.sql.SQLSyntaxErrorException: Unknown database 'gallery'
 	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-8.3.0.jar:8.3.0]
@@ -58,7 +58,7 @@ java.sql.SQLSyntaxErrorException: Unknown database 'gallery'
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
 
-[2024-03-06 10:42:17.062] ERROR 22636 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Exception during pool initialization.
+[2024-03-06 09:59:57.610] ERROR 19940 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Exception during pool initialization.
 
 java.sql.SQLSyntaxErrorException: Unknown database 'gallery'
 	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-8.3.0.jar:8.3.0]
