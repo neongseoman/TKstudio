@@ -1,4 +1,4 @@
-[2024-03-06 11:18:25.786] ERROR 20012 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"] with root cause
+[2024-03-06 11:17:57.950] ERROR 22168 --- [nio-8080-exec-2] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"] with root cause
 
 java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"
 	at org.springframework.util.MimeType.checkToken(MimeType.java:223) ~[spring-core-6.1.4.jar:6.1.4]
