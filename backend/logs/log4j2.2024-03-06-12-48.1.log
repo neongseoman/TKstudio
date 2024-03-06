@@ -1,0 +1,3 @@
+[2024-03-06 12:48:59.442]  INFO 18352 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 12:48:59.448]  INFO 18352 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+[2024-03-06 12:48:59.453]  INFO 18352 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.

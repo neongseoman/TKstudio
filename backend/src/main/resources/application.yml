@@ -29,6 +29,15 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      maxRequestSize: 20MB
+
+server:
+  tomcat:
+    max-http-form-post-size: 10MB
+
 # Swagger
 springdoc:
   swagger-ui:

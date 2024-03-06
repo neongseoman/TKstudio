@@ -1,0 +1,35 @@
+[2024-03-06 12:56:35.597]  INFO 11316 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 12:56:35.600]  INFO 11316 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown initiated...
+[2024-03-06 12:56:35.603]  INFO 11316 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown completed.
+[2024-03-06 12:56:38.472]  INFO 25492 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 25492 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 12:56:38.487]  INFO 25492 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 12:56:38.512]  INFO 25492 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-03-06 12:56:38.512]  INFO 25492 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-03-06 12:56:39.030]  INFO 25492 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 12:56:39.068]  INFO 25492 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 1 JPA repository interface.
+[2024-03-06 12:56:39.458]  INFO 25492 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 12:56:39.466]  INFO 25492 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 12:56:39.467]  INFO 25492 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 12:56:39.467]  INFO 25492 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 12:56:39.501]  INFO 25492 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 12:56:39.501]  INFO 25492 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 989 ms
+[2024-03-06 12:56:39.599]  INFO 25492 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+[2024-03-06 12:56:39.809]  INFO 25492 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@248d56a1
+[2024-03-06 12:56:39.810]  INFO 25492 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+[2024-03-06 12:56:39.843]  INFO 25492 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 12:56:39.884]  INFO 25492 --- [  restartedMain] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.4.Final
+[2024-03-06 12:56:39.908]  INFO 25492 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 12:56:40.086]  INFO 25492 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 12:56:40.688]  INFO 25492 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 12:56:40.690]  INFO 25492 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 12:56:40.983]  WARN 25492 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 12:56:41.041]  INFO 25492 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 12:56:41.176]  INFO 25492 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7a1f65ef, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@69b0d9e5, org.springframework.security.web.context.SecurityContextHolderFilter@6d592732, org.springframework.security.web.header.HeaderWriterFilter@7387fcfa, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@770e73e3, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6c2bfc6, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@667e3783, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b4c95bf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4526c8ec, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@51735aa0, org.springframework.security.web.access.ExceptionTranslationFilter@2bd9c187, org.springframework.security.web.access.intercept.AuthorizationFilter@70a723b6]
+[2024-03-06 12:56:41.391]  INFO 25492 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+[2024-03-06 12:56:41.404]  INFO 25492 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+[2024-03-06 12:56:41.416]  INFO 25492 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path ''
+[2024-03-06 12:56:41.423]  INFO 25492 --- [  restartedMain] c.s.g.GalleryApplication                 : Started GalleryApplication in 3.261 seconds (process running for 4.048)
+[2024-03-06 12:56:43.953]  INFO 25492 --- [nio-8080-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-03-06 12:56:43.954]  INFO 25492 --- [nio-8080-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+[2024-03-06 12:56:43.955]  INFO 25492 --- [nio-8080-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 1 ms
+[2024-03-06 12:56:44.041]  WARN 25492 --- [nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'multipart/form-data;boundary=--------------------------756491495313119628895256;charset=UTF-8' is not supported]
