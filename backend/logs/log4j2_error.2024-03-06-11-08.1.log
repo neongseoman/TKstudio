@@ -1,4 +1,4 @@
-[2024-03-06 11:18:25.786] ERROR 20012 --- [nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"] with root cause
+[2024-03-06 11:08:45.301] ERROR 21252 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"] with root cause
 
 java.lang.IllegalArgumentException: Invalid token character '/' in token "image/jpeg"
 	at org.springframework.util.MimeType.checkToken(MimeType.java:223) ~[spring-core-6.1.4.jar:6.1.4]
@@ -6,7 +6,7 @@ java.lang.IllegalArgumentException: Invalid token character '/' in token "image/
 	at org.springframework.util.MimeType.<init>(MimeType.java:133) ~[spring-core-6.1.4.jar:6.1.4]
 	at org.springframework.util.MimeType.<init>(MimeType.java:122) ~[spring-core-6.1.4.jar:6.1.4]
 	at org.springframework.http.MediaType.<init>(MediaType.java:478) ~[spring-web-6.1.4.jar:6.1.4]
-	at com.ssafy.gallery.image.controller.ImageController.createImage(ImageController.java:32) ~[main/:?]
+	at com.ssafy.gallery.image.controller.ImageController.createImage(ImageController.java:29) ~[main/:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
