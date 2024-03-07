@@ -9,8 +9,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService()
 public class grpcImageService extends ImageServiceGrpc.ImageServiceImplBase {
-
-
+    
     @Override
     public void imageSend(ImageRequest request, StreamObserver<ImageResponse> responseObserver) {
         super.imageSend(request, responseObserver);
