@@ -27,4 +27,7 @@ public class Users {
         }
         return new ArrayList<>();
     }
+
+    public void setEmail(String email) {
+    }
 }

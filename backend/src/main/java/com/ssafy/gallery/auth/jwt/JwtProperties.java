@@ -1,4 +1,4 @@
-package com.ssafy.gallery.config.jwt;
+package com.ssafy.gallery.auth.jwt;
 
 public interface JwtProperties {
     String SECRET = "조익현"; // 우리 서버만 알고 있는 비밀값
