@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import java.io.IOException;
 
 @Tag(name = "이미지", description = "Image API")
@@ -36,8 +37,7 @@ public class ImageController {
             @RequestParam(value = "hair") String hair
     ) throws IOException {
 
-        imageService.sendImageToAIServer(originalImage,new ImageOption(background,suit,hair));
-
+        imageService.sendImage(originalImage);
         Resource resource = originalImage.getResource();
 
         return ResponseEntity.ok()

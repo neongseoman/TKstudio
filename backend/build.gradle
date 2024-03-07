@@ -51,8 +51,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
     // grpc
-    implementation 'net.devh:grpc-spring-boot-starter:2.15.0.RELEASE'
-
+    implementation 'net.devh:grpc-client-spring-boot-starter:2.12.0.RELEASE'
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
     compileOnly 'jakarta.annotation:jakarta.annotation-api:1.3.5' // Java 9+ compatibility - Do
