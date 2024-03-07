@@ -1,11 +1,15 @@
 # fastapi
 from fastapi import FastAPI, UploadFile
-from starlette.responses import FileResponse
+
 
 # insightface
 import insightface
 from insightface.app import FaceAnalysis
 import matplotlib.pyplot as plt
+
+# for test
+# from PIL import Image
+# import numpy as np
 
 
 app = FastAPI()
@@ -27,31 +31,30 @@ bg_0_img = plt.imread(bg_0_img_path)
 # to run the server
 # uvicorn main:app --reload
 
-######################################################################
-######################################################################
-# 함수 예시
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World"}
-
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
-######################################################################
-######################################################################
-
 
 @app.post("/")
-def process_image(userImage: UploadFile):
+async def process_image(userImage: UploadFile):
     # bg_faces = faceswap_app.get(bg_0_img)
     # bg_face = bg_faces[0]
 
-    # faces = faceswap_app.get(userImage)
+    # faces = faceswap_app.get(userImg)
     # source_face = faces[0]
 
     # processed_image = bg_0_img.copy()
     # processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
 
     # return {"processedImage": processed_image}
-    return {"userImage": userImage}  # 이미지 정보 확인 디버깅용
+
+    ############################## 테스트 중 ##############################
+    # # 이미지 열기
+    # image = Image.open(userImage.file)
+
+    # # 이미지를 NumPy 배열로 변환
+    # image_data = np.array(image)
+
+    # # 이미지 출력
+    # plt.imshow(image_data)
+    # plt.show()
+    ############################## 테스트 중 ##############################
+
+    return {"success": True}
