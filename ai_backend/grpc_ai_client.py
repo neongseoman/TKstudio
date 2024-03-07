@@ -14,13 +14,14 @@ class DdalkkakClient(object):
 
         self.stub = pb2_grpc.DdalkkakStub(self.channel)
 
-    def get_url(self, name):
-        name = pb2.TestRequest(name=name)
-        print(f"{name}")
-        return self.stub.TestFunc(name)
+    def inputImage(self, userImage, options):
+        ddalkkakrequest = pb2.DdalkkakRequest(userImage=userImage, options=options)
+
+        return self.stub.ProcessImage(ddalkkakrequest)
 
 
 if __name__ == "__main__":
     client = DdalkkakClient()
-    result = client.get_url(name="박근수")
+    test_byte = b"Hello, world!"
+    result = client.inputImage(userImage=test_byte, options="myOptions")
     print(f"{result}")

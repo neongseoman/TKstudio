@@ -14,17 +14,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x64\x64\x61lkkak.proto\x12\x10\x64\x64\x61lkkak_package\"\x1b\n\x0bTestRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\'\n\tTestReply\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t2T\n\x08\x44\x64\x61lkkak\x12H\n\x08TestFunc\x12\x1d.ddalkkak_package.TestRequest\x1a\x1b.ddalkkak_package.TestReply\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x64\x64\x61lkkak.proto\x12\x10\x64\x64\x61lkkak_package\"5\n\x0f\x44\x64\x61lkkakRequest\x12\x11\n\tuserImage\x18\x01 \x01(\x0c\x12\x0f\n\x07options\x18\x02 \x01(\t\"\x7f\n\rDdalkkakReply\x12\x15\n\roriginalS3URL\x18\x01 \x01(\t\x12\x16\n\x0eprocessed3SURL\x18\x02 \x01(\t\x12\x16\n\x0ethumbnailS3URL\x18\x03 \x01(\t\x12\x0f\n\x07options\x18\x04 \x01(\t\x12\x16\n\x0eprocessedImage\x18\x05 \x01(\x0c\x32`\n\x08\x44\x64\x61lkkak\x12T\n\x0cProcessImage\x12!.ddalkkak_package.DdalkkakRequest\x1a\x1f.ddalkkak_package.DdalkkakReply\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ddalkkak_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_TESTREQUEST']._serialized_start=36
-  _globals['_TESTREQUEST']._serialized_end=63
-  _globals['_TESTREPLY']._serialized_start=65
-  _globals['_TESTREPLY']._serialized_end=104
-  _globals['_DDALKKAK']._serialized_start=106
-  _globals['_DDALKKAK']._serialized_end=190
+  _globals['_DDALKKAKREQUEST']._serialized_start=36
+  _globals['_DDALKKAKREQUEST']._serialized_end=89
+  _globals['_DDALKKAKREPLY']._serialized_start=91
+  _globals['_DDALKKAKREPLY']._serialized_end=218
+  _globals['_DDALKKAK']._serialized_start=220
+  _globals['_DDALKKAK']._serialized_end=316
 # @@protoc_insertion_point(module_scope)
