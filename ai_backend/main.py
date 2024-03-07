@@ -1,6 +1,8 @@
 # fastapi
 from fastapi import FastAPI, UploadFile
 
+# from fastapi.responses import FileResponse
+# from pydantic import BaseModel
 
 # insightface
 import insightface
@@ -32,29 +34,20 @@ bg_0_img = plt.imread(bg_0_img_path)
 # uvicorn main:app --reload
 
 
-@app.post("/")
-async def process_image(userImage: UploadFile):
-    # bg_faces = faceswap_app.get(bg_0_img)
-    # bg_face = bg_faces[0]
+@app.get("/")
+def hello():
+    return "hello"
 
-    # faces = faceswap_app.get(userImg)
-    # source_face = faces[0]
 
-    # processed_image = bg_0_img.copy()
-    # processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
+# @app.post("/")
+# async def process_image(userImage: UploadFile):
+#     bg_faces = faceswap_app.get(bg_0_img)
+#     bg_face = bg_faces[0]
 
-    # return {"processedImage": processed_image}
+#     faces = faceswap_app.get(userImg)
+#     source_face = faces[0]
 
-    ############################## 테스트 중 ##############################
-    # # 이미지 열기
-    # image = Image.open(userImage.file)
+#     processed_image = bg_0_img.copy()
+#     processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
 
-    # # 이미지를 NumPy 배열로 변환
-    # image_data = np.array(image)
-
-    # # 이미지 출력
-    # plt.imshow(image_data)
-    # plt.show()
-    ############################## 테스트 중 ##############################
-
-    return {"success": True}
+#     return {"processedImage": processed_image}
