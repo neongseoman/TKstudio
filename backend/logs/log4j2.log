@@ -1,4 +1,48 @@
-[2024-03-06 16:33:42.390]  INFO 20276 --- [ionShutdownHook] n.d.b.g.s.s.GrpcServerLifecycle          : Completed gRPC server shutdown
-[2024-03-06 16:33:42.415]  INFO 20276 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-[2024-03-06 16:33:42.416]  INFO 20276 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown initiated...
-[2024-03-06 16:33:42.419]  INFO 20276 --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown completed.
+[2024-03-07 14:49:54.766]  INFO 18572 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 18572 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-07 14:49:54.775]  INFO 18572 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-07 14:49:54.800]  INFO 18572 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-03-07 14:49:54.800]  INFO 18572 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-03-07 14:49:55.385]  INFO 18572 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-07 14:49:55.421]  INFO 18572 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 1 JPA repository interface.
+[2024-03-07 14:49:55.822]  INFO 18572 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-07 14:49:55.831]  INFO 18572 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-07 14:49:55.832]  INFO 18572 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-07 14:49:55.832]  INFO 18572 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-07 14:49:55.870]  INFO 18572 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-07 14:49:55.870]  INFO 18572 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1069 ms
+[2024-03-07 14:49:55.973]  INFO 18572 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+[2024-03-07 14:49:56.161]  INFO 18572 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2b03ec16
+[2024-03-07 14:49:56.162]  INFO 18572 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+[2024-03-07 14:49:56.193]  INFO 18572 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-07 14:49:56.233]  INFO 18572 --- [  restartedMain] o.h.Version                              : HHH000412: Hibernate ORM core version 6.4.4.Final
+[2024-03-07 14:49:56.258]  INFO 18572 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-07 14:49:56.434]  INFO 18572 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-07 14:49:57.039]  INFO 18572 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-07 14:49:57.041]  INFO 18572 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-07 14:49:57.258]  WARN 18572 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'grpcImageClientService' defined in file [C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main\com\ssafy\gallery\image\service\grpcImageClientService.class]: Failed to create channel: fastapi
+[2024-03-07 14:49:57.258]  INFO 18572 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-07 14:49:57.260]  INFO 18572 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+[2024-03-07 14:49:57.266]  INFO 18572 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+[2024-03-07 14:49:57.268]  INFO 18572 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-07 14:49:57.278]  INFO 18572 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-07 14:49:57.292] ERROR 18572 --- [  restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'grpc.client.fastapi.address' to java.net.URI:
+
+    Property: grpc.client.fastapi.address
+    Value: "127.0.0.1:8000"
+    Origin: class path resource [application.yml] - 64:16
+    Reason: failed to convert java.lang.String to java.net.URI (caused by java.lang.IllegalArgumentException: Invalid URI syntax: Illegal character in scheme name at index 0: 127.0.0.1:8000)
+
+Action:
+
+Update your application's configuration
+
