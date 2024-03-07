@@ -1,6 +1,6 @@
 package com.ssafy.gallery.auth.oauth.dto;
 
-import com.ssafy.gallery.auth.oauth.OauthServerType;
+import com.ssafy.gallery.auth.oauth.type.OauthServerType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Enumerated;
@@ -13,20 +13,20 @@ import static lombok.AccessLevel.PROTECTED;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
-public class OauthId {
+public class Domain {
 
-    @Column(nullable = false, name = "oauth_server_id")
-    private String oauthServerId;
+    @Column(nullable = false, name = "domain_user_key")
+    private String domainUserKey;
 
     @Enumerated(STRING)
-    @Column(nullable = false, name = "oauth_server")
-    private OauthServerType oauthServerType;
+    @Column(nullable = false, name = "domain_name")
+    private OauthServerType domainName;
 
-    public String oauthServerId() {
-        return oauthServerId;
+    public String domainUserKey() {
+        return domainUserKey;
     }
 
-    public OauthServerType oauthServer() {
-        return oauthServerType;
+    public OauthServerType domainName() {
+        return domainName;
     }
 }

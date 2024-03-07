@@ -1,9 +1,9 @@
 package com.ssafy.gallery.auth.oauth.client;
 
-import com.ssafy.gallery.auth.oauth.OauthServerType;
+import com.ssafy.gallery.auth.oauth.type.OauthServerType;
 import com.ssafy.gallery.auth.oauth.dto.KakaoMemberResponse;
 import com.ssafy.gallery.auth.oauth.dto.KakaoToken;
-import com.ssafy.gallery.auth.oauth.dto.OauthMember;
+import com.ssafy.gallery.auth.user.model.User;
 import com.ssafy.gallery.config.KakaoOauthConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class KakaoMemberClient implements OauthMemberClient {
     }
 
     @Override
-    public OauthMember fetch(String authCode) {
+    public User fetch(String authCode) {
         KakaoToken tokenInfo = kakaoApiClient.fetchToken(tokenRequestParams(authCode)); // (1)
         KakaoMemberResponse kakaoMemberResponse =
                 kakaoApiClient.fetchMember("Bearer " + tokenInfo.accessToken());  // (2)

@@ -1,4 +1,4 @@
-package com.ssafy.gallery.auth.oauth;
+package com.ssafy.gallery.auth.oauth.type;
 
 import static java.util.Locale.ENGLISH;
 

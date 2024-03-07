@@ -1,7 +1,7 @@
 package com.ssafy.gallery.auth.oauth.client;
 
-import com.ssafy.gallery.auth.oauth.OauthServerType;
-import com.ssafy.gallery.auth.oauth.dto.OauthMember;
+import com.ssafy.gallery.auth.oauth.type.OauthServerType;
+import com.ssafy.gallery.auth.user.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -24,7 +24,7 @@ public class OauthMemberClientComposite {
                 ));
     }
 
-    public OauthMember fetch(OauthServerType oauthServerType, String authCode) {
+    public User fetch(OauthServerType oauthServerType, String authCode) {
         return getClient(oauthServerType).fetch(authCode);
     }
 

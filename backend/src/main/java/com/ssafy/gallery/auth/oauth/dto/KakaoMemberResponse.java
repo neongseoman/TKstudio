@@ -3,10 +3,11 @@ package com.ssafy.gallery.auth.oauth.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.ssafy.gallery.auth.user.model.User;
 
 import java.time.LocalDateTime;
 
-import static com.ssafy.gallery.auth.oauth.OauthServerType.kakao;
+import static com.ssafy.gallery.auth.oauth.type.OauthServerType.kakao;
 
 
 @JsonNaming(SnakeCaseStrategy.class)
@@ -17,11 +18,11 @@ public record KakaoMemberResponse(
         KakaoAccount kakaoAccount
 ) {
 
-    public OauthMember toDomain() {
-        return OauthMember.builder()
-                .oauthId(new OauthId(String.valueOf(id), kakao))
+    public User toDomain() {
+        return User.builder()
+                .domain(new Domain(String.valueOf(id), kakao))
                 .nickname(kakaoAccount.profile.nickname)
-                .profileImageUrl(kakaoAccount.profile.profileImageUrl)
+                .gender(kakaoAccount.gender)
                 .build();
     }
 
