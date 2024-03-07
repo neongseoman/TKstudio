@@ -1,7 +1,6 @@
 package com.ssafy.gallery.auth.oauth.authcode;
 
-import com.ssafy.gallery.auth.oauth.OauthServerType;
-import com.ssafy.gallery.auth.oauth.authcode.AuthCodeRequestUrlProvider;
+import com.ssafy.gallery.auth.oauth.type.OauthServerType;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

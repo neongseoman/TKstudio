@@ -1,7 +1,7 @@
 package com.ssafy.gallery.auth.oauth.authcode;
 
 
-import com.ssafy.gallery.auth.oauth.OauthServerType;
+import com.ssafy.gallery.auth.oauth.type.OauthServerType;
 
 public interface AuthCodeRequestUrlProvider {
 

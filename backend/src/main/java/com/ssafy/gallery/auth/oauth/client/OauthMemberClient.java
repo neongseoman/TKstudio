@@ -1,11 +1,11 @@
 package com.ssafy.gallery.auth.oauth.client;
 
-import com.ssafy.gallery.auth.oauth.OauthServerType;
-import com.ssafy.gallery.auth.oauth.dto.OauthMember;
+import com.ssafy.gallery.auth.oauth.type.OauthServerType;
+import com.ssafy.gallery.auth.user.model.User;
 
 public interface OauthMemberClient {
 
     OauthServerType supportServer();
 
-    OauthMember fetch(String code);
+    User fetch(String code);
 }
