@@ -1,0 +1,1 @@
+[2024-03-06 14:29:57.988]  INFO 5916 --- [nio-8080-exec-5] c.s.g.i.s.ImageService                   : ImageOption{background='1', suit='1', hair='1'}

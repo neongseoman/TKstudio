@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.ssafy.gallery;
+
+option java_multiple_files = true;
+option java_package = "net.devh.boot.grpc.examples.lib";
+
+message ImageRequest{
+  string reqMessage = 1;
+}
+message ImageResponse{
+  string resMessage = 1;
+}
+
+service ImageService{
+  rpc ImageSend (ImageRequest) returns (ImageResponse){}
+}
