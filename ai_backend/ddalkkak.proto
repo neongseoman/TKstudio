@@ -1,0 +1,16 @@
+syntax = "proto3";  // proto 버전
+
+package ddalkkak_package;  // package 이름 명시
+
+service Ddalkkak {  // RPC service 이름 정의(카멜케이스) => pb2_grpc에서 서비스명Servicer라는 클래스 생김
+    rpc TestFunc (TestRequest) returns (TestReply) {}
+}
+
+message TestRequest{
+    string name = 1;
+}
+
+message TestReply {
+    string code = 1;
+    string name = 2;
+}
