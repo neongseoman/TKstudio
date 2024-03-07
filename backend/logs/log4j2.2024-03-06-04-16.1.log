@@ -1,0 +1,462 @@
+[2024-03-06 16:16:13.172]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 10964 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 16:16:13.176]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 16:16:13.398]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 16:16:13.405]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+[2024-03-06 16:16:13.483]  INFO 10964 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 16:16:13.484]  INFO 10964 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 16:16:13.484]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 16:16:13.484]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 16:16:13.500]  INFO 10964 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 16:16:13.500]  INFO 10964 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 322 ms
+[2024-03-06 16:16:13.529]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Starting...
+[2024-03-06 16:16:13.539]  INFO 10964 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@18be837e
+[2024-03-06 16:16:13.539]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Start completed.
+[2024-03-06 16:16:13.541]  INFO 10964 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 16:16:13.544]  INFO 10964 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 16:16:13.547]  INFO 10964 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 16:16:13.571]  INFO 10964 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 16:16:13.571]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:13.647]  WARN 10964 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 16:16:13.655]  INFO 10964 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 16:16:13.699]  INFO 10964 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@69f3b783, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ffaa51b, org.springframework.security.web.context.SecurityContextHolderFilter@458e1b86, org.springframework.security.web.header.HeaderWriterFilter@7582e36f, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@674ed07e, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@16c4c33f, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@195d04cc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@235470f3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ba6094c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e2659ba, org.springframework.security.web.access.ExceptionTranslationFilter@4e92c702, org.springframework.security.web.access.intercept.AuthorizationFilter@2ce950c6]
+[2024-03-06 16:16:13.725]  INFO 10964 --- [  restartedMain] g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+[2024-03-06 16:16:13.727]  WARN 10964 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+[2024-03-06 16:16:13.728]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:13.728]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown initiated...
+[2024-03-06 16:16:13.735]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown completed.
+[2024-03-06 16:16:13.735]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-06 16:16:13.742]  INFO 10964 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-06 16:16:13.745] ERROR 10964 --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.3.jar:3.2.3]
+	at com.ssafy.gallery.GalleryApplication.main(GalleryApplication.java:10) [main/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.AbstractBeanFactory.adaptBeanInstance(AbstractBeanFactory.java:410) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:391) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1237) ~[spring-context-6.1.4.jar:6.1.4]
+	at net.devh.boot.grpc.server.service.AnnotationGrpcServiceDiscoverer.findGrpcServices(AnnotationGrpcServiceDiscoverer.java:61) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at net.devh.boot.grpc.server.autoconfigure.GrpcServerFactoryAutoConfiguration.shadedNettyGrpcServerFactory(GrpcServerFactoryAutoConfiguration.java:76) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+
+[2024-03-06 16:16:15.209]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 10964 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 16:16:15.209]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 16:16:15.377]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 16:16:15.384]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+[2024-03-06 16:16:15.458]  INFO 10964 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 16:16:15.458]  INFO 10964 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 16:16:15.459]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 16:16:15.459]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 16:16:15.471]  INFO 10964 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 16:16:15.471]  INFO 10964 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 260 ms
+[2024-03-06 16:16:15.493]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-5 - Starting...
+[2024-03-06 16:16:15.501]  INFO 10964 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@27b9168d
+[2024-03-06 16:16:15.501]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-5 - Start completed.
+[2024-03-06 16:16:15.502]  INFO 10964 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 16:16:15.504]  INFO 10964 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 16:16:15.508]  INFO 10964 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 16:16:15.527]  INFO 10964 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 16:16:15.528]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:15.625]  WARN 10964 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 16:16:15.634]  INFO 10964 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 16:16:15.679]  INFO 10964 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@406910be, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e5a1246, org.springframework.security.web.context.SecurityContextHolderFilter@2007bf77, org.springframework.security.web.header.HeaderWriterFilter@442bab24, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@526d3de8, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3ea566cd, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2c481d9d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5cc2aa41, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35a3f286, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5e3ea18, org.springframework.security.web.access.ExceptionTranslationFilter@6e50eb14, org.springframework.security.web.access.intercept.AuthorizationFilter@78f0d7b2]
+[2024-03-06 16:16:15.704]  INFO 10964 --- [  restartedMain] g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+[2024-03-06 16:16:15.706]  WARN 10964 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+[2024-03-06 16:16:15.707]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:15.707]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-5 - Shutdown initiated...
+[2024-03-06 16:16:15.737]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-5 - Shutdown completed.
+[2024-03-06 16:16:15.737]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-06 16:16:15.742]  INFO 10964 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-06 16:16:15.745] ERROR 10964 --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.3.jar:3.2.3]
+	at com.ssafy.gallery.GalleryApplication.main(GalleryApplication.java:10) [main/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.AbstractBeanFactory.adaptBeanInstance(AbstractBeanFactory.java:410) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:391) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1237) ~[spring-context-6.1.4.jar:6.1.4]
+	at net.devh.boot.grpc.server.service.AnnotationGrpcServiceDiscoverer.findGrpcServices(AnnotationGrpcServiceDiscoverer.java:61) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at net.devh.boot.grpc.server.autoconfigure.GrpcServerFactoryAutoConfiguration.shadedNettyGrpcServerFactory(GrpcServerFactoryAutoConfiguration.java:76) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+
+[2024-03-06 16:16:25.766]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 10964 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 16:16:25.766]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 16:16:25.929]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 16:16:25.935]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+[2024-03-06 16:16:25.998]  INFO 10964 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 16:16:25.999]  INFO 10964 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 16:16:25.999]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 16:16:25.999]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 16:16:26.011]  INFO 10964 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 16:16:26.012]  INFO 10964 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 245 ms
+[2024-03-06 16:16:26.032]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-6 - Starting...
+[2024-03-06 16:16:26.042]  INFO 10964 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1a2d901c
+[2024-03-06 16:16:26.042]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-6 - Start completed.
+[2024-03-06 16:16:26.042]  INFO 10964 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 16:16:26.044]  INFO 10964 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 16:16:26.047]  INFO 10964 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 16:16:26.066]  INFO 10964 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 16:16:26.066]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:26.126]  WARN 10964 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 16:16:26.134]  INFO 10964 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 16:16:26.170]  INFO 10964 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@22f7a98b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@11ecff62, org.springframework.security.web.context.SecurityContextHolderFilter@50204d6b, org.springframework.security.web.header.HeaderWriterFilter@593c9ef5, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@3a36ba2a, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@69267390, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@336c15e1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4979668f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e1ae9e1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e04f09f, org.springframework.security.web.access.ExceptionTranslationFilter@7af7aa73, org.springframework.security.web.access.intercept.AuthorizationFilter@63ba025d]
+[2024-03-06 16:16:26.196]  INFO 10964 --- [  restartedMain] g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+[2024-03-06 16:16:26.199]  WARN 10964 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+[2024-03-06 16:16:26.199]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:26.200]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-6 - Shutdown initiated...
+[2024-03-06 16:16:26.217]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-6 - Shutdown completed.
+[2024-03-06 16:16:26.218]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-06 16:16:26.223]  INFO 10964 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-06 16:16:26.227] ERROR 10964 --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.3.jar:3.2.3]
+	at com.ssafy.gallery.GalleryApplication.main(GalleryApplication.java:10) [main/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.AbstractBeanFactory.adaptBeanInstance(AbstractBeanFactory.java:410) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:391) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1237) ~[spring-context-6.1.4.jar:6.1.4]
+	at net.devh.boot.grpc.server.service.AnnotationGrpcServiceDiscoverer.findGrpcServices(AnnotationGrpcServiceDiscoverer.java:61) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at net.devh.boot.grpc.server.autoconfigure.GrpcServerFactoryAutoConfiguration.shadedNettyGrpcServerFactory(GrpcServerFactoryAutoConfiguration.java:76) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+
+[2024-03-06 16:16:38.238]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 10964 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 16:16:38.238]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 16:16:38.416]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 16:16:38.422]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+[2024-03-06 16:16:38.498]  INFO 10964 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 16:16:38.499]  INFO 10964 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 16:16:38.499]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 16:16:38.499]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 16:16:38.512]  INFO 10964 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 16:16:38.512]  INFO 10964 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 273 ms
+[2024-03-06 16:16:38.534]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-7 - Starting...
+[2024-03-06 16:16:38.543]  INFO 10964 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6fe4a57b
+[2024-03-06 16:16:38.543]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-7 - Start completed.
+[2024-03-06 16:16:38.544]  INFO 10964 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 16:16:38.546]  INFO 10964 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 16:16:38.549]  INFO 10964 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 16:16:38.567]  INFO 10964 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 16:16:38.567]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:38.634]  WARN 10964 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 16:16:38.643]  INFO 10964 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 16:16:38.681]  INFO 10964 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@28f6aae8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4490c983, org.springframework.security.web.context.SecurityContextHolderFilter@477d9b94, org.springframework.security.web.header.HeaderWriterFilter@6376aebc, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@57464722, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@41aa10b1, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1040c75c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32769201, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4615926c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@218af964, org.springframework.security.web.access.ExceptionTranslationFilter@49e1122, org.springframework.security.web.access.intercept.AuthorizationFilter@3daa3409]
+[2024-03-06 16:16:38.707]  INFO 10964 --- [  restartedMain] g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+[2024-03-06 16:16:38.710]  WARN 10964 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+[2024-03-06 16:16:38.710]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:38.711]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-7 - Shutdown initiated...
+[2024-03-06 16:16:38.719]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-7 - Shutdown completed.
+[2024-03-06 16:16:38.719]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-06 16:16:38.724]  INFO 10964 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-06 16:16:38.726] ERROR 10964 --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.3.jar:3.2.3]
+	at com.ssafy.gallery.GalleryApplication.main(GalleryApplication.java:10) [main/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.AbstractBeanFactory.adaptBeanInstance(AbstractBeanFactory.java:410) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:391) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1237) ~[spring-context-6.1.4.jar:6.1.4]
+	at net.devh.boot.grpc.server.service.AnnotationGrpcServiceDiscoverer.findGrpcServices(AnnotationGrpcServiceDiscoverer.java:61) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at net.devh.boot.grpc.server.autoconfigure.GrpcServerFactoryAutoConfiguration.shadedNettyGrpcServerFactory(GrpcServerFactoryAutoConfiguration.java:76) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+
+[2024-03-06 16:16:51.408]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 10964 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 16:16:51.409]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 16:16:51.652]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 16:16:51.658]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 1 JPA repository interface.
+[2024-03-06 16:16:51.738]  INFO 10964 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 16:16:51.739]  INFO 10964 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 16:16:51.739]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 16:16:51.739]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 16:16:51.753]  INFO 10964 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 16:16:51.753]  INFO 10964 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 343 ms
+[2024-03-06 16:16:51.777]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-8 - Starting...
+[2024-03-06 16:16:51.786]  INFO 10964 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-8 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3a38037
+[2024-03-06 16:16:51.786]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-8 - Start completed.
+[2024-03-06 16:16:51.787]  INFO 10964 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 16:16:51.789]  INFO 10964 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 16:16:51.793]  INFO 10964 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 16:16:51.814]  INFO 10964 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 16:16:51.814]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:51.925]  WARN 10964 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 16:16:51.943]  INFO 10964 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 16:16:52.005]  INFO 10964 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3e19c2eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a293fbc, org.springframework.security.web.context.SecurityContextHolderFilter@b98678d, org.springframework.security.web.header.HeaderWriterFilter@5dfd932, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@13b8369b, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@77c4ae0d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3c4b0a73, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@50c85f31, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47a64dfc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2877d28c, org.springframework.security.web.access.ExceptionTranslationFilter@35b459a5, org.springframework.security.web.access.intercept.AuthorizationFilter@66845e1a]
+[2024-03-06 16:16:52.044]  INFO 10964 --- [  restartedMain] g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+[2024-03-06 16:16:52.046]  WARN 10964 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+[2024-03-06 16:16:52.047]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:52.047]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-8 - Shutdown initiated...
+[2024-03-06 16:16:52.055]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-8 - Shutdown completed.
+[2024-03-06 16:16:52.056]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-06 16:16:52.063]  INFO 10964 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-06 16:16:52.066] ERROR 10964 --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.3.jar:3.2.3]
+	at com.ssafy.gallery.GalleryApplication.main(GalleryApplication.java:10) [main/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.AbstractBeanFactory.adaptBeanInstance(AbstractBeanFactory.java:410) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:391) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1237) ~[spring-context-6.1.4.jar:6.1.4]
+	at net.devh.boot.grpc.server.service.AnnotationGrpcServiceDiscoverer.findGrpcServices(AnnotationGrpcServiceDiscoverer.java:61) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at net.devh.boot.grpc.server.autoconfigure.GrpcServerFactoryAutoConfiguration.shadedNettyGrpcServerFactory(GrpcServerFactoryAutoConfiguration.java:76) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+
+[2024-03-06 16:16:53.534]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : Starting GalleryApplication using Java 17.0.9 with PID 10964 (C:\Users\SSAFY\Desktop\PJT2\backend\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\PJT2\backend)
+[2024-03-06 16:16:53.535]  INFO 10964 --- [  restartedMain] c.s.g.GalleryApplication                 : No active profile set, falling back to 1 default profile: "default"
+[2024-03-06 16:16:53.696]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-03-06 16:16:53.702]  INFO 10964 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 1 JPA repository interface.
+[2024-03-06 16:16:53.768]  INFO 10964 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+[2024-03-06 16:16:53.769]  INFO 10964 --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+[2024-03-06 16:16:53.769]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+[2024-03-06 16:16:53.769]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.19]
+[2024-03-06 16:16:53.781]  INFO 10964 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+[2024-03-06 16:16:53.781]  INFO 10964 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 245 ms
+[2024-03-06 16:16:53.806]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-9 - Starting...
+[2024-03-06 16:16:53.814]  INFO 10964 --- [  restartedMain] c.z.h.p.HikariPool                       : HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@36d40b7a
+[2024-03-06 16:16:53.815]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-9 - Start completed.
+[2024-03-06 16:16:53.816]  INFO 10964 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-03-06 16:16:53.818]  INFO 10964 --- [  restartedMain] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+[2024-03-06 16:16:53.821]  INFO 10964 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-03-06 16:16:53.838]  INFO 10964 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-03-06 16:16:53.838]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:53.900]  WARN 10964 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-03-06 16:16:53.908]  INFO 10964 --- [  restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+[2024-03-06 16:16:53.950]  INFO 10964 --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@d345f3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1204e164, org.springframework.security.web.context.SecurityContextHolderFilter@1fa98c13, org.springframework.security.web.header.HeaderWriterFilter@3459797d, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5c333e3, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@55b7eb64, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6706f453, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@60f2ca49, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@18ebe4a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@ec494ec, org.springframework.security.web.access.ExceptionTranslationFilter@3b787336, org.springframework.security.web.access.intercept.AuthorizationFilter@42ca01ec]
+[2024-03-06 16:16:53.977]  INFO 10964 --- [  restartedMain] g.s.a.GrpcServerFactoryAutoConfiguration : Detected grpc-netty-shaded: Creating ShadedNettyGrpcServerFactory
+[2024-03-06 16:16:53.979]  WARN 10964 --- [  restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+[2024-03-06 16:16:53.980]  INFO 10964 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-03-06 16:16:53.980]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-9 - Shutdown initiated...
+[2024-03-06 16:16:53.985]  INFO 10964 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-9 - Shutdown completed.
+[2024-03-06 16:16:53.985]  INFO 10964 --- [  restartedMain] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+[2024-03-06 16:16:53.991]  INFO 10964 --- [  restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-03-06 16:16:53.994] ERROR 10964 --- [  restartedMain] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shadedNettyGrpcServerFactory' defined in class path resource [net/devh/boot/grpc/server/autoconfigure/GrpcServerFactoryAutoConfiguration.class]: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:639) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.4.jar:6.1.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.3.jar:3.2.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.3.jar:3.2.3]
+	at com.ssafy.gallery.GalleryApplication.main(GalleryApplication.java:10) [main/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.3.jar:3.2.3]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [net.devh.boot.grpc.server.serverfactory.ShadedNettyGrpcServerFactory]: Factory method 'shadedNettyGrpcServerFactory' threw exception with message: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'grpcImageService' is expected to be of type 'io.grpc.BindableService' but was actually of type 'com.ssafy.gallery.image.service.grpcImageService'
+	at org.springframework.beans.factory.support.AbstractBeanFactory.adaptBeanInstance(AbstractBeanFactory.java:410) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:391) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1237) ~[spring-context-6.1.4.jar:6.1.4]
+	at net.devh.boot.grpc.server.service.AnnotationGrpcServiceDiscoverer.findGrpcServices(AnnotationGrpcServiceDiscoverer.java:61) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at net.devh.boot.grpc.server.autoconfigure.GrpcServerFactoryAutoConfiguration.shadedNettyGrpcServerFactory(GrpcServerFactoryAutoConfiguration.java:76) ~[grpc-server-spring-boot-autoconfigure-2.15.0.RELEASE.jar:2.15.0.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140) ~[spring-beans-6.1.4.jar:6.1.4]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:647) ~[spring-beans-6.1.4.jar:6.1.4]
+	... 24 more
+
