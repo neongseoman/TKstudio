@@ -1,6 +1,6 @@
 import grpc
-import ddalkkak_pb2_grpc as pb2_grpc
 import ddalkkak_pb2 as pb2
+import ddalkkak_pb2_grpc as pb2_grpc
 
 
 class DdalkkakClient(object):
