@@ -15,10 +15,10 @@ class DdalkkakStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.TestFunc = channel.unary_unary(
-                '/ddalkkak_package.Ddalkkak/TestFunc',
-                request_serializer=ddalkkak__pb2.TestRequest.SerializeToString,
-                response_deserializer=ddalkkak__pb2.TestReply.FromString,
+        self.ProcessImage = channel.unary_unary(
+                '/ddalkkak_package.Ddalkkak/ProcessImage',
+                request_serializer=ddalkkak__pb2.DdalkkakRequest.SerializeToString,
+                response_deserializer=ddalkkak__pb2.DdalkkakReply.FromString,
                 )
 
 
@@ -26,7 +26,7 @@ class DdalkkakServicer(object):
     """RPC service 이름 정의(카멜케이스) => pb2_grpc에서 서비스명Servicer라는 클래스 생김
     """
 
-    def TestFunc(self, request, context):
+    def ProcessImage(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -35,10 +35,10 @@ class DdalkkakServicer(object):
 
 def add_DdalkkakServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'TestFunc': grpc.unary_unary_rpc_method_handler(
-                    servicer.TestFunc,
-                    request_deserializer=ddalkkak__pb2.TestRequest.FromString,
-                    response_serializer=ddalkkak__pb2.TestReply.SerializeToString,
+            'ProcessImage': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessImage,
+                    request_deserializer=ddalkkak__pb2.DdalkkakRequest.FromString,
+                    response_serializer=ddalkkak__pb2.DdalkkakReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -52,7 +52,7 @@ class Ddalkkak(object):
     """
 
     @staticmethod
-    def TestFunc(request,
+    def ProcessImage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -62,8 +62,8 @@ class Ddalkkak(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ddalkkak_package.Ddalkkak/TestFunc',
-            ddalkkak__pb2.TestRequest.SerializeToString,
-            ddalkkak__pb2.TestReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/ddalkkak_package.Ddalkkak/ProcessImage',
+            ddalkkak__pb2.DdalkkakRequest.SerializeToString,
+            ddalkkak__pb2.DdalkkakReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

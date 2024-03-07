@@ -10,13 +10,22 @@ class DdalkkakService(pb2_grpc.DdalkkakServicer):
     def __init__(self, *args, **kwargs):
         pass
 
-    def TestFunc(self, request, context):
+    def ProcessImage(self, request, context):
 
-        name = request.name
-        result = f'Hello I am up and running received "{name}" message from you'
-        result = {"code": "codestring", "name": name}
+        userImage = request.userImage
+        options = request.options
 
-        return pb2.TestReply(**result)
+        # 이미지 가공하는 코드
+
+        result = {
+            "originalS3URL": "originalS3URL",
+            "processed3SURL": "processed3SURL",
+            "thumbnailS3URL": "thumbnailS3URL",
+            "options": options,
+            "processedImage": userImage,
+        }
+
+        return pb2.DdalkkakReply(**result)
 
 
 def serve():
