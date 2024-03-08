@@ -1,2 +1,0 @@
-[2024-03-08 12:58:52.189] ERROR 13632 --- [  restartedMain] i.g.i.ManagedChannelOrphanWrapper        : *~*~*~ Channel ManagedChannelImpl{logId=1, target=localhost:9090} was not shutdown properly!!! ~*~*~*
-    Make sure to call shutdown()/shutdownNow() and wait until awaitTermination() returns true.
