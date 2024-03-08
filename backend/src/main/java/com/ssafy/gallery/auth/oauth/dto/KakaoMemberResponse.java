@@ -23,6 +23,7 @@ public record KakaoMemberResponse(
                 .domain(new Domain(String.valueOf(id), kakao))
                 .nickname(kakaoAccount.profile.nickname)
                 .gender(kakaoAccount.gender)
+                .email(kakaoAccount.email)
                 .build();
     }
 

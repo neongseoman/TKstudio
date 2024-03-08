@@ -8,6 +8,7 @@ public enum OauthServerType {
     ;
 
     public static OauthServerType fromName(String type) {
+        System.out.println(type.toUpperCase(ENGLISH));
         return OauthServerType.valueOf(type.toLowerCase(ENGLISH));
     }
 }

@@ -5,12 +5,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
 @Embeddable
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
 public class Domain {
@@ -21,12 +23,4 @@ public class Domain {
     @Enumerated(STRING)
     @Column(nullable = false, name = "domain_name")
     private OauthServerType domainName;
-
-    public String domainUserKey() {
-        return domainUserKey;
-    }
-
-    public OauthServerType domainName() {
-        return domainName;
-    }
 }

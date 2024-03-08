@@ -4,6 +4,7 @@ import com.ssafy.gallery.auth.oauth.dto.Domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
+@Getter
 @Table(name = "user",
         uniqueConstraints = {
                 @UniqueConstraint(
@@ -37,24 +39,9 @@ public class User {
     @Column(name = "nickname", nullable = false, columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
     private String nickname;
 
+    private String email;
     private String gender;
     private LocalDateTime registerTime;
-
-    public int userId() {
-        return userId;
-    }
-
-    public Domain domain() {
-        return domain;
-    }
-
-    public String nickname() {
-        return nickname;
-    }
-
-    public String gender() {
-        return gender;
-    }
 
     @PrePersist
     protected void onCreate() {
