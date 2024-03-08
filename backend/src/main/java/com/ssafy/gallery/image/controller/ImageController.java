@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,6 @@ import java.io.IOException;
 @RequestMapping("/api/v1/image")
 public class ImageController {
     private static final Logger logger = LogManager.getLogger(ImageController.class);
-    private final ResourceLoader resourceLoader;
     private final ImageService imageService;
 
     // Login한 사용자의 UserId값이 있어야 JPA로 DB에 데이터 넘길 수 있음.
@@ -37,11 +37,11 @@ public class ImageController {
             @RequestParam(value = "hair") String hair
     ) throws IOException {
 
-        imageService.sendImage(originalImage);
-        Resource resource = originalImage.getResource();
+        ByteArrayResource response = imageService.sendImage(originalImage,new ImageOption(background,suit,hair));
+//        Resource resource = originalImage.getResource();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
-                .body(resource);
+                .body(response);
     }
 }
