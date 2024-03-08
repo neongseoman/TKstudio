@@ -1,7 +1,10 @@
 package com.ssafy.gallery.config;
 
+import com.ssafy.gallery.auth.jwt.filter.JwtFilter;
+import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +22,10 @@ public class SecurityConfig {
 
     @Autowired
     private CorsConfig corsConfig;
+    @Value("${jwt.secret}")
+    private String secretKey;
+    @Autowired
+    private LoginTokenRepository loginTokenRepository;
 
     private static final String[] AUTH_WHITELIST = {
             "/swagger-ui/**", "/api-docs", "/api-docs/**", "/swagger-ui.html",
@@ -32,8 +40,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilter(corsConfig.corsFilter())
-//                .addFilter(new JwtAuthenticationFilter(authenticationManager)) // AuthenticationManger
-//                .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository))
+                .addFilterBefore(new JwtFilter(secretKey, loginTokenRepository), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
 //                .logout(AbstractHttpConfigurer::disable)

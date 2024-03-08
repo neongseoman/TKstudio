@@ -5,19 +5,18 @@ import com.ssafy.gallery.auth.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 
-@Log4j2
+
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserController {
-    private static final Logger logger = LogManager.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -27,7 +26,7 @@ public class UserController {
             @PathVariable OauthServerType oauthServerType,
             HttpServletResponse response
     ) {
-        logger.info("로그인 페이지 : " + oauthServerType + response);
+        log.info("로그인 페이지 : " + oauthServerType + response);
         String redirectUrl = userService.getAuthCodeRequestUrl(oauthServerType);
         response.sendRedirect(redirectUrl);
         return ResponseEntity.ok().build();
@@ -35,12 +34,12 @@ public class UserController {
 
     // 추가
     @GetMapping("/login/{oauthServerType}")
-    ResponseEntity<Integer> login(
+    ResponseEntity<HashMap<String, String>> login(
             @PathVariable OauthServerType oauthServerType,
-            @RequestParam("code") String code
+            @RequestParam("code") String code, HttpServletResponse response
     ) {
-        logger.info("로그인: " + code);
-        int login = userService.login(oauthServerType, code);
+        HashMap<String, String> login = userService.login(oauthServerType, code);
+        log.info("{} 로그인 성공: {}", oauthServerType, login);
         return ResponseEntity.ok(login);
     }
 }
