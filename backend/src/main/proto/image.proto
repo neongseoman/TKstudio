@@ -23,7 +23,7 @@ message Options {
 }
 
 message ResponseUrl {
-  string originalImage = 1;
-  string processedImage = 2;
-  string thumbnailImage = 3;
+  string originalImageUrl = 1;
+  string processedImageUrl = 2;
+  string thumbnailImageUrl = 3;
 }
