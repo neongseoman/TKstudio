@@ -12,8 +12,6 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 @Log4j2
@@ -30,14 +28,15 @@ public class ImageService {
                 .setBackground(imageOption.getBackground())
                 .setHair(imageOption.getHair())
                 .setSuit(imageOption.getSuit()).build();
+
         Image.ProcessedImageInfo receiveData =
                 this.imageStub.sendImage(Image.OriginalImageInfo.newBuilder()
-                                .setOptions(options)
-                                .setOriginalImage(imageData)
-                                .build());
+                        .setOriginalImage(imageData)
+                        .setOptions(options)
+                        .build());
         ByteArrayResource byteArrayResource = new ByteArrayResource(receiveData.getProcessedImage().toByteArray());
 
-        System.out.println("받은 파일 bytes 크기" + byteArrayResource.contentLength());
+        System.out.println("받은 파일 bytes 크기 : " + byteArrayResource.contentLength());
         return byteArrayResource;
     }
 }

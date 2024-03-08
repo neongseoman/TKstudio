@@ -2277,40 +2277,40 @@ public final class Image {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string originalImage = 1;</code>
-     * @return The originalImage.
+     * <code>string originalImageUrl = 1;</code>
+     * @return The originalImageUrl.
      */
-    java.lang.String getOriginalImage();
+    java.lang.String getOriginalImageUrl();
     /**
-     * <code>string originalImage = 1;</code>
-     * @return The bytes for originalImage.
+     * <code>string originalImageUrl = 1;</code>
+     * @return The bytes for originalImageUrl.
      */
     com.google.protobuf.ByteString
-        getOriginalImageBytes();
+        getOriginalImageUrlBytes();
 
     /**
-     * <code>string processedImage = 2;</code>
-     * @return The processedImage.
+     * <code>string processedImageUrl = 2;</code>
+     * @return The processedImageUrl.
      */
-    java.lang.String getProcessedImage();
+    java.lang.String getProcessedImageUrl();
     /**
-     * <code>string processedImage = 2;</code>
-     * @return The bytes for processedImage.
+     * <code>string processedImageUrl = 2;</code>
+     * @return The bytes for processedImageUrl.
      */
     com.google.protobuf.ByteString
-        getProcessedImageBytes();
+        getProcessedImageUrlBytes();
 
     /**
-     * <code>string thumbnailImage = 3;</code>
-     * @return The thumbnailImage.
+     * <code>string thumbnailImageUrl = 3;</code>
+     * @return The thumbnailImageUrl.
      */
-    java.lang.String getThumbnailImage();
+    java.lang.String getThumbnailImageUrl();
     /**
-     * <code>string thumbnailImage = 3;</code>
-     * @return The bytes for thumbnailImage.
+     * <code>string thumbnailImageUrl = 3;</code>
+     * @return The bytes for thumbnailImageUrl.
      */
     com.google.protobuf.ByteString
-        getThumbnailImageBytes();
+        getThumbnailImageUrlBytes();
   }
   /**
    * Protobuf type {@code com.ssafy.pjt.grpc.ResponseUrl}
@@ -2325,9 +2325,9 @@ public final class Image {
       super(builder);
     }
     private ResponseUrl() {
-      originalImage_ = "";
-      processedImage_ = "";
-      thumbnailImage_ = "";
+      originalImageUrl_ = "";
+      processedImageUrl_ = "";
+      thumbnailImageUrl_ = "";
     }
 
     @java.lang.Override
@@ -2363,19 +2363,19 @@ public final class Image {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              originalImage_ = s;
+              originalImageUrl_ = s;
               break;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              processedImage_ = s;
+              processedImageUrl_ = s;
               break;
             }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              thumbnailImage_ = s;
+              thumbnailImageUrl_ = s;
               break;
             }
             default: {
@@ -2410,114 +2410,114 @@ public final class Image {
               com.ssafy.pjt.grpc.Image.ResponseUrl.class, com.ssafy.pjt.grpc.Image.ResponseUrl.Builder.class);
     }
 
-    public static final int ORIGINALIMAGE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object originalImage_;
+    public static final int ORIGINALIMAGEURL_FIELD_NUMBER = 1;
+    private volatile java.lang.Object originalImageUrl_;
     /**
-     * <code>string originalImage = 1;</code>
-     * @return The originalImage.
+     * <code>string originalImageUrl = 1;</code>
+     * @return The originalImageUrl.
      */
     @java.lang.Override
-    public java.lang.String getOriginalImage() {
-      java.lang.Object ref = originalImage_;
+    public java.lang.String getOriginalImageUrl() {
+      java.lang.Object ref = originalImageUrl_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        originalImage_ = s;
+        originalImageUrl_ = s;
         return s;
       }
     }
     /**
-     * <code>string originalImage = 1;</code>
-     * @return The bytes for originalImage.
+     * <code>string originalImageUrl = 1;</code>
+     * @return The bytes for originalImageUrl.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getOriginalImageBytes() {
-      java.lang.Object ref = originalImage_;
+        getOriginalImageUrlBytes() {
+      java.lang.Object ref = originalImageUrl_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        originalImage_ = b;
+        originalImageUrl_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int PROCESSEDIMAGE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object processedImage_;
+    public static final int PROCESSEDIMAGEURL_FIELD_NUMBER = 2;
+    private volatile java.lang.Object processedImageUrl_;
     /**
-     * <code>string processedImage = 2;</code>
-     * @return The processedImage.
+     * <code>string processedImageUrl = 2;</code>
+     * @return The processedImageUrl.
      */
     @java.lang.Override
-    public java.lang.String getProcessedImage() {
-      java.lang.Object ref = processedImage_;
+    public java.lang.String getProcessedImageUrl() {
+      java.lang.Object ref = processedImageUrl_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        processedImage_ = s;
+        processedImageUrl_ = s;
         return s;
       }
     }
     /**
-     * <code>string processedImage = 2;</code>
-     * @return The bytes for processedImage.
+     * <code>string processedImageUrl = 2;</code>
+     * @return The bytes for processedImageUrl.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getProcessedImageBytes() {
-      java.lang.Object ref = processedImage_;
+        getProcessedImageUrlBytes() {
+      java.lang.Object ref = processedImageUrl_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        processedImage_ = b;
+        processedImageUrl_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int THUMBNAILIMAGE_FIELD_NUMBER = 3;
-    private volatile java.lang.Object thumbnailImage_;
+    public static final int THUMBNAILIMAGEURL_FIELD_NUMBER = 3;
+    private volatile java.lang.Object thumbnailImageUrl_;
     /**
-     * <code>string thumbnailImage = 3;</code>
-     * @return The thumbnailImage.
+     * <code>string thumbnailImageUrl = 3;</code>
+     * @return The thumbnailImageUrl.
      */
     @java.lang.Override
-    public java.lang.String getThumbnailImage() {
-      java.lang.Object ref = thumbnailImage_;
+    public java.lang.String getThumbnailImageUrl() {
+      java.lang.Object ref = thumbnailImageUrl_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        thumbnailImage_ = s;
+        thumbnailImageUrl_ = s;
         return s;
       }
     }
     /**
-     * <code>string thumbnailImage = 3;</code>
-     * @return The bytes for thumbnailImage.
+     * <code>string thumbnailImageUrl = 3;</code>
+     * @return The bytes for thumbnailImageUrl.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getThumbnailImageBytes() {
-      java.lang.Object ref = thumbnailImage_;
+        getThumbnailImageUrlBytes() {
+      java.lang.Object ref = thumbnailImageUrl_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        thumbnailImage_ = b;
+        thumbnailImageUrl_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2538,14 +2538,14 @@ public final class Image {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getOriginalImageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalImage_);
+      if (!getOriginalImageUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalImageUrl_);
       }
-      if (!getProcessedImageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, processedImage_);
+      if (!getProcessedImageUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, processedImageUrl_);
       }
-      if (!getThumbnailImageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, thumbnailImage_);
+      if (!getThumbnailImageUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, thumbnailImageUrl_);
       }
       unknownFields.writeTo(output);
     }
@@ -2556,14 +2556,14 @@ public final class Image {
       if (size != -1) return size;
 
       size = 0;
-      if (!getOriginalImageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, originalImage_);
+      if (!getOriginalImageUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, originalImageUrl_);
       }
-      if (!getProcessedImageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, processedImage_);
+      if (!getProcessedImageUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, processedImageUrl_);
       }
-      if (!getThumbnailImageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, thumbnailImage_);
+      if (!getThumbnailImageUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, thumbnailImageUrl_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2580,12 +2580,12 @@ public final class Image {
       }
       com.ssafy.pjt.grpc.Image.ResponseUrl other = (com.ssafy.pjt.grpc.Image.ResponseUrl) obj;
 
-      if (!getOriginalImage()
-          .equals(other.getOriginalImage())) return false;
-      if (!getProcessedImage()
-          .equals(other.getProcessedImage())) return false;
-      if (!getThumbnailImage()
-          .equals(other.getThumbnailImage())) return false;
+      if (!getOriginalImageUrl()
+          .equals(other.getOriginalImageUrl())) return false;
+      if (!getProcessedImageUrl()
+          .equals(other.getProcessedImageUrl())) return false;
+      if (!getThumbnailImageUrl()
+          .equals(other.getThumbnailImageUrl())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2597,12 +2597,12 @@ public final class Image {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ORIGINALIMAGE_FIELD_NUMBER;
-      hash = (53 * hash) + getOriginalImage().hashCode();
-      hash = (37 * hash) + PROCESSEDIMAGE_FIELD_NUMBER;
-      hash = (53 * hash) + getProcessedImage().hashCode();
-      hash = (37 * hash) + THUMBNAILIMAGE_FIELD_NUMBER;
-      hash = (53 * hash) + getThumbnailImage().hashCode();
+      hash = (37 * hash) + ORIGINALIMAGEURL_FIELD_NUMBER;
+      hash = (53 * hash) + getOriginalImageUrl().hashCode();
+      hash = (37 * hash) + PROCESSEDIMAGEURL_FIELD_NUMBER;
+      hash = (53 * hash) + getProcessedImageUrl().hashCode();
+      hash = (37 * hash) + THUMBNAILIMAGEURL_FIELD_NUMBER;
+      hash = (53 * hash) + getThumbnailImageUrl().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2736,11 +2736,11 @@ public final class Image {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        originalImage_ = "";
+        originalImageUrl_ = "";
 
-        processedImage_ = "";
+        processedImageUrl_ = "";
 
-        thumbnailImage_ = "";
+        thumbnailImageUrl_ = "";
 
         return this;
       }
@@ -2768,9 +2768,9 @@ public final class Image {
       @java.lang.Override
       public com.ssafy.pjt.grpc.Image.ResponseUrl buildPartial() {
         com.ssafy.pjt.grpc.Image.ResponseUrl result = new com.ssafy.pjt.grpc.Image.ResponseUrl(this);
-        result.originalImage_ = originalImage_;
-        result.processedImage_ = processedImage_;
-        result.thumbnailImage_ = thumbnailImage_;
+        result.originalImageUrl_ = originalImageUrl_;
+        result.processedImageUrl_ = processedImageUrl_;
+        result.thumbnailImageUrl_ = thumbnailImageUrl_;
         onBuilt();
         return result;
       }
@@ -2819,16 +2819,16 @@ public final class Image {
 
       public Builder mergeFrom(com.ssafy.pjt.grpc.Image.ResponseUrl other) {
         if (other == com.ssafy.pjt.grpc.Image.ResponseUrl.getDefaultInstance()) return this;
-        if (!other.getOriginalImage().isEmpty()) {
-          originalImage_ = other.originalImage_;
+        if (!other.getOriginalImageUrl().isEmpty()) {
+          originalImageUrl_ = other.originalImageUrl_;
           onChanged();
         }
-        if (!other.getProcessedImage().isEmpty()) {
-          processedImage_ = other.processedImage_;
+        if (!other.getProcessedImageUrl().isEmpty()) {
+          processedImageUrl_ = other.processedImageUrl_;
           onChanged();
         }
-        if (!other.getThumbnailImage().isEmpty()) {
-          thumbnailImage_ = other.thumbnailImage_;
+        if (!other.getThumbnailImageUrl().isEmpty()) {
+          thumbnailImageUrl_ = other.thumbnailImageUrl_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -2860,230 +2860,230 @@ public final class Image {
         return this;
       }
 
-      private java.lang.Object originalImage_ = "";
+      private java.lang.Object originalImageUrl_ = "";
       /**
-       * <code>string originalImage = 1;</code>
-       * @return The originalImage.
+       * <code>string originalImageUrl = 1;</code>
+       * @return The originalImageUrl.
        */
-      public java.lang.String getOriginalImage() {
-        java.lang.Object ref = originalImage_;
+      public java.lang.String getOriginalImageUrl() {
+        java.lang.Object ref = originalImageUrl_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          originalImage_ = s;
+          originalImageUrl_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string originalImage = 1;</code>
-       * @return The bytes for originalImage.
+       * <code>string originalImageUrl = 1;</code>
+       * @return The bytes for originalImageUrl.
        */
       public com.google.protobuf.ByteString
-          getOriginalImageBytes() {
-        java.lang.Object ref = originalImage_;
+          getOriginalImageUrlBytes() {
+        java.lang.Object ref = originalImageUrl_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          originalImage_ = b;
+          originalImageUrl_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string originalImage = 1;</code>
-       * @param value The originalImage to set.
+       * <code>string originalImageUrl = 1;</code>
+       * @param value The originalImageUrl to set.
        * @return This builder for chaining.
        */
-      public Builder setOriginalImage(
+      public Builder setOriginalImageUrl(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        originalImage_ = value;
+        originalImageUrl_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string originalImage = 1;</code>
+       * <code>string originalImageUrl = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearOriginalImage() {
+      public Builder clearOriginalImageUrl() {
         
-        originalImage_ = getDefaultInstance().getOriginalImage();
+        originalImageUrl_ = getDefaultInstance().getOriginalImageUrl();
         onChanged();
         return this;
       }
       /**
-       * <code>string originalImage = 1;</code>
-       * @param value The bytes for originalImage to set.
+       * <code>string originalImageUrl = 1;</code>
+       * @param value The bytes for originalImageUrl to set.
        * @return This builder for chaining.
        */
-      public Builder setOriginalImageBytes(
+      public Builder setOriginalImageUrlBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        originalImage_ = value;
+        originalImageUrl_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object processedImage_ = "";
+      private java.lang.Object processedImageUrl_ = "";
       /**
-       * <code>string processedImage = 2;</code>
-       * @return The processedImage.
+       * <code>string processedImageUrl = 2;</code>
+       * @return The processedImageUrl.
        */
-      public java.lang.String getProcessedImage() {
-        java.lang.Object ref = processedImage_;
+      public java.lang.String getProcessedImageUrl() {
+        java.lang.Object ref = processedImageUrl_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          processedImage_ = s;
+          processedImageUrl_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string processedImage = 2;</code>
-       * @return The bytes for processedImage.
+       * <code>string processedImageUrl = 2;</code>
+       * @return The bytes for processedImageUrl.
        */
       public com.google.protobuf.ByteString
-          getProcessedImageBytes() {
-        java.lang.Object ref = processedImage_;
+          getProcessedImageUrlBytes() {
+        java.lang.Object ref = processedImageUrl_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          processedImage_ = b;
+          processedImageUrl_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string processedImage = 2;</code>
-       * @param value The processedImage to set.
+       * <code>string processedImageUrl = 2;</code>
+       * @param value The processedImageUrl to set.
        * @return This builder for chaining.
        */
-      public Builder setProcessedImage(
+      public Builder setProcessedImageUrl(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        processedImage_ = value;
+        processedImageUrl_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string processedImage = 2;</code>
+       * <code>string processedImageUrl = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearProcessedImage() {
+      public Builder clearProcessedImageUrl() {
         
-        processedImage_ = getDefaultInstance().getProcessedImage();
+        processedImageUrl_ = getDefaultInstance().getProcessedImageUrl();
         onChanged();
         return this;
       }
       /**
-       * <code>string processedImage = 2;</code>
-       * @param value The bytes for processedImage to set.
+       * <code>string processedImageUrl = 2;</code>
+       * @param value The bytes for processedImageUrl to set.
        * @return This builder for chaining.
        */
-      public Builder setProcessedImageBytes(
+      public Builder setProcessedImageUrlBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        processedImage_ = value;
+        processedImageUrl_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object thumbnailImage_ = "";
+      private java.lang.Object thumbnailImageUrl_ = "";
       /**
-       * <code>string thumbnailImage = 3;</code>
-       * @return The thumbnailImage.
+       * <code>string thumbnailImageUrl = 3;</code>
+       * @return The thumbnailImageUrl.
        */
-      public java.lang.String getThumbnailImage() {
-        java.lang.Object ref = thumbnailImage_;
+      public java.lang.String getThumbnailImageUrl() {
+        java.lang.Object ref = thumbnailImageUrl_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          thumbnailImage_ = s;
+          thumbnailImageUrl_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string thumbnailImage = 3;</code>
-       * @return The bytes for thumbnailImage.
+       * <code>string thumbnailImageUrl = 3;</code>
+       * @return The bytes for thumbnailImageUrl.
        */
       public com.google.protobuf.ByteString
-          getThumbnailImageBytes() {
-        java.lang.Object ref = thumbnailImage_;
+          getThumbnailImageUrlBytes() {
+        java.lang.Object ref = thumbnailImageUrl_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          thumbnailImage_ = b;
+          thumbnailImageUrl_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string thumbnailImage = 3;</code>
-       * @param value The thumbnailImage to set.
+       * <code>string thumbnailImageUrl = 3;</code>
+       * @param value The thumbnailImageUrl to set.
        * @return This builder for chaining.
        */
-      public Builder setThumbnailImage(
+      public Builder setThumbnailImageUrl(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        thumbnailImage_ = value;
+        thumbnailImageUrl_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string thumbnailImage = 3;</code>
+       * <code>string thumbnailImageUrl = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearThumbnailImage() {
+      public Builder clearThumbnailImageUrl() {
         
-        thumbnailImage_ = getDefaultInstance().getThumbnailImage();
+        thumbnailImageUrl_ = getDefaultInstance().getThumbnailImageUrl();
         onChanged();
         return this;
       }
       /**
-       * <code>string thumbnailImage = 3;</code>
-       * @param value The bytes for thumbnailImage to set.
+       * <code>string thumbnailImageUrl = 3;</code>
+       * @param value The bytes for thumbnailImageUrl to set.
        * @return This builder for chaining.
        */
-      public Builder setThumbnailImageBytes(
+      public Builder setThumbnailImageUrlBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        thumbnailImage_ = value;
+        thumbnailImageUrl_ = value;
         onChanged();
         return this;
       }
@@ -3176,12 +3176,12 @@ public final class Image {
       "age\030\001 \001(\014\0224\n\013responseUrl\030\002 \001(\0132\037.com.ssa" +
       "fy.pjt.grpc.ResponseUrl\"9\n\007Options\022\022\n\nba" +
       "ckground\030\001 \001(\t\022\014\n\004suit\030\002 \001(\t\022\014\n\004hair\030\003 \001" +
-      "(\t\"T\n\013ResponseUrl\022\025\n\roriginalImage\030\001 \001(\t" +
-      "\022\026\n\016processedImage\030\002 \001(\t\022\026\n\016thumbnailIma" +
-      "ge\030\003 \001(\t2i\n\013CreateImage\022Z\n\tsendImage\022%.c" +
-      "om.ssafy.pjt.grpc.OriginalImageInfo\032&.co" +
-      "m.ssafy.pjt.grpc.ProcessedImageInfob\006pro" +
-      "to3"
+      "(\t\"]\n\013ResponseUrl\022\030\n\020originalImageUrl\030\001 " +
+      "\001(\t\022\031\n\021processedImageUrl\030\002 \001(\t\022\031\n\021thumbn" +
+      "ailImageUrl\030\003 \001(\t2i\n\013CreateImage\022Z\n\tsend" +
+      "Image\022%.com.ssafy.pjt.grpc.OriginalImage" +
+      "Info\032&.com.ssafy.pjt.grpc.ProcessedImage" +
+      "Infob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3210,7 +3210,7 @@ public final class Image {
     internal_static_com_ssafy_pjt_grpc_ResponseUrl_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ssafy_pjt_grpc_ResponseUrl_descriptor,
-        new java.lang.String[] { "OriginalImage", "ProcessedImage", "ThumbnailImage", });
+        new java.lang.String[] { "OriginalImageUrl", "ProcessedImageUrl", "ThumbnailImageUrl", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
