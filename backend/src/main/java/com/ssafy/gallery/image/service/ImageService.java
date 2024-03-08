@@ -19,6 +19,7 @@ import java.io.IOException;
 public class ImageService {
     private final ManagedChannel channel
             = ManagedChannelBuilder.forTarget("localhost:9090").usePlaintext().build();
+
     private final CreateImageGrpc.CreateImageBlockingStub imageStub
             = CreateImageGrpc.newBlockingStub(channel);
 
@@ -34,9 +35,10 @@ public class ImageService {
                         .setOriginalImage(imageData)
                         .setOptions(options)
                         .build());
+
         ByteArrayResource byteArrayResource = new ByteArrayResource(receiveData.getProcessedImage().toByteArray());
 
-        System.out.println("받은 파일 bytes 크기 : " + byteArrayResource.contentLength());
+//        System.out.println("받은 파일 bytes 크기 : " + byteArrayResource.contentLength());
         return byteArrayResource;
     }
 }

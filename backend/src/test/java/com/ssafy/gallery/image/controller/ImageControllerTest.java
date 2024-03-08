@@ -33,18 +33,18 @@ class ImageControllerTest {
                 "image/jpeg",
                 "This is a test image".getBytes()
         );
-
-
-//        Mockito.doNothing().when(imageService).sendImage(mockMultipartFile, imageOption);
-
+        Mockito.doNothing().when(imageService).sendImage(mockMultipartFile,imageOption);
+        // When
         ResultActions actions =
                 mockMvc.perform(multipart("/api/v1/image/create")
                         .file(mockMultipartFile)
                         .param("background", imageOption.getBackground())
                         .param("suit", imageOption.getSuit())
-                        .param("hair", imageOption.getHair()))
-                        .andExpect(status().isOk());
+                        .param("hair", imageOption.getHair()));
+        // Then
 
+        actions.andExpect(status().isOk());
+//                .andExpect(mockMultipartFile.getBytes() ==)
 
     }
 }

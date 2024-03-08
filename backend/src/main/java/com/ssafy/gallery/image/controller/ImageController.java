@@ -38,7 +38,7 @@ public class ImageController {
     ) throws IOException {
 
         ByteArrayResource response = imageService.sendImage(originalImage,new ImageOption(background,suit,hair));
-//        Resource resource = originalImage.getResource();
+
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
