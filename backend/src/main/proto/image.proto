@@ -1,17 +1,29 @@
 syntax = "proto3";
 
-option java_package = "org.chb.examples.lib";
+package com.ssafy.pjt.grpc;
 
 service CreateImage {
-  rpc sendImage ( originalImage) returns ( processedImage);
+  rpc sendImage ( OriginalImageInfo ) returns (  ProcessedImageInfo );
 }
 
-message originalImage {
-  string name = 1;
-  bytes image = 2;
+message OriginalImageInfo {
+  bytes originalImage = 1;
+  Options options = 2;
 }
 
-message processedImage{
-  string name = 1;
-  bytes image = 2;
+message ProcessedImageInfo{
+  bytes processedImage = 1;
+  ResponseUrl responseUrl= 2;
+}
+
+message Options {
+  string background = 1;
+  string suit = 2;
+  string hair = 3;
+}
+
+message ResponseUrl {
+  string originalImageUrl = 1;
+  string processedImageUrl = 2;
+  string thumbnailImageUrl = 3;
 }
