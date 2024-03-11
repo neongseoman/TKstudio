@@ -19,3 +19,10 @@ default-character-set=utf8
 [mysqldump]
 default-character-set = utf8
 ```
+
+### 로그인 flow
+![login_flow](/uploads/43e424386cff33cdace146c760a80e51/image.png)
+1. 카카오 로그인을 통해서 회원가입 및 로그인 처리
+2. 로그인 후 JWT 토큰 발행
+3. 이후 요청에서 JWT 토큰 유효성 검증
+4. Access 토큰이 유효한데 Refresh 토큰으로 요청 시 예외처리
