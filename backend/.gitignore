@@ -39,3 +39,6 @@ out/
 
 ### Log ###
 /logs
+
+### application ###
+*.yml
