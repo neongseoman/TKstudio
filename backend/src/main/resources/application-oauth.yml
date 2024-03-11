@@ -1,6 +1,6 @@
 oauth:
   kakao:
-    client_id: 2c2312493369c3c1b5937c1528806eb9 # REST API 키
-    redirect_uri: http://localhost:8080/api/v1/user/login/kakao
-    client_secret: 2c2312493369c3c1b5937c1528806eb9 # Client Secret 키
+    client_id: ${KAKAO_CLIENT_ID} # REST API 키
+    redirect_uri: ${KAKAO_REDIRECT_URI}
+    client_secret: ${KAKAO_CLINET_SECRET} # Client Secret 키
     scope: profile_nickname, account_email, gender
