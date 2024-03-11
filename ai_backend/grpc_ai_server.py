@@ -34,16 +34,12 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
     def sendImage(self, request, context):
 
         original_image_bytes: bytearray = request.originalImage
+
         # bytes to ndarray
         image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
-        # options = request.options
-
         original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-        # print("오리지널 이미지 사이즈", original_image.shape)
-        # cv2.imshow("Image", original_image)
-        # cv2.waitKey(0)
+        # options = request.options  # 이후 옵션에 따라 배경사진 선택
 
-        ############################################################
         # # detect face from bg img
         bg_faces = faceswap_app.get(bg_0_img)
         bg_face = bg_faces[0]
@@ -55,11 +51,14 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         # swap face from bg img to input img
         processed_image = bg_0_img.copy()
         processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
-        ############################################################
 
         # 이미지 확인용
-        # plt.imshow(processed_image)
-        # plt.show()
+        plt.imshow(processed_image)
+        plt.show()
+        processed_image = cv2.cvtColor(
+            processed_image, cv2.COLOR_BGR2RGB
+        )  # BGR -> RGB 채널 변경
+        cv2.imwrite("output_image.jpg", processed_image)  # 사진 저장
 
         # ndarray to bytes
         processed_image = processed_image.tobytes()
@@ -83,15 +82,14 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     pb2_grpc.add_CreateImageServicer_to_server(CreateImageService(), server)
-    server.add_insecure_port("[::]:50051")
-    print("server port is", 50051)
+    server.add_insecure_port("[::]:9090")
+    print("\n" * 1)
+    print("server port is", 9090)
     server.start()
     print("grpc server is now running")
     print("if you want to quit the grpc server, press 'ctrl + C'")
-    print()
-    print()
-    print()
-    print()
+    print("\n" * 2)
+
     server.wait_for_termination()
 
 

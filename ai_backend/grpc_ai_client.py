@@ -11,7 +11,7 @@ import numpy as np
 class TestClient(object):
     def __init__(self):
         self.host = "localhost"
-        self.server_port = 50051
+        self.server_port = 9090
 
         self.channel = grpc.insecure_channel(
             "{}:{}".format(self.host, self.server_port)
