@@ -3,6 +3,8 @@ from concurrent import futures
 
 import image_pb2 as pb2
 import image_pb2_grpc as pb2_grpc
+import numpy as np
+import cv2
 
 # insightface
 import insightface
@@ -31,30 +33,38 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
     def sendImage(self, request, context):
 
-        original_image = request.originalImage
+        original_image_bytes: bytearray = request.originalImage
         # bytes to ndarray
-        # original_image = np.frombuffer(original_image_bytes, dtype=np.uint8)
+        image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
         # options = request.options
+
+        original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+        # print("오리지널 이미지 사이즈", original_image.shape)
+        # cv2.imshow("Image", original_image)
+        # cv2.waitKey(0)
 
         ############################################################
         # # detect face from bg img
-        # bg_faces = faceswap_app.get(bg_0_img)
-        # bg_face = bg_faces[0]
+        bg_faces = faceswap_app.get(bg_0_img)
+        bg_face = bg_faces[0]
 
-        # # detect face from input img
-        # faces = faceswap_app.get(original_image)
-        # source_face = faces[0]
+        # detect face from input img
+        faces = faceswap_app.get(original_image)
+        source_face = faces[0]
 
-        # # swap face from bg img to input img
-        # processed_image = bg_0_img.copy()
-        # processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
+        # swap face from bg img to input img
+        processed_image = bg_0_img.copy()
+        processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
         ############################################################
 
-        # ndarray to bytes
-        processed_image = original_image
-        # processed_image = processed_image.tobytes()
+        # 이미지 확인용
+        # plt.imshow(processed_image)
+        # plt.show()
 
-        # S3에 이미지 저장하는 코드
+        # ndarray to bytes
+        processed_image = processed_image.tobytes()
+
+        # S3에 이미지 저장하는 코드 추가하기
 
         response_url = {
             "originalImageUrl": "original_image_url_sample",
