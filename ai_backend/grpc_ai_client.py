@@ -1,9 +1,11 @@
 import grpc
+import io
 
 import image_pb2 as pb2
 import image_pb2_grpc as pb2_grpc
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class TestClient(object):
@@ -28,8 +30,10 @@ class TestClient(object):
 if __name__ == "__main__":
     client = TestClient()
     original_image_path = "./rdj.jpg"
-    original_image = plt.imread(original_image_path)
-    original_image = original_image.tobytes()
+    with open(original_image_path, "rb") as f:
+        original_image = f.read()
+
+    print("original image:\n", original_image[:50])
     options = {
         "background": "0",
         "suit": "0",
@@ -37,9 +41,9 @@ if __name__ == "__main__":
     }
 
     result = client.inputImage(originalImage=original_image, options=options)
-    # print(f"result:\n{result}")
+
     print("processedImage:")
-    print(result.processedImage)
+    print(result.processedImage[:50])
     print()
     print("responseUrl:")
     print(result.responseUrl)
