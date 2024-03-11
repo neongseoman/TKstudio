@@ -1,7 +1,6 @@
 package com.ssafy.gallery.auth.jwt.filter;
 
 import com.ssafy.gallery.auth.jwt.util.JwtUtil;
-import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,9 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authenticationToken = jwtUtil.getAuthentication(token);
             if (authenticationToken != null) {
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
-
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
         filterChain.doFilter(request, response);

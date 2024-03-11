@@ -46,6 +46,17 @@ public class JwtUtil {
         if (loginTokenRepository.findById(token).isPresent()) {
             LoginTokenDto loginTokenDto = loginTokenRepository.findById(token).get();
             log.info("로그인한 유저의 정보: {}", loginTokenDto);
+
+            // accessToken이 아직 존재하면 비정상적인 접근 -> 다시 로그인 시키기
+            String accessToken = loginTokenDto.getAccessToken();
+            if (accessToken != null) {
+                if (loginTokenRepository.findById(accessToken).isPresent()) {
+                    loginTokenRepository.deleteById(accessToken);
+                    loginTokenRepository.deleteById(token);
+                    return null;
+                }
+            }
+
             return new UsernamePasswordAuthenticationToken(loginTokenDto.getUserId(), "", List.of(new SimpleGrantedAuthority("USER")));
         }
 
