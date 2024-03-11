@@ -25,31 +25,40 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Value("${jwt.access.expiration}")
-    private Long accessExpiration;
+    private long accessExpiration;
     @Value("${jwt.refresh.expiration}")
-    private Long refreshExpiration;
+    private long refreshExpiration;
 
     public HashMap<String, String> login(OauthServerType oauthServerType, String authCode) {
-        String secretKey = UUID.randomUUID().toString() + UUID.randomUUID().toString();
-        secretKey = secretKey.replace("-", "");
-        log.info("secretKey: {}", secretKey);
-
         User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
         User saved = userRepository.findByDomain(user.getDomain())
                 .orElseGet(() -> userRepository.save(user));
 
-        String accessToken = JwtUtil.createJwt(secretKey, accessExpiration);
-        LoginTokenDto accessTokenDto = new LoginTokenDto(accessToken, saved.getUserId(), "access", accessExpiration);
-        loginTokenRepository.save(accessTokenDto);
-
-        String refreshToken = JwtUtil.createJwt(secretKey, refreshExpiration);
-        LoginTokenDto refreshTokenDto = new LoginTokenDto(refreshToken, saved.getUserId(), "refresh", refreshExpiration);
-        loginTokenRepository.save(refreshTokenDto);
+        String accessToken = createToken("access");
+        String refreshToken = createToken("refresh");
+        saveTokens(accessToken, refreshToken, saved);
 
         HashMap<String, String> result = new HashMap<>();
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
 
         return result;
+    }
+
+    private String createToken(String type) {
+        String secretKey = UUID.randomUUID().toString() + UUID.randomUUID().toString();
+        secretKey = secretKey.replace("-", "");
+        long expiration = type.equals("access") ? accessExpiration : refreshExpiration;
+        log.info("{} 토큰 만들기, secretKey: {}", type, secretKey);
+
+        return JwtUtil.createJwt(secretKey, expiration);
+    }
+
+    private void saveTokens(String accessToken, String refreshToken, User saved) {
+        log.info("Redis에 토큰 저장 : {}, {}", accessToken, refreshToken);
+        LoginTokenDto accessTokenDto = new LoginTokenDto(accessToken, saved.getUserId(), "access", null, accessExpiration);
+        LoginTokenDto refreshTokenDto = new LoginTokenDto(refreshToken, saved.getUserId(), "refresh", accessToken, refreshExpiration);
+        loginTokenRepository.save(accessTokenDto);
+        loginTokenRepository.save(refreshTokenDto);
     }
 }
