@@ -26,9 +26,9 @@ public class UserController {
             @PathVariable OauthServerType oauthServerType,
             @RequestBody Map<String, Object> params
     ) {
-        log.info("authCode: {}", params.get("authCode"));
+        log.info("{} 로그인 시도, authCode: {}", oauthServerType, params.get("authCode"));
         HashMap<String, String> login = userService.login(oauthServerType, (String) params.get("authCode"));
-        log.info("{} 로그인 성공: {}", oauthServerType, login);
+        log.info("{} 로그인 성공, {}", oauthServerType, login);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(login));
     }
