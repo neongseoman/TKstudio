@@ -1,4 +1,4 @@
-package com.ssafy.gallery.config;
+package com.ssafy.gallery.auth.oauth.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
