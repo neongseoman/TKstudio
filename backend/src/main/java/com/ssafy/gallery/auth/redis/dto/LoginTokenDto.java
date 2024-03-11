@@ -20,7 +20,6 @@ public class LoginTokenDto {
     @Id
     private String id;
     private int userId;
-    private String type;
     private String accessToken;
 
     @TimeToLive(unit = TimeUnit.MILLISECONDS)

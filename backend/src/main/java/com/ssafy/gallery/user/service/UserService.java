@@ -56,8 +56,8 @@ public class UserService {
 
     private void saveTokens(String accessToken, String refreshToken, User saved) {
         log.info("Redis에 토큰 저장 : {}, {}", accessToken, refreshToken);
-        LoginTokenDto accessTokenDto = new LoginTokenDto(accessToken, saved.getUserId(), "access", null, accessExpiration);
-        LoginTokenDto refreshTokenDto = new LoginTokenDto(refreshToken, saved.getUserId(), "refresh", accessToken, refreshExpiration);
+        LoginTokenDto accessTokenDto = new LoginTokenDto(accessToken, saved.getUserId(), null, accessExpiration);
+        LoginTokenDto refreshTokenDto = new LoginTokenDto(refreshToken, saved.getUserId(), accessToken, refreshExpiration);
         loginTokenRepository.save(accessTokenDto);
         loginTokenRepository.save(refreshTokenDto);
     }
