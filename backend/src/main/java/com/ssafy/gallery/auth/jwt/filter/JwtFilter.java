@@ -1,6 +1,7 @@
 package com.ssafy.gallery.auth.jwt.filter;
 
 import com.ssafy.gallery.auth.jwt.exception.JwtExceptionEnum;
+import com.ssafy.gallery.auth.redis.dto.LoginTokenDto;
 import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +22,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-    private String secretKey;
+
     private final LoginTokenRepository loginTokenRepository;
 
     @Override
@@ -40,15 +41,19 @@ public class JwtFilter extends OncePerRequestFilter {
         log.info("Jwt Token: {}", loginTokenRepository.findById(token));
 
         if (loginTokenRepository.findById(token).isPresent()) {
-            int userId = loginTokenRepository.findById(token).get().getUserId();
-            log.info("로그인한 userId: {}", userId);
+            LoginTokenDto loginTokenDto = loginTokenRepository.findById(token).get();
+            log.info("로그인한 유저의 정보: {}", loginTokenDto);
 
             UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userId, null, List.of(new SimpleGrantedAuthority("USER")));
+                    new UsernamePasswordAuthenticationToken(loginTokenDto.getUserId(), null, List.of(new SimpleGrantedAuthority("USER")));
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            if (loginTokenDto.getTokenType().equals("refresh")) {
+                // 토큰을 새로 만들어서 저장해야함
+            }
         } else {
             log.error("[Exception] message: {}", JwtExceptionEnum.TOKEN_NOT_EXIST.getMessage());
             request.setAttribute("exception", JwtExceptionEnum.TOKEN_NOT_EXIST.getMessage());

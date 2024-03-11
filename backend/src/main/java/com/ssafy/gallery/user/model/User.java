@@ -1,4 +1,4 @@
-package com.ssafy.gallery.auth.user.model;
+package com.ssafy.gallery.user.model;
 
 import com.ssafy.gallery.auth.oauth.dto.Domain;
 import jakarta.persistence.*;

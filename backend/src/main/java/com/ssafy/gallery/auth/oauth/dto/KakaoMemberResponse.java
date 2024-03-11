@@ -3,7 +3,7 @@ package com.ssafy.gallery.auth.oauth.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.ssafy.gallery.auth.user.model.User;
+import com.ssafy.gallery.user.model.User;
 
 import java.time.LocalDateTime;
 

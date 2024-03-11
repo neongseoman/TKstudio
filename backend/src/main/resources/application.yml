@@ -6,20 +6,22 @@ server:
     encoding:
       charset: UTF-8
       enabled: true
+  tomcat:
+    max-http-form-post-size: 10MB
 
 spring:
   # MySQL
   datasource:
-    url: jdbc:mysql://localhost:3306/gallery
-    username: root
-    password: 1234
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # Redis
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 
   jpa:
     show-sql: true
@@ -31,40 +33,14 @@ spring:
     hibernate:
       ddl-auto: create
 
-  sql:
-    init:
-      encoding: utf-8
-
   profiles:
     include: jwt, oauth
-
-  # Oauth2
-  security:
-    oauth2:
-      client:
-        registration:
-          kakao:
-            client-id: 2c2312493369c3c1b5937c1528806eb9
-            client-authentication-method: POST
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/api/v1/user/login/kakao
-            client-name: Kakao
-
-        provider:
-          kakao:
-            authorization-uri: https://kauth.kakao.com/oauth/authorize
-            token-uri: https://kauth.kakao.com/oauth/token
-            user-info-uri: https://kapi.kakao.com/v2/user/me
-            user-name-attribute: id
 
   servlet:
     multipart:
       max-file-size: 10MB
       maxRequestSize: 20MB
 
-server:
-  tomcat:
-    max-http-form-post-size: 10MB
 
 # Swagger
 springdoc:

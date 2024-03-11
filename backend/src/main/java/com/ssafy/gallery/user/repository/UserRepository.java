@@ -1,7 +1,7 @@
-package com.ssafy.gallery.auth.user.repository;
+package com.ssafy.gallery.user.repository;
 
 import com.ssafy.gallery.auth.oauth.dto.Domain;
-import com.ssafy.gallery.auth.user.model.User;
+import com.ssafy.gallery.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
