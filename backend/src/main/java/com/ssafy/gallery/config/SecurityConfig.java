@@ -1,7 +1,9 @@
 package com.ssafy.gallery.config;
 
-import com.ssafy.gallery.auth.jwt.filter.JwtFilter;
-import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
+import com.ssafy.gallery.auth.handler.CustomAccessDeniedHandler;
+import com.ssafy.gallery.auth.handler.CustomAuthenticationEntryPoint;
+import com.ssafy.gallery.auth.jwt.filter.JwtAuthenticationFilter;
+import com.ssafy.gallery.auth.jwt.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,11 +26,13 @@ import java.util.Collections;
 public class SecurityConfig {
 
     @Autowired
-    private LoginTokenRepository loginTokenRepository;
+    private JwtUtil jwtUtil;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     private static final String[] AUTH_WHITELIST = {
             "/swagger-ui/**", "/api-docs", "/api-docs/**", "/swagger-ui.html",
-            "/api/v1/user/login/**"
+            "/api/v1/user/login/**", "/api/v1/exception/**"
     };
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
@@ -39,7 +43,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
-                .addFilterBefore(new JwtFilter(loginTokenRepository), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
 //                .logout(AbstractHttpConfigurer::disable)
@@ -49,8 +56,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );  // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
         return http.build();
     }
