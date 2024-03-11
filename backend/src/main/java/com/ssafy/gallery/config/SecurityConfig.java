@@ -4,7 +4,6 @@ import com.ssafy.gallery.auth.jwt.filter.JwtFilter;
 import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +13,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -21,15 +24,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private CorsConfig corsConfig;
-    @Value("${jwt.secret}")
-    private String secretKey;
-    @Autowired
     private LoginTokenRepository loginTokenRepository;
 
     private static final String[] AUTH_WHITELIST = {
             "/swagger-ui/**", "/api-docs", "/api-docs/**", "/swagger-ui.html",
-            "/api/v1/user/**", "/api/v1/user/login/**", "/index.html"
+            "/api/v1/user/login/**"
     };
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
@@ -39,8 +38,8 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .addFilter(corsConfig.corsFilter())
-                .addFilterBefore(new JwtFilter(secretKey, loginTokenRepository), UsernamePasswordAuthenticationFilter.class)
+                .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
+                .addFilterBefore(new JwtFilter(loginTokenRepository), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
 //                .logout(AbstractHttpConfigurer::disable)
@@ -54,5 +53,17 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );  // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
         return http.build();
+    }
+
+    // ⭐️ CORS 설정
+    CorsConfigurationSource corsConfigurationSource() {
+        return request -> {
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            config.setAllowedMethods(Collections.singletonList("*"));
+            config.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000")); // ⭐️ 허용할 origin
+            config.setAllowCredentials(true);
+            return config;
+        };
     }
 }

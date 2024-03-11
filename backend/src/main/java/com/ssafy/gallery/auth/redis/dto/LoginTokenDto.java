@@ -18,6 +18,7 @@ public class LoginTokenDto {
     @Id
     private String id;
     private int userId;
+    private String tokenType;
 
     @TimeToLive(unit = TimeUnit.MILLISECONDS)
     private long expiration;
