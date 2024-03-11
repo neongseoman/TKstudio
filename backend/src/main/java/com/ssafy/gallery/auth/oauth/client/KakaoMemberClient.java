@@ -3,7 +3,7 @@ package com.ssafy.gallery.auth.oauth.client;
 import com.ssafy.gallery.auth.oauth.type.OauthServerType;
 import com.ssafy.gallery.auth.oauth.dto.KakaoMemberResponse;
 import com.ssafy.gallery.auth.oauth.dto.KakaoToken;
-import com.ssafy.gallery.auth.user.model.User;
+import com.ssafy.gallery.user.model.User;
 import com.ssafy.gallery.config.KakaoOauthConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
