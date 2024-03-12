@@ -21,10 +21,6 @@ swapper = insightface.model_zoo.get_model(
     swapper_path, download=False, download_zip=False
 )
 
-# Img dir
-bg_0_img_path = "./bg_0.jpg"
-bg_0_img = plt.imread(bg_0_img_path)
-
 
 class CreateImageService(pb2_grpc.CreateImageServicer):
 
@@ -38,9 +34,18 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             # Bytes to ndarray
             image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
             original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-            # options = request.options  # 이후 옵션에 따라 배경사진 선택
+            # options = request.options  # 이후 옵션에 따라 템플릿사진 선택
+            # gender = options.gender
+            # bg = options.background
+            # suit = options.suit
+            # hair = options.hair
 
             # Detect face from bg img
+
+            # Img dir
+            gender = "male"  # temp gender
+            bg_0_img_path = f"./src/{gender}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
+            bg_0_img = plt.imread(bg_0_img_path)
             bg_faces = faceswap_app.get(bg_0_img)
             bg_face = bg_faces[0]
 
@@ -83,7 +88,9 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             processed_image = cv2.cvtColor(
                 processed_image, cv2.COLOR_BGR2RGB
             )  # BGR -> RGB 채널 변경
-            cv2.imwrite("output_image.jpg", processed_image)  # 사진 저장
+
+            # 사진 저장
+            cv2.imwrite("src/output_image.jpg", processed_image)
 
             # Ndarray to bytes
             processed_image = processed_image.tobytes()

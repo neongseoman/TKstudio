@@ -16,14 +16,15 @@ message OriginalImageInfo {
 message ProcessedImageInfo{
   bytes processedImage = 1;
   ResponseUrl responseUrl= 2;
-  bool status = 3;
-  string errorMessage = 4;
+  bool status = 3;  // 새로 추가
+  string errorMessage = 4;  // 새로 추가
 }
 
 message Options {
   string background = 1;
   string suit = 2;
   string hair = 3;
+  string gender = 4;  // 새로 추가
 }
 
 message ResponseUrl {
