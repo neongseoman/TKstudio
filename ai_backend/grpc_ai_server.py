@@ -1,27 +1,27 @@
 import grpc
 from concurrent import futures
 
-import image_pb2 as pb2
-import image_pb2_grpc as pb2_grpc
+from proto import image_pb2 as pb2
+from proto import image_pb2_grpc as pb2_grpc
 import numpy as np
 import cv2
 
-# insightface
+# Insightface
 import insightface
 from insightface.app import FaceAnalysis
 import matplotlib.pyplot as plt
 
-# face swap app
+# Face swap app
 faceswap_app = FaceAnalysis(name="buffalo_l")
 faceswap_app.prepare(ctx_id=0, det_size=(640, 640))
 
-# swapper model
+# Swapper model
 swapper_path = "./inswapper_128.onnx"
 swapper = insightface.model_zoo.get_model(
     swapper_path, download=False, download_zip=False
 )
 
-# img dir
+# Img dir
 bg_0_img_path = "./bg_0.jpg"
 bg_0_img = plt.imread(bg_0_img_path)
 
@@ -32,51 +32,97 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         pass
 
     def sendImage(self, request, context):
+        try:
+            original_image_bytes: bytearray = request.originalImage
 
-        original_image_bytes: bytearray = request.originalImage
+            # Bytes to ndarray
+            image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
+            original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+            # options = request.options  # 이후 옵션에 따라 배경사진 선택
 
-        # bytes to ndarray
-        image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
-        original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-        # options = request.options  # 이후 옵션에 따라 배경사진 선택
+            # Detect face from bg img
+            bg_faces = faceswap_app.get(bg_0_img)
+            bg_face = bg_faces[0]
 
-        # # detect face from bg img
-        bg_faces = faceswap_app.get(bg_0_img)
-        bg_face = bg_faces[0]
+            try:
+                # Detect face from input img
+                faces = faceswap_app.get(original_image)
+                source_face = faces[0]
 
-        # detect face from input img
-        faces = faceswap_app.get(original_image)
-        source_face = faces[0]
+            except Exception as err:
+                # Handle error: No face detected or other issues
+                print(f"Error detecting face in original image: {err}")
 
-        # swap face from bg img to input img
-        processed_image = bg_0_img.copy()
-        processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
+                # context.set_code(grpc.StatusCode.UNAVAILABLE)
+                # context.set_details("Failed to detect face in input image.")
 
-        # 이미지 확인용
-        plt.imshow(processed_image)
-        plt.show()
-        processed_image = cv2.cvtColor(
-            processed_image, cv2.COLOR_BGR2RGB
-        )  # BGR -> RGB 채널 변경
-        cv2.imwrite("output_image.jpg", processed_image)  # 사진 저장
+                # response_url = {
+                #     "originalImageUrl": "",
+                #     "processedImageUrl": "",
+                #     "thumbnailImageUrl": "",
+                # }
 
-        # ndarray to bytes
-        processed_image = processed_image.tobytes()
+                # result = {
+                #     "processedImage": b"0",
+                #     "responseUrl": response_url,
+                #     "status": False,
+                #     "errorMessage": err,
+                # }
+                # return pb2.ProcessedImageInfo(**result)
+                return None
 
-        # S3에 이미지 저장하는 코드 추가하기
+            # Swap face from bg img to input img
+            processed_image = bg_0_img.copy()
+            processed_image = swapper.get(
+                bg_0_img, bg_face, source_face, paste_back=True
+            )
 
-        response_url = {
-            "originalImageUrl": "original_image_url_sample",
-            "processedImageUrl": "processed_image_url_sample",
-            "thumbnailImageUrl": "thumbnail_image_url_sample",
-        }
+            # 이미지 확인용
+            plt.imshow(processed_image)
+            plt.show()
+            processed_image = cv2.cvtColor(
+                processed_image, cv2.COLOR_BGR2RGB
+            )  # BGR -> RGB 채널 변경
+            cv2.imwrite("output_image.jpg", processed_image)  # 사진 저장
 
-        result = {
-            "processedImage": processed_image,
-            "responseUrl": response_url,
-        }
+            # Ndarray to bytes
+            processed_image = processed_image.tobytes()
 
-        return pb2.ProcessedImageInfo(**result)
+            # Add codes to save images in S3 server
+
+            response_url = {
+                "originalImageUrl": "original_image_url_sample",
+                "processedImageUrl": "processed_image_url_sample",
+                "thumbnailImageUrl": "thumbnail_image_url_sample",
+            }
+
+            result = {
+                "processedImage": processed_image,
+                "responseUrl": response_url,
+                # "status": True,
+                # "errorMessage": None,
+            }
+
+            return pb2.ProcessedImageInfo(**result)
+
+        except Exception as err:
+            # Handle error: Failed to process image
+            print(f"Error processing image: {err}")
+
+            # response_url = {
+            #     "originalImageUrl": "",
+            #     "processedImageUrl": "",
+            #     "thumbnailImageUrl": "",
+            # }
+
+            # result = {
+            #     "processedImage": b"0",
+            #     "responseUrl": response_url,
+            #     "status": False,
+            #     "errorMessage": err,
+            # }
+            # return pb2.ProcessedImageInfo(**result)
+            return None
 
 
 def serve():
