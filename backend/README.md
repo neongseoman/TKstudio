@@ -90,7 +90,7 @@ chmod +x ./gradlew
 # 프로젝트 이미지 생성
 docker build -t gallery:latest .
 
-# 프로젝트 이미지 실행
-sudo docker run -i -e TZ=Asia/Seoul -e --name gallery -p 8081:8081 -d gallery:latest
-
+# 프로젝트 이미지 실행 (밑에껄로)
+sudo docker run -i -e TZ=Asia/Seoul -e --name gallery -t -p 8081:8081 -d gallery:latest
+docker run -i -t -p 8081:8081 gallery:latest
 ```

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   ssl:
     enabled: false
   servlet:
@@ -30,8 +30,11 @@ spring:
         format_sql: true
         use_sql_comments: true
         highlight_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
   profiles:
     include: jwt, oauth
