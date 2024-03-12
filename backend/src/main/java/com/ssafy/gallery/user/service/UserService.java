@@ -7,13 +7,11 @@ import com.ssafy.gallery.auth.redis.dto.LoginTokenDto;
 import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
 import com.ssafy.gallery.user.model.User;
 import com.ssafy.gallery.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -23,42 +21,42 @@ public class UserService {
     private final OauthMemberClientComposite oauthMemberClientComposite;
     private final LoginTokenRepository loginTokenRepository;
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
-    @Value("${jwt.access.expiration}")
-    private long accessExpiration;
-    @Value("${jwt.refresh.expiration}")
-    private long refreshExpiration;
-
-    public HashMap<String, String> login(OauthServerType oauthServerType, String authCode) {
+    public boolean login(HttpServletResponse response, OauthServerType oauthServerType, String authCode) {
         User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
         User saved = userRepository.findByDomain(user.getDomain())
                 .orElseGet(() -> userRepository.save(user));
 
-        String accessToken = createToken("access");
-        String refreshToken = createToken("refresh");
-        saveTokens(accessToken, refreshToken, saved);
+        String accessToken = jwtUtil.createToken("access");
+        String refreshToken = jwtUtil.createToken("refresh");
+        jwtUtil.saveTokens(accessToken, refreshToken, saved.getUserId());
 
-        HashMap<String, String> result = new HashMap<>();
-        result.put("accessToken", accessToken);
-        result.put("refreshToken", refreshToken);
-
-        return result;
+        response.setHeader("accessToken", accessToken);
+        response.setHeader("refreshToken", refreshToken);
+        return true;
     }
 
-    private String createToken(String type) {
-        String secretKey = UUID.randomUUID().toString() + UUID.randomUUID().toString();
-        secretKey = secretKey.replace("-", "");
-        long expiration = type.equals("access") ? accessExpiration : refreshExpiration;
-        log.info("{} 토큰 만들기, secretKey: {}", type, secretKey);
+    public boolean logout(HttpServletRequest request) {
+        String refreshToken = (String) request.getAttribute("refreshToken");
 
-        return JwtUtil.createJwt(secretKey, expiration);
-    }
+        if (refreshToken != null) {
+            log.info("refreshToken: {}", refreshToken);
 
-    private void saveTokens(String accessToken, String refreshToken, User saved) {
-        log.info("Redis에 토큰 저장 : {}, {}", accessToken, refreshToken);
-        LoginTokenDto accessTokenDto = new LoginTokenDto(accessToken, saved.getUserId(), null, accessExpiration);
-        LoginTokenDto refreshTokenDto = new LoginTokenDto(refreshToken, saved.getUserId(), accessToken, refreshExpiration);
-        loginTokenRepository.save(accessTokenDto);
-        loginTokenRepository.save(refreshTokenDto);
+            if (loginTokenRepository.findById(refreshToken).isPresent()) {
+                LoginTokenDto loginTokenDto = loginTokenRepository.findById(refreshToken).get();
+                log.info("로그인한 유저의 정보: {}", loginTokenDto);
+
+                String accessToken = loginTokenDto.getAccessToken();
+                if (accessToken != null) {
+                    if (loginTokenRepository.findById(accessToken).isPresent()) {
+                        loginTokenRepository.deleteById(accessToken);
+                    }
+                    loginTokenRepository.deleteById(refreshToken);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
