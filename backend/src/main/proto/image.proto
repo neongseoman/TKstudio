@@ -3,7 +3,7 @@ syntax = "proto3";
 package com.ssafy.pjt.grpc;
 
 service CreateImage {
-  rpc sendImage (OriginalImageInfo) returns (ProcessedImageInfo);
+  rpc sendImage ( OriginalImageInfo ) returns (  ProcessedImageInfo );
 }
 
 message OriginalImageInfo {
@@ -11,38 +11,19 @@ message OriginalImageInfo {
   Options options = 2;
 }
 
-message ProcessedImageInfo {
-  // 처리된 이미지 데이터
-  bytes processed_image = 1;
-  // (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
-  ResponseUrl response_url = 2;
-  // 처리 결과를 나타내는 enum
-  ImageProcessingResult result = 3;
+message ProcessedImageInfo{
+  bytes processedImage = 1;
+  ResponseUrl responseUrl= 2;
 }
 
 message Options {
   string background = 1;
   string suit = 2;
   string hair = 3;
-  SEX sex = 4;
 }
 
 message ResponseUrl {
   string originalImageUrl = 1;
   string processedImageUrl = 2;
   string thumbnailImageUrl = 3;
-}
-
-enum SEX{
-  MALE = 0;
-  FEMALE = 1;
-}
-
-enum ImageProcessingResult {
-  // 처리 성공
-  SUCCESS = 0;
-  // 처리 실패
-  NO_FACE = 1;
-  // 처리 오류 (예: 잘못된 이미지 형식)
-  MANY_FACE = 2;
 }
