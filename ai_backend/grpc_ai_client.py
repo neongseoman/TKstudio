@@ -29,15 +29,16 @@ class TestClient(object):
 
 if __name__ == "__main__":
     client = TestClient()
-    original_image_path = "./src/male_test1.jpg"
+    original_image_path = "./src/female_test1.jpg"
     with open(original_image_path, "rb") as f:
         original_image = f.read()
 
-    print("original image:\n", original_image[:50])
+    # print("original image:\n", original_image[:50])
     options = {
         "background": "0",
         "suit": "0",
         "hair": "0",
+        "sex": "FEMALE",
     }
 
     result = client.inputImage(originalImage=original_image, options=options)

@@ -1,15 +1,43 @@
+# AWS S3
+import os
+from dotenv import load_dotenv
+import boto3
+
+# gRPC
 import grpc
 from concurrent import futures
 
 from proto import image_pb2 as pb2
 from proto import image_pb2_grpc as pb2_grpc
-import numpy as np
-import cv2
 
 # Insightface
 import insightface
 from insightface.app import FaceAnalysis
+
+# Etc
 import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+import uuid
+
+# AWS S3 init setting
+load_dotenv()
+PORT_NUM = os.environ.get("PORT_NUM")
+BUCKET_NAME = os.environ.get("BUCKET_NAME")
+REGION_NAME = os.environ.get("REGION_NAME")
+S3_ACCESS_KEY = os.environ.get("S3_ACCESS_KEY")
+S3_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_ACCESS_KEY")
+
+# S3 client
+s3 = boto3.resource(
+    "s3",
+    region_name=REGION_NAME,
+    aws_access_key_id=S3_ACCESS_KEY,
+    aws_secret_access_key=S3_SECRET_ACCESS_KEY,
+)
+
+buckets = s3.Bucket(name=BUCKET_NAME)
+
 
 # Face swap app
 faceswap_app = FaceAnalysis(name="buffalo_l")
@@ -34,8 +62,39 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             # Bytes to ndarray
             image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
             original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+
+            # Input image save
+            save_path = "src/input_image.jpg"
+            cv2.imwrite(save_path, original_image)
+
+            # Codes to save ORIGINAL image in S3 server
+            try:
+                my_uuid = uuid.uuid1()
+                original_file_name = f"originalImages/{my_uuid}.jpg"
+                save_data = open(save_path, "rb")
+
+                s3.Bucket(BUCKET_NAME).put_object(
+                    Key=original_file_name,
+                    Body=save_data,
+                    ContentType="image/jpg",
+                )
+
+            except:
+                print("Error uploading Original Image to AWS S3 server")
+                return_value = {
+                    "processedImage": b"",  # 비어있는 bytes 데이터
+                    "responseUrl": {},  # 비어있는 responseUrl
+                    "result": pb2.ImageProcessingResult.NO_FACE,  # NO_FACE 결과 설정
+                }
+
+                return pb2.ProcessedImageInfo(**return_value)
+
             options = request.options  # 이후 옵션에 따라 템플릿사진 선택
-            sex = options.SEX
+            if options.sex == 0:
+                sex = "MALE"
+            else:
+                sex = "FEMALE"
+
             # bg = options.background
             # suit = options.suit
             # hair = options.hair
@@ -43,7 +102,6 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             # Detect face from bg img
 
             # Img dir
-            # sex = "FEMALE"  # sex test code
             bg_0_img_path = (
                 f"./src/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
             )
@@ -87,25 +145,50 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             )
 
             # 이미지 확인용
-            plt.imshow(processed_image)
-            plt.show()
+            # plt.imshow(processed_image)
+            # plt.show()
 
             processed_image = cv2.cvtColor(
                 processed_image, cv2.COLOR_BGR2RGB
             )  # BGR -> RGB 채널 변경
 
-            # 사진 저장
-            cv2.imwrite("src/output_image.jpg", processed_image)
+            # Output image save
+            save_path = "src/output_image.jpg"
+            cv2.imwrite(save_path, processed_image)
 
             # Ndarray to bytes
             processed_image = processed_image.tobytes()
 
-            # Add codes to save images in S3 server
+            # Codes to save image in S3 server
+            try:
+                my_uuid = uuid.uuid1()
+                processed_file_name = f"processedImages/{my_uuid}.jpg"
+                save_data = open(save_path, "rb")
 
+                s3.Bucket(BUCKET_NAME).put_object(
+                    Key=processed_file_name,
+                    Body=save_data,
+                    ContentType="image/jpg",
+                )
+
+            except:
+                print("Error uploading Processed Image to AWS S3 server")
+                return_value = {
+                    "processedImage": b"",  # 비어있는 bytes 데이터
+                    "responseUrl": {},  # 비어있는 responseUrl
+                    "result": pb2.ImageProcessingResult.NO_FACE,  # NO_FACE 결과 설정
+                }
+
+                return pb2.ProcessedImageInfo(**return_value)
+
+            original_image_url = f"https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/{original_file_name}"
+            processed_image_url = f"https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/{processed_file_name}"
+            thumbnail_image_url = "sample_thumbnail_url"
+            # thumbnail_image_url = f"https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/{thumbnail_file_name}"
             response_url = {
-                # "originalImageUrl": "original_image_url_sample",
-                # "processedImageUrl": "processed_image_url_sample",
-                # "thumbnailImageUrl": "thumbnail_image_url_sample",
+                "originalImageUrl": original_image_url,
+                "processedImageUrl": processed_image_url,
+                "thumbnailImageUrl": thumbnail_image_url,
             }
 
             return_value = {
@@ -130,15 +213,24 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=None))
     pb2_grpc.add_CreateImageServicer_to_server(CreateImageService(), server)
-    server.add_insecure_port("[::]:9090")
+    server.add_insecure_port(f"[::]:{PORT_NUM}")
     print("\n" * 1)
-    print("server port is", 9090)
+    print("server port is", PORT_NUM)
     server.start()
     print("grpc server is now running")
+    print()
+
+    # Check bucket names
+    print("Existing buckets:")
+    for bucket in s3.buckets.all():
+        print(bucket.name)
+    print()
+    print("End of Bucket list")
+
     print("if you want to quit the grpc server, press 'ctrl + C'")
-    print("\n" * 2)
+    print()
 
     server.wait_for_termination()
 
