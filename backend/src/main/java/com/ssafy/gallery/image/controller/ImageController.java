@@ -45,8 +45,9 @@ public class ImageController {
                     .body(response);
         } catch (Exception e){
             e.printStackTrace();
+            return ResponseEntity.badRequest()
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
+                    .body(null);
         }
-
-
     }
 }
