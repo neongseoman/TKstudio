@@ -1,10 +1,8 @@
 package com.ssafy.gallery.image.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +11,13 @@ import java.util.List;
 @Entity
 @Getter
 public class ImageInfo {
+
+    public ImageInfo(int userId, String thumbnailImageUrl, String originalImageUrl, String processedImageUrl) {
+        this.userId = userId;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+        this.originalImageUrl = originalImageUrl;
+        this.processedImageUrl = processedImageUrl;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +38,13 @@ public class ImageInfo {
     @Column(nullable = false)
     private boolean isDeleted = false;
 
+    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdTime;
+
+    public ImageInfo() {
+
+    }
 
 //    @OneToMany(mappedBy = "selectOptionId")
 //    private List<SelectOption> selectOptions = new ArrayList<>();
