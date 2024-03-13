@@ -35,13 +35,19 @@ public class ImageController {
             @RequestParam(value = "background") String background,
             @RequestParam(value = "suit") String suit,
             @RequestParam(value = "hair") String hair
-    ) throws IOException {
+    ) throws Exception {
 
-        ByteArrayResource response = imageService.sendImage(originalImage,new ImageOption(background,suit,hair));
+        try{
 
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
-                .body(response);
+            ByteArrayResource response = imageService.sendImage(originalImage,new ImageOption(background,suit,hair));
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
+                    .body(response);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest()
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
+                    .body(null);
+        }
     }
 }
