@@ -1,8 +1,8 @@
 import grpc
 import io
 
-import image_pb2 as pb2
-import image_pb2_grpc as pb2_grpc
+from proto import image_pb2 as pb2
+from proto import image_pb2_grpc as pb2_grpc
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,7 +11,7 @@ import numpy as np
 class TestClient(object):
     def __init__(self):
         self.host = "localhost"
-        self.server_port = 50051
+        self.server_port = 9090
 
         self.channel = grpc.insecure_channel(
             "{}:{}".format(self.host, self.server_port)
@@ -29,7 +29,7 @@ class TestClient(object):
 
 if __name__ == "__main__":
     client = TestClient()
-    original_image_path = "./rdj.jpg"
+    original_image_path = "./src/male_test1.jpg"
     with open(original_image_path, "rb") as f:
         original_image = f.read()
 
@@ -43,7 +43,6 @@ if __name__ == "__main__":
     result = client.inputImage(originalImage=original_image, options=options)
 
     print("processedImage:")
-    print(result.processedImage[:50])
     print()
     print("responseUrl:")
     print(result.responseUrl)
