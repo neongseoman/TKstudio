@@ -28,7 +28,8 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             "/swagger-ui/**", "/api-docs", "/api-docs/**", "/swagger-ui.html",
-            "/api/v1/user/login/**"
+            "/api/v1/user/login/**",
+            "api/v1/image/**" // 배포에선 삭제 요망
     };
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
