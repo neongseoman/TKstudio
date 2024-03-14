@@ -32,7 +32,7 @@ public class ImageService {
     private ResourceLoader resourceLoader;
 
     private final ManagedChannel channel
-            = ManagedChannelBuilder.forTarget("localhost:9090").usePlaintext().build();
+            = ManagedChannelBuilder.forTarget("j10a101.p.ssafy.io:9090").usePlaintext().build();
 
     private final CreateImageGrpc.CreateImageBlockingStub imageStub
             = CreateImageGrpc.newBlockingStub(channel);
