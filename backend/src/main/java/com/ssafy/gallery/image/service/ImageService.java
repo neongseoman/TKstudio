@@ -36,9 +36,11 @@ public class ImageService {
             = CreateImageGrpc.newBlockingStub(channel);
 
     public ByteArrayResource sendImage(MultipartFile image, ImageOption imageOption) throws Exception {
+        BufferedImage bufferedOriginalImage = ImageIO.read(image.getInputStream());
         ByteString imageData = ByteString.copyFrom(image.getBytes());
-        BufferedImage bufferedImage = null;
-        Status status = null;
+        int width = bufferedOriginalImage.getWidth();
+        int height = bufferedOriginalImage.getHeight();
+
         Image.ProcessedImageInfo receiveData = null;
         Image.Options options = Image.Options.newBuilder()
                 .setBackground(imageOption.getBackground())
@@ -51,31 +53,18 @@ public class ImageService {
                     .setOptions(options)
                     .build());
         } catch (IllegalStateException e) {
-            status = Status.fromThrowable(e);
+            Status status = Status.fromThrowable(e);
             return null;
         }
 
-        if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())){
+        if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
             byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
 
-
-            bufferedImage = new BufferedImage(354, 472, BufferedImage.TYPE_3BYTE_BGR);
-
-// BufferedImage에 byte 배열 데이터 채우기
-            int index = 0;
-            for (int y = 0; y < bufferedImage.getHeight(); y++) {
-                for (int x = 0; x < bufferedImage.getWidth(); x++) {
-                    int red = processedImageData[index++] & 0xFF;
-                    int green = processedImageData[index++] & 0xFF;
-                    int blue = processedImageData[index++] & 0xFF;
-
-                    // RGB 값으로 Pixel 생성 및 설정
-                    bufferedImage.setRGB(x, y, new Color(red, green, blue).getRGB());
-                }
-            }
+            BufferedImage bufferedImage = getBufferedImage(processedImageData, width, height);
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(bufferedImage, "jpg", baos);
+
             ByteArrayResource byteArrayResource = new ByteArrayResource(baos.toByteArray());
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
             ImageInfo imageInfo = new ImageInfo(1, responseUrl.getThumbnailImageUrl(),
@@ -83,16 +72,33 @@ public class ImageService {
                     responseUrl.getProcessedImageUrl());
 //        System.out.println("받은 파일 bytes 크기 : " + byteArrayResource.contentLength());
             return byteArrayResource;
-
-        }
-        else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
-            throw new  Exception("No FACE error");
+        } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
+            throw new Exception("No FACE error");
         } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
-            throw new  Exception("No FACE error");
-        } else{
-            throw new  Exception("gRPC error");
+            throw new Exception("Many FACE error");
+        } else {
+            throw new Exception("gRPC error");
         }
 
 
     }
+
+    private static BufferedImage getBufferedImage(byte[] processedImageData, int width, int height) {
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+
+        // BufferedImage에 byte 배열 데이터 채우기
+        int index = 0;
+        for (int y = 0; y < bufferedImage.getHeight(); y++) {
+            for (int x = 0; x < bufferedImage.getWidth(); x++) {
+                int red = processedImageData[index++] & 0xFF;
+                int green = processedImageData[index++] & 0xFF;
+                int blue = processedImageData[index++] & 0xFF;
+
+                // RGB 값으로 Pixel 생성 및 설정
+                bufferedImage.setRGB(x, y, new Color(red, green, blue).getRGB());
+            }
+        }
+        return bufferedImage;
+    }
+
 }
