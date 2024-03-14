@@ -1,5 +1,7 @@
 package com.ssafy.gallery.image.service;
 
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.image.exception.ImageExceptionEnum;
 import com.ssafy.gallery.image.model.ImageInfo;
 import com.ssafy.pjt.grpc.*;
 import com.google.protobuf.ByteString;
@@ -53,8 +55,7 @@ public class ImageService {
                     .setOptions(options)
                     .build());
         } catch (IllegalStateException e) {
-            Status status = Status.fromThrowable(e);
-            return null;
+            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.GRPC_ERROR);
         }
 
         if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
@@ -73,14 +74,12 @@ public class ImageService {
 //        System.out.println("받은 파일 bytes 크기 : " + byteArrayResource.contentLength());
             return byteArrayResource;
         } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
-            throw new Exception("No FACE error");
+            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
         } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
-            throw new Exception("Many FACE error");
+            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
         } else {
-            throw new Exception("gRPC error");
+            throw new Exception("UNKOWN ERROR");
         }
-
-
     }
 
     private static BufferedImage getBufferedImage(byte[] processedImageData, int width, int height) {
