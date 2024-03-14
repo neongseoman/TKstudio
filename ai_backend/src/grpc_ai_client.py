@@ -1,17 +1,19 @@
 import grpc
-import io
 
 from proto import image_pb2 as pb2
 from proto import image_pb2_grpc as pb2_grpc
 
-import matplotlib.pyplot as plt
-import numpy as np
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+PORT_NUM = os.environ.get("PORT_NUM")
 
 
 class TestClient(object):
     def __init__(self):
         self.host = "localhost"
-        self.server_port = 9090
+        self.server_port = PORT_NUM
 
         self.channel = grpc.insecure_channel(
             "{}:{}".format(self.host, self.server_port)
@@ -29,7 +31,7 @@ class TestClient(object):
 
 if __name__ == "__main__":
     client = TestClient()
-    original_image_path = "./src/female_test1.jpg"
+    original_image_path = "../image/female_test1.jpg"
     with open(original_image_path, "rb") as f:
         original_image = f.read()
 
@@ -44,6 +46,6 @@ if __name__ == "__main__":
     result = client.inputImage(originalImage=original_image, options=options)
 
     print("processedImage:")
-    print()
+    print(result.processedImage[:25])
     print("responseUrl:")
     print(result.responseUrl)
