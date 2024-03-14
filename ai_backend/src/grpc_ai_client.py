@@ -31,7 +31,7 @@ class TestClient(object):
 
 if __name__ == "__main__":
     client = TestClient()
-    original_image_path = "../image/female_test1.jpg"
+    original_image_path = "../image/male_test1.jpg"
     with open(original_image_path, "rb") as f:
         original_image = f.read()
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         "background": "0",
         "suit": "0",
         "hair": "0",
-        "sex": "FEMALE",
+        "sex": "MALE",
     }
 
     result = client.inputImage(originalImage=original_image, options=options)

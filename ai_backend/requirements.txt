@@ -13,7 +13,6 @@ cycler==0.12.1
 Cython==3.0.9
 easydict==1.13
 exceptiongroup==1.2.0
-fastapi==0.110.0
 flatbuffers==23.5.26
 fonttools==4.49.0
 grpcio==1.62.0
@@ -40,8 +39,6 @@ packaging==23.2
 pillow==10.2.0
 prettytable==3.10.0
 protobuf==4.25.3
-pydantic==2.6.3
-pydantic_core==2.16.3
 pyparsing==3.1.1
 pyreadline3==3.4.1
 python-dateutil==2.9.0.post0
@@ -62,6 +59,5 @@ tifffile==2024.2.12
 tqdm==4.66.2
 typing_extensions==4.10.0
 urllib3==1.26.18
-uvicorn==0.27.1
 wcwidth==0.2.13
 zipp==3.17.0
