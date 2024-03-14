@@ -14,6 +14,255 @@ public final class Image {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code com.ssafy.pjt.grpc.SEX}
+   */
+  public enum SEX
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>MALE = 0;</code>
+     */
+    MALE(0),
+    /**
+     * <code>FEMALE = 1;</code>
+     */
+    FEMALE(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>MALE = 0;</code>
+     */
+    public static final int MALE_VALUE = 0;
+    /**
+     * <code>FEMALE = 1;</code>
+     */
+    public static final int FEMALE_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static SEX valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static SEX forNumber(int value) {
+      switch (value) {
+        case 0: return MALE;
+        case 1: return FEMALE;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<SEX>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        SEX> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<SEX>() {
+            public SEX findValueByNumber(int number) {
+              return SEX.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.ssafy.pjt.grpc.Image.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final SEX[] VALUES = values();
+
+    public static SEX valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private SEX(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:com.ssafy.pjt.grpc.SEX)
+  }
+
+  /**
+   * Protobuf enum {@code com.ssafy.pjt.grpc.ImageProcessingResult}
+   */
+  public enum ImageProcessingResult
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <pre>
+     * 처리 성공
+     * </pre>
+     *
+     * <code>SUCCESS = 0;</code>
+     */
+    SUCCESS(0),
+    /**
+     * <pre>
+     * 처리 실패
+     * </pre>
+     *
+     * <code>NO_FACE = 1;</code>
+     */
+    NO_FACE(1),
+    /**
+     * <pre>
+     * 처리 오류 (예: 잘못된 이미지 형식)
+     * </pre>
+     *
+     * <code>MANY_FACE = 2;</code>
+     */
+    MANY_FACE(2),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <pre>
+     * 처리 성공
+     * </pre>
+     *
+     * <code>SUCCESS = 0;</code>
+     */
+    public static final int SUCCESS_VALUE = 0;
+    /**
+     * <pre>
+     * 처리 실패
+     * </pre>
+     *
+     * <code>NO_FACE = 1;</code>
+     */
+    public static final int NO_FACE_VALUE = 1;
+    /**
+     * <pre>
+     * 처리 오류 (예: 잘못된 이미지 형식)
+     * </pre>
+     *
+     * <code>MANY_FACE = 2;</code>
+     */
+    public static final int MANY_FACE_VALUE = 2;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static ImageProcessingResult valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static ImageProcessingResult forNumber(int value) {
+      switch (value) {
+        case 0: return SUCCESS;
+        case 1: return NO_FACE;
+        case 2: return MANY_FACE;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<ImageProcessingResult>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        ImageProcessingResult> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<ImageProcessingResult>() {
+            public ImageProcessingResult findValueByNumber(int number) {
+              return ImageProcessingResult.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.ssafy.pjt.grpc.Image.getDescriptor().getEnumTypes().get(1);
+    }
+
+    private static final ImageProcessingResult[] VALUES = values();
+
+    public static ImageProcessingResult valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private ImageProcessingResult(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:com.ssafy.pjt.grpc.ImageProcessingResult)
+  }
+
   public interface OriginalImageInfoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.ssafy.pjt.grpc.OriginalImageInfo)
       com.google.protobuf.MessageOrBuilder {
@@ -714,25 +963,60 @@ public final class Image {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bytes processedImage = 1;</code>
+     * <pre>
+     * 처리된 이미지 데이터
+     * </pre>
+     *
+     * <code>bytes ProcessedImage = 1;</code>
      * @return The processedImage.
      */
     com.google.protobuf.ByteString getProcessedImage();
 
     /**
+     * <pre>
+     * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+     * </pre>
+     *
      * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
      * @return Whether the responseUrl field is set.
      */
     boolean hasResponseUrl();
     /**
+     * <pre>
+     * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+     * </pre>
+     *
      * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
      * @return The responseUrl.
      */
     com.ssafy.pjt.grpc.Image.ResponseUrl getResponseUrl();
     /**
+     * <pre>
+     * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+     * </pre>
+     *
      * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
      */
     com.ssafy.pjt.grpc.Image.ResponseUrlOrBuilder getResponseUrlOrBuilder();
+
+    /**
+     * <pre>
+     * 처리 결과를 나타내는 enum
+     * </pre>
+     *
+     * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+     * @return The enum numeric value on the wire for result.
+     */
+    int getResultValue();
+    /**
+     * <pre>
+     * 처리 결과를 나타내는 enum
+     * </pre>
+     *
+     * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+     * @return The result.
+     */
+    com.ssafy.pjt.grpc.Image.ImageProcessingResult getResult();
   }
   /**
    * Protobuf type {@code com.ssafy.pjt.grpc.ProcessedImageInfo}
@@ -748,6 +1032,7 @@ public final class Image {
     }
     private ProcessedImageInfo() {
       processedImage_ = com.google.protobuf.ByteString.EMPTY;
+      result_ = 0;
     }
 
     @java.lang.Override
@@ -798,6 +1083,12 @@ public final class Image {
 
               break;
             }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              result_ = rawValue;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -833,7 +1124,11 @@ public final class Image {
     public static final int PROCESSEDIMAGE_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString processedImage_;
     /**
-     * <code>bytes processedImage = 1;</code>
+     * <pre>
+     * 처리된 이미지 데이터
+     * </pre>
+     *
+     * <code>bytes ProcessedImage = 1;</code>
      * @return The processedImage.
      */
     @java.lang.Override
@@ -844,6 +1139,10 @@ public final class Image {
     public static final int RESPONSEURL_FIELD_NUMBER = 2;
     private com.ssafy.pjt.grpc.Image.ResponseUrl responseUrl_;
     /**
+     * <pre>
+     * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+     * </pre>
+     *
      * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
      * @return Whether the responseUrl field is set.
      */
@@ -852,6 +1151,10 @@ public final class Image {
       return responseUrl_ != null;
     }
     /**
+     * <pre>
+     * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+     * </pre>
+     *
      * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
      * @return The responseUrl.
      */
@@ -860,11 +1163,42 @@ public final class Image {
       return responseUrl_ == null ? com.ssafy.pjt.grpc.Image.ResponseUrl.getDefaultInstance() : responseUrl_;
     }
     /**
+     * <pre>
+     * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+     * </pre>
+     *
      * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
      */
     @java.lang.Override
     public com.ssafy.pjt.grpc.Image.ResponseUrlOrBuilder getResponseUrlOrBuilder() {
       return getResponseUrl();
+    }
+
+    public static final int RESULT_FIELD_NUMBER = 3;
+    private int result_;
+    /**
+     * <pre>
+     * 처리 결과를 나타내는 enum
+     * </pre>
+     *
+     * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+     * @return The enum numeric value on the wire for result.
+     */
+    @java.lang.Override public int getResultValue() {
+      return result_;
+    }
+    /**
+     * <pre>
+     * 처리 결과를 나타내는 enum
+     * </pre>
+     *
+     * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+     * @return The result.
+     */
+    @java.lang.Override public com.ssafy.pjt.grpc.Image.ImageProcessingResult getResult() {
+      @SuppressWarnings("deprecation")
+      com.ssafy.pjt.grpc.Image.ImageProcessingResult result = com.ssafy.pjt.grpc.Image.ImageProcessingResult.valueOf(result_);
+      return result == null ? com.ssafy.pjt.grpc.Image.ImageProcessingResult.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -887,6 +1221,9 @@ public final class Image {
       if (responseUrl_ != null) {
         output.writeMessage(2, getResponseUrl());
       }
+      if (result_ != com.ssafy.pjt.grpc.Image.ImageProcessingResult.SUCCESS.getNumber()) {
+        output.writeEnum(3, result_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -903,6 +1240,10 @@ public final class Image {
       if (responseUrl_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getResponseUrl());
+      }
+      if (result_ != com.ssafy.pjt.grpc.Image.ImageProcessingResult.SUCCESS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, result_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -926,6 +1267,7 @@ public final class Image {
         if (!getResponseUrl()
             .equals(other.getResponseUrl())) return false;
       }
+      if (result_ != other.result_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -943,6 +1285,8 @@ public final class Image {
         hash = (37 * hash) + RESPONSEURL_FIELD_NUMBER;
         hash = (53 * hash) + getResponseUrl().hashCode();
       }
+      hash = (37 * hash) + RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + result_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1084,6 +1428,8 @@ public final class Image {
           responseUrl_ = null;
           responseUrlBuilder_ = null;
         }
+        result_ = 0;
+
         return this;
       }
 
@@ -1116,6 +1462,7 @@ public final class Image {
         } else {
           result.responseUrl_ = responseUrlBuilder_.build();
         }
+        result.result_ = result_;
         onBuilt();
         return result;
       }
@@ -1170,6 +1517,9 @@ public final class Image {
         if (other.hasResponseUrl()) {
           mergeResponseUrl(other.getResponseUrl());
         }
+        if (other.result_ != 0) {
+          setResultValue(other.getResultValue());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1201,7 +1551,11 @@ public final class Image {
 
       private com.google.protobuf.ByteString processedImage_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes processedImage = 1;</code>
+       * <pre>
+       * 처리된 이미지 데이터
+       * </pre>
+       *
+       * <code>bytes ProcessedImage = 1;</code>
        * @return The processedImage.
        */
       @java.lang.Override
@@ -1209,7 +1563,11 @@ public final class Image {
         return processedImage_;
       }
       /**
-       * <code>bytes processedImage = 1;</code>
+       * <pre>
+       * 처리된 이미지 데이터
+       * </pre>
+       *
+       * <code>bytes ProcessedImage = 1;</code>
        * @param value The processedImage to set.
        * @return This builder for chaining.
        */
@@ -1223,7 +1581,11 @@ public final class Image {
         return this;
       }
       /**
-       * <code>bytes processedImage = 1;</code>
+       * <pre>
+       * 처리된 이미지 데이터
+       * </pre>
+       *
+       * <code>bytes ProcessedImage = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearProcessedImage() {
@@ -1237,6 +1599,10 @@ public final class Image {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ssafy.pjt.grpc.Image.ResponseUrl, com.ssafy.pjt.grpc.Image.ResponseUrl.Builder, com.ssafy.pjt.grpc.Image.ResponseUrlOrBuilder> responseUrlBuilder_;
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        * @return Whether the responseUrl field is set.
        */
@@ -1244,6 +1610,10 @@ public final class Image {
         return responseUrlBuilder_ != null || responseUrl_ != null;
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        * @return The responseUrl.
        */
@@ -1255,6 +1625,10 @@ public final class Image {
         }
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       public Builder setResponseUrl(com.ssafy.pjt.grpc.Image.ResponseUrl value) {
@@ -1271,6 +1645,10 @@ public final class Image {
         return this;
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       public Builder setResponseUrl(
@@ -1285,6 +1663,10 @@ public final class Image {
         return this;
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       public Builder mergeResponseUrl(com.ssafy.pjt.grpc.Image.ResponseUrl value) {
@@ -1303,6 +1685,10 @@ public final class Image {
         return this;
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       public Builder clearResponseUrl() {
@@ -1317,6 +1703,10 @@ public final class Image {
         return this;
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       public com.ssafy.pjt.grpc.Image.ResponseUrl.Builder getResponseUrlBuilder() {
@@ -1325,6 +1715,10 @@ public final class Image {
         return getResponseUrlFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       public com.ssafy.pjt.grpc.Image.ResponseUrlOrBuilder getResponseUrlOrBuilder() {
@@ -1336,6 +1730,10 @@ public final class Image {
         }
       }
       /**
+       * <pre>
+       * (선택적) 처리된 이미지를 다운로드 받을 수 있는 URL (성공 시)
+       * </pre>
+       *
        * <code>.com.ssafy.pjt.grpc.ResponseUrl responseUrl = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -1350,6 +1748,80 @@ public final class Image {
           responseUrl_ = null;
         }
         return responseUrlBuilder_;
+      }
+
+      private int result_ = 0;
+      /**
+       * <pre>
+       * 처리 결과를 나타내는 enum
+       * </pre>
+       *
+       * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+       * @return The enum numeric value on the wire for result.
+       */
+      @java.lang.Override public int getResultValue() {
+        return result_;
+      }
+      /**
+       * <pre>
+       * 처리 결과를 나타내는 enum
+       * </pre>
+       *
+       * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+       * @param value The enum numeric value on the wire for result to set.
+       * @return This builder for chaining.
+       */
+      public Builder setResultValue(int value) {
+        
+        result_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 처리 결과를 나타내는 enum
+       * </pre>
+       *
+       * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+       * @return The result.
+       */
+      @java.lang.Override
+      public com.ssafy.pjt.grpc.Image.ImageProcessingResult getResult() {
+        @SuppressWarnings("deprecation")
+        com.ssafy.pjt.grpc.Image.ImageProcessingResult result = com.ssafy.pjt.grpc.Image.ImageProcessingResult.valueOf(result_);
+        return result == null ? com.ssafy.pjt.grpc.Image.ImageProcessingResult.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * 처리 결과를 나타내는 enum
+       * </pre>
+       *
+       * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+       * @param value The result to set.
+       * @return This builder for chaining.
+       */
+      public Builder setResult(com.ssafy.pjt.grpc.Image.ImageProcessingResult value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        result_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 처리 결과를 나타내는 enum
+       * </pre>
+       *
+       * <code>.com.ssafy.pjt.grpc.ImageProcessingResult Result = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearResult() {
+        
+        result_ = 0;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -1443,6 +1915,17 @@ public final class Image {
      */
     com.google.protobuf.ByteString
         getHairBytes();
+
+    /**
+     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * @return The enum numeric value on the wire for sex.
+     */
+    int getSexValue();
+    /**
+     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * @return The sex.
+     */
+    com.ssafy.pjt.grpc.Image.SEX getSex();
   }
   /**
    * Protobuf type {@code com.ssafy.pjt.grpc.Options}
@@ -1460,6 +1943,7 @@ public final class Image {
       background_ = "";
       suit_ = "";
       hair_ = "";
+      sex_ = 0;
     }
 
     @java.lang.Override
@@ -1508,6 +1992,12 @@ public final class Image {
               java.lang.String s = input.readStringRequireUtf8();
 
               hair_ = s;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              sex_ = rawValue;
               break;
             }
             default: {
@@ -1656,6 +2146,25 @@ public final class Image {
       }
     }
 
+    public static final int SEX_FIELD_NUMBER = 4;
+    private int sex_;
+    /**
+     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * @return The enum numeric value on the wire for sex.
+     */
+    @java.lang.Override public int getSexValue() {
+      return sex_;
+    }
+    /**
+     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * @return The sex.
+     */
+    @java.lang.Override public com.ssafy.pjt.grpc.Image.SEX getSex() {
+      @SuppressWarnings("deprecation")
+      com.ssafy.pjt.grpc.Image.SEX result = com.ssafy.pjt.grpc.Image.SEX.valueOf(sex_);
+      return result == null ? com.ssafy.pjt.grpc.Image.SEX.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1679,6 +2188,9 @@ public final class Image {
       if (!getHairBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, hair_);
       }
+      if (sex_ != com.ssafy.pjt.grpc.Image.SEX.MALE.getNumber()) {
+        output.writeEnum(4, sex_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1696,6 +2208,10 @@ public final class Image {
       }
       if (!getHairBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, hair_);
+      }
+      if (sex_ != com.ssafy.pjt.grpc.Image.SEX.MALE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, sex_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1718,6 +2234,7 @@ public final class Image {
           .equals(other.getSuit())) return false;
       if (!getHair()
           .equals(other.getHair())) return false;
+      if (sex_ != other.sex_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1735,6 +2252,8 @@ public final class Image {
       hash = (53 * hash) + getSuit().hashCode();
       hash = (37 * hash) + HAIR_FIELD_NUMBER;
       hash = (53 * hash) + getHair().hashCode();
+      hash = (37 * hash) + SEX_FIELD_NUMBER;
+      hash = (53 * hash) + sex_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1874,6 +2393,8 @@ public final class Image {
 
         hair_ = "";
 
+        sex_ = 0;
+
         return this;
       }
 
@@ -1903,6 +2424,7 @@ public final class Image {
         result.background_ = background_;
         result.suit_ = suit_;
         result.hair_ = hair_;
+        result.sex_ = sex_;
         onBuilt();
         return result;
       }
@@ -1962,6 +2484,9 @@ public final class Image {
         if (!other.getHair().isEmpty()) {
           hair_ = other.hair_;
           onChanged();
+        }
+        if (other.sex_ != 0) {
+          setSexValue(other.getSexValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2216,6 +2741,60 @@ public final class Image {
   checkByteStringIsUtf8(value);
         
         hair_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int sex_ = 0;
+      /**
+       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * @return The enum numeric value on the wire for sex.
+       */
+      @java.lang.Override public int getSexValue() {
+        return sex_;
+      }
+      /**
+       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * @param value The enum numeric value on the wire for sex to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSexValue(int value) {
+        
+        sex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * @return The sex.
+       */
+      @java.lang.Override
+      public com.ssafy.pjt.grpc.Image.SEX getSex() {
+        @SuppressWarnings("deprecation")
+        com.ssafy.pjt.grpc.Image.SEX result = com.ssafy.pjt.grpc.Image.SEX.valueOf(sex_);
+        return result == null ? com.ssafy.pjt.grpc.Image.SEX.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * @param value The sex to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSex(com.ssafy.pjt.grpc.Image.SEX value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        sex_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSex() {
+        
+        sex_ = 0;
         onChanged();
         return this;
       }
@@ -3172,16 +3751,21 @@ public final class Image {
       "\n\013image.proto\022\022com.ssafy.pjt.grpc\"X\n\021Ori" +
       "ginalImageInfo\022\025\n\roriginalImage\030\001 \001(\014\022,\n" +
       "\007options\030\002 \001(\0132\033.com.ssafy.pjt.grpc.Opti" +
-      "ons\"b\n\022ProcessedImageInfo\022\026\n\016processedIm" +
-      "age\030\001 \001(\014\0224\n\013responseUrl\030\002 \001(\0132\037.com.ssa" +
-      "fy.pjt.grpc.ResponseUrl\"9\n\007Options\022\022\n\nba" +
-      "ckground\030\001 \001(\t\022\014\n\004suit\030\002 \001(\t\022\014\n\004hair\030\003 \001" +
-      "(\t\"]\n\013ResponseUrl\022\030\n\020originalImageUrl\030\001 " +
-      "\001(\t\022\031\n\021processedImageUrl\030\002 \001(\t\022\031\n\021thumbn" +
-      "ailImageUrl\030\003 \001(\t2i\n\013CreateImage\022Z\n\tsend" +
-      "Image\022%.com.ssafy.pjt.grpc.OriginalImage" +
-      "Info\032&.com.ssafy.pjt.grpc.ProcessedImage" +
-      "Infob\006proto3"
+      "ons\"\235\001\n\022ProcessedImageInfo\022\026\n\016ProcessedI" +
+      "mage\030\001 \001(\014\0224\n\013responseUrl\030\002 \001(\0132\037.com.ss" +
+      "afy.pjt.grpc.ResponseUrl\0229\n\006Result\030\003 \001(\016" +
+      "2).com.ssafy.pjt.grpc.ImageProcessingRes" +
+      "ult\"_\n\007Options\022\022\n\nbackground\030\001 \001(\t\022\014\n\004su" +
+      "it\030\002 \001(\t\022\014\n\004hair\030\003 \001(\t\022$\n\003sex\030\004 \001(\0162\027.co" +
+      "m.ssafy.pjt.grpc.SEX\"]\n\013ResponseUrl\022\030\n\020o" +
+      "riginalImageUrl\030\001 \001(\t\022\031\n\021processedImageU" +
+      "rl\030\002 \001(\t\022\031\n\021thumbnailImageUrl\030\003 \001(\t*\033\n\003S" +
+      "EX\022\010\n\004MALE\020\000\022\n\n\006FEMALE\020\001*@\n\025ImageProcess" +
+      "ingResult\022\013\n\007SUCCESS\020\000\022\013\n\007NO_FACE\020\001\022\r\n\tM" +
+      "ANY_FACE\020\0022i\n\013CreateImage\022Z\n\tsendImage\022%" +
+      ".com.ssafy.pjt.grpc.OriginalImageInfo\032&." +
+      "com.ssafy.pjt.grpc.ProcessedImageInfob\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3198,13 +3782,13 @@ public final class Image {
     internal_static_com_ssafy_pjt_grpc_ProcessedImageInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ssafy_pjt_grpc_ProcessedImageInfo_descriptor,
-        new java.lang.String[] { "ProcessedImage", "ResponseUrl", });
+        new java.lang.String[] { "ProcessedImage", "ResponseUrl", "Result", });
     internal_static_com_ssafy_pjt_grpc_Options_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_ssafy_pjt_grpc_Options_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ssafy_pjt_grpc_Options_descriptor,
-        new java.lang.String[] { "Background", "Suit", "Hair", });
+        new java.lang.String[] { "Background", "Suit", "Hair", "Sex", });
     internal_static_com_ssafy_pjt_grpc_ResponseUrl_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_ssafy_pjt_grpc_ResponseUrl_fieldAccessorTable = new
