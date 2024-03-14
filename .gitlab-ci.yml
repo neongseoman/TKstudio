@@ -1,0 +1,27 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy
+
+build_image:
+  stage: build
+  script:
+    - docker build -t grpc-ai-server .
+    - docker save grpc-ai-server > image.tar
+  artifacts:
+    paths:
+      - image.tar
+
+deploy:
+  stage: deploy
+  script:
+    - docker load < image.tar
+    - docker run -d -p 9090:9090 --name grpc-ai-server --env-file <(env | grep -E 'BUCKET_NAME|REGION_NAME|S3_ACCESS_KEY|S3_SECRET_ACCESS_KEY') grpc-ai-server
+  environment:
+    name: production
+  only:
+    - main
