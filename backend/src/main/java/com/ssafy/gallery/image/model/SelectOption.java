@@ -1,23 +1,37 @@
 package com.ssafy.gallery.image.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class SelectOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SELECT_OPTION_ID")
     private int selectOptionId;
 
-    private int imageInfoId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IMAGE_INFO_ID", nullable = false)
+    private ImageInfo imageInfo;
 
+    @Column(name = "OPTION_ID", nullable = false)
     private int optionId;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "imageInfoId")
-//    private ImageInfo imageInfo;
+    @CreatedDate
+    private LocalDateTime createTime;
 
-    // Getters and setters omitted for brevity
+    // 모든 필드를 초기화하는 생성자
+    public SelectOption(ImageInfo imageInfo, int optionId) {
+        this.imageInfo = imageInfo;
+        this.optionId = optionId;
+    }
 }

@@ -1,5 +1,6 @@
 package com.ssafy.gallery.image.controller;
 
+import com.ssafy.gallery.image.model.ImageInfo;
 import com.ssafy.gallery.image.model.ImageOption;
 import com.ssafy.gallery.image.service.ImageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,13 +58,13 @@ public class ImageController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("getImage")
-    public ResponseEntity getImage(){
+    @PostMapping("getThumbnails")
+    public ResponseEntity<List<ImageInfo>> getThumbnails(){
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("getImages")
-    public ResponseEntity<List> getImages(){
+    @PostMapping("getImage")
+    public ResponseEntity getImage(){
         return ResponseEntity.ok().build();
     }
 
