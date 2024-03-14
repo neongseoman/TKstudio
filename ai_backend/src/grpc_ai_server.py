@@ -59,8 +59,11 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
     def uploadToS3(self, image_path, type_of_image):
         # image_path: local image path
         # type_of_image: 'original' / 'processed' / 'thumbnail'
+        print("00000000000000000")
         my_uuid = uuid.uuid1()
+        print("111111111111111111")
         name = f"{type_of_image}Images/{my_uuid}.png"
+        print("222222222222222222")
         data = open(image_path, "rb")
 
         s3.Bucket(BUCKET_NAME).put_object(
@@ -69,10 +72,12 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             ContentType="image/png",
         )
 
+        print("444444444444444444")
         return_url = (
             f"https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/{name}"
         )
 
+        print("5555555555555555")
         return return_url
 
     def makeReturnValue(
