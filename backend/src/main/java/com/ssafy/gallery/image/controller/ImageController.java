@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.List;
 
 @Tag(name = "이미지", description = "Image API")
 @Log4j2
@@ -50,4 +51,20 @@ public class ImageController {
                     .body(null);
         }
     }
+
+    @PostMapping("delete")
+    public ResponseEntity deleteImage(String Image){
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("getImage")
+    public ResponseEntity getImage(){
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("getImages")
+    public ResponseEntity<List> getImages(){
+        return ResponseEntity.ok().build();
+    }
+
 }
