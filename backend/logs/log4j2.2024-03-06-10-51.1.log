@@ -1,3 +1,0 @@
-[2024-03-06 10:51:03.383]  INFO 10852 --- [nio-8080-exec-3] c.s.g.i.c.ImageController                : image/jpeg
-[2024-03-06 10:51:03.387]  INFO 10852 --- [nio-8080-exec-3] c.s.g.i.c.ImageController                : people-3237648_1920.jpg
-[2024-03-06 10:51:03.388]  INFO 10852 --- [nio-8080-exec-3] c.s.g.i.c.ImageController                : 572371
