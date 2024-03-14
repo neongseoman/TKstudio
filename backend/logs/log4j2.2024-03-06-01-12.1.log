@@ -1,4 +1,0 @@
-[2024-03-06 13:12:06.383]  INFO 24912 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
-[2024-03-06 13:12:06.395]  INFO 24912 --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
-[2024-03-06 13:12:06.396]  INFO 24912 --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 1 ms
-[2024-03-06 13:12:06.409]  WARN 24912 --- [nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'multipart/form-data;boundary=--------------------------655906142931247714573229;charset=UTF-8' is not supported]
