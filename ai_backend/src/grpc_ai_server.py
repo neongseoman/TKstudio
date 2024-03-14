@@ -60,13 +60,13 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         # image_path: local image path
         # type_of_image: 'original' / 'processed' / 'thumbnail'
         my_uuid = uuid.uuid1()
-        name = f"{type_of_image}Images/{my_uuid}.jpg"
+        name = f"{type_of_image}Images/{my_uuid}.png"
         data = open(image_path, "rb")
 
         s3.Bucket(BUCKET_NAME).put_object(
             Key=name,
             Body=data,
-            ContentType="image/jpg",
+            ContentType="image/png",
         )
 
         return_url = (
@@ -104,7 +104,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
         # Input image save
-        save_path = "../image/input_image.jpg"
+        save_path = "../image/input_image.png"
         cv2.imwrite(save_path, original_image)
 
         # Codes to save ORIGINAL image in S3 server
@@ -134,6 +134,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             f"../image/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
         )
         bg_0_img = plt.imread(bg_0_img_path)
+        print("BACKGROUND IMAGE SIZE", bg_0_img.shape)
         bg_faces = faceswap_app.get(bg_0_img)
         bg_face = bg_faces[0]
 
@@ -165,7 +166,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         )  # BGR -> RGB 채널 변경
 
         # Output image save
-        save_path = "../image/output_image.jpg"
+        save_path = "../image/output_image.png"
         cv2.imwrite(save_path, processed_image)
 
         # Ndarray to bytes
@@ -174,15 +175,13 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         # Codes to save image in S3 server
         try:
             processed_image_url = self.uploadToS3(save_path, "processed")
+            thumbnail_image_url = self.uploadToS3(save_path, "thumbnail")
 
         except:
             print("Error uploading Processed Image to AWS S3 server")
             return_value = self.makeReturnValue(status="NO_FACE")
 
             return pb2.ProcessedImageInfo(**return_value)
-
-        # Test Code
-        thumbnail_image_url = "sample_thumbnail_url"
 
         response_url = {
             "originalImageUrl": original_image_url,
