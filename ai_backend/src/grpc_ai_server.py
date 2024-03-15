@@ -122,9 +122,9 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
         options = request.options  # 이후 옵션에 따라 템플릿사진 선택
         if options.sex == 0:
-            sex = "MALE"
+            sex = "male"
         else:
-            sex = "FEMALE"
+            sex = "female"
 
         # bg = options.background
         # suit = options.suit
