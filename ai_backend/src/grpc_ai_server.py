@@ -20,6 +20,8 @@ import numpy as np
 import cv2
 import uuid
 
+import logging
+
 # AWS S3 init setting
 load_dotenv()
 PORT_NUM = os.environ.get("PORT_NUM")
@@ -59,13 +61,13 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
     def uploadToS3(self, image_path, type_of_image):
         # image_path: local image path
         # type_of_image: 'original' / 'processed' / 'thumbnail'
-        print("00000000000000000")
+        print("000000000000000000")
         my_uuid = uuid.uuid1()
         print("111111111111111111")
         name = f"{type_of_image}Images/{my_uuid}.png"
         print("222222222222222222")
         data = open(image_path, "rb")
-
+        print("333333333333333333")
         s3.Bucket(BUCKET_NAME).put_object(
             Key=name,
             Body=data,
@@ -77,7 +79,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             f"https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/{name}"
         )
 
-        print("5555555555555555")
+        print("555555555555555555")
         return return_url
 
     def makeReturnValue(
@@ -113,14 +115,16 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         cv2.imwrite(save_path, original_image)
 
         # Codes to save ORIGINAL image in S3 server
-        try:
-            original_image_url = self.uploadToS3(save_path, "original")
+        original_image_url = self.uploadToS3(save_path, "original")
 
-        except:
-            print("Error uploading Original Image to AWS S3 server")
-            return_value = self.makeReturnValue(status="NO_FACE")
+        # try:
+        #     original_image_url = self.uploadToS3(save_path, "original")
 
-            return pb2.ProcessedImageInfo(**return_value)
+        # except:
+        #     print("Error uploading Original Image to AWS S3 server")
+        #     return_value = self.makeReturnValue(status="NO_FACE")
+
+        #     return pb2.ProcessedImageInfo(**return_value)
 
         options = request.options  # 이후 옵션에 따라 템플릿사진 선택
         if options.sex == 0:
