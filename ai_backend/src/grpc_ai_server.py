@@ -61,25 +61,19 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
     def uploadToS3(self, image_path, type_of_image):
         # image_path: local image path
         # type_of_image: 'original' / 'processed' / 'thumbnail'
-        print("000000000000000000")
         my_uuid = uuid.uuid1()
-        print("111111111111111111")
         name = f"{type_of_image}Images/{my_uuid}.png"
-        print("222222222222222222")
         data = open(image_path, "rb")
-        print("333333333333333333")
         s3.Bucket(BUCKET_NAME).put_object(
             Key=name,
             Body=data,
             ContentType="image/png",
         )
 
-        print("444444444444444444")
         return_url = (
             f"https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/{name}"
         )
 
-        print("555555555555555555")
         return return_url
 
     def makeReturnValue(
@@ -111,7 +105,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
         # Input image save
-        save_path = "../image/input_image.png"
+        save_path = "image/input_image.png"
         cv2.imwrite(save_path, original_image)
 
         # Codes to save ORIGINAL image in S3 server
@@ -140,7 +134,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
         # Img dir
         bg_0_img_path = (
-            f"../image/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
+            f"image/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
         )
         bg_0_img = plt.imread(bg_0_img_path)
         print("BACKGROUND IMAGE SIZE", bg_0_img.shape)
@@ -175,7 +169,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         )  # BGR -> RGB 채널 변경
 
         # Output image save
-        save_path = "../image/output_image.png"
+        save_path = "image/output_image.png"
         cv2.imwrite(save_path, processed_image)
 
         # Ndarray to bytes
