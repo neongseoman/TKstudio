@@ -105,7 +105,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
         # Input image save
-        save_path = "image/input_image.png"
+        save_path = "./image/input_image.png"
         cv2.imwrite(save_path, original_image)
 
         # Codes to save ORIGINAL image in S3 server
@@ -134,7 +134,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
         # Img dir
         bg_0_img_path = (
-            f"image/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
+            f"./image/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
         )
         bg_0_img = plt.imread(bg_0_img_path)
         print("BACKGROUND IMAGE SIZE", bg_0_img.shape)
@@ -169,7 +169,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         )  # BGR -> RGB 채널 변경
 
         # Output image save
-        save_path = "image/output_image.png"
+        save_path = "./image/output_image.png"
         cv2.imwrite(save_path, processed_image)
 
         # Ndarray to bytes
