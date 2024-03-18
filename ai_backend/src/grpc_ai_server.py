@@ -172,9 +172,6 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         save_path = "./image/output_image.png"
         cv2.imwrite(save_path, processed_image)
 
-        # Ndarray to bytes
-        processed_image = processed_image.tobytes()
-
         # Codes to save image in S3 server
         try:
             processed_image_url = self.uploadToS3(save_path, "processed")
@@ -198,7 +195,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             print("response_url\n", response_url)
 
             return_value = self.makeReturnValue(
-                processed_image=processed_image, response_url=response_url
+                processed_image=b"", response_url=response_url
             )
             print("Success to return")
 
