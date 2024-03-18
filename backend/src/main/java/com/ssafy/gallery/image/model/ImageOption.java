@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
+import com.ssafy.pjt.grpc.Image;
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,6 +13,7 @@ public class ImageOption {
     String background;
     String suit;
     String hair;
+    Image.SEX sex;
 
     @Override
     public String toString() {
