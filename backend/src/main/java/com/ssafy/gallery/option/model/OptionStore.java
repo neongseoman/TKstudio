@@ -25,9 +25,9 @@ public class OptionStore {
     private String optionName;
     private int cost;
     private String optionS3Url;
-    @Column(name = "discription", nullable = false, columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
+    @Column(nullable = false, columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
     private String discription;
-    private String categoryId;
+    private int categoryId;
     private LocalDateTime createdTime;
 
     @PrePersist
