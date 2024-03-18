@@ -31,7 +31,7 @@ public class ImageController {
 
     // Login한 사용자의 UserId값이 있어야 JPA로 DB에 데이터 넘길 수 있음.
     @PostMapping("/create")
-    public ResponseEntity<Resource> createImage(
+    public ResponseEntity<ByteArrayResource> createImage(
             @RequestParam(value = "originalImage") MultipartFile originalImage,
             @RequestParam(value = "background") String background,
             @RequestParam(value = "suit") String suit,
@@ -44,6 +44,7 @@ public class ImageController {
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
                     .body(response);
+
         } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.badRequest()
