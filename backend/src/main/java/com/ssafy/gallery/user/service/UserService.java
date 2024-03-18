@@ -22,6 +22,7 @@ public class UserService {
     private final LoginTokenRepository loginTokenRepository;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    public int userId;
 
     public boolean login(HttpServletResponse response, OauthServerType oauthServerType, String authCode) {
         User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
