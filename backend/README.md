@@ -105,3 +105,77 @@ docker run -i -t -p 8081:8081 --env-file .env -d --name gallery -e TZ=Asia/Seoul
 docker rm $(docker ps -a -q --filter "ancestor=이미지이름")
 
 ```
+
+- Nginx 설정 파일
+```shell
+sudo vim /etc/nginx/sites-available/service.conf
+
+# 아래 내용 작성
+server {
+  listen 80;
+  server_name j10a101;
+
+  location /api/v1 {
+    proxy_pass http://j10a101.p.ssafy.io:8081;
+  }
+
+  location / {
+    proxy_pass http://j10a101.p.ssafy.io:3000;
+  }
+}
+
+# service.conf를 적용하기 위해선 default를 먼저 지워야함
+sudo ln -s /etc/nginx/sites-available/service.conf /etc/nginx/sites-enabled/service.conf
+
+sudo service nginx reload
+```
+
+- Nginx로 https 적용하기 (webroot 방식)
+```shell
+sudo vim /etc/nginx/sites-available/service.conf
+
+# 아래 내용 추가
+location ^~ /.well-known/acme-challenge/ {
+  default_type "text/plain";
+  root /var/www/letsencrypt;
+}
+
+# 폴더 생성
+sudo mkdir -p /var/www/letsencrypt
+cd /var/www/letsencrypt
+sudo mkdir -p .well-known/acme-challenge
+
+# 인증서 발급
+sudo certbot certonly --webroot
+# 도메인과 root(/var/www/letsencrypt)를 입력해준다
+
+# conf 파일을 다시 수정해준다
+sudo vim /etc/nginx/sites-available/service.conf
+
+server {
+  listen 80;
+  return 301 https://$host$request_uri;
+}
+
+server{
+  listen 443;
+  server_name j10a101;
+
+  ssl on;
+  ssl_certificate /etc/letsencrypt/live/j10a101.p.ssafy.io/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/j10a101.p.ssafy.io/privkey.pem;
+
+  location /api/v1 {
+    proxy_pass http://j10a101.p.ssafy.io:8081;
+  }
+
+  location / {
+    proxy_pass http://j10a101.p.ssafy.io:3000;
+  }
+
+  location ^~ /.well-known/acme-challenge/ {
+    default_type "text/plain";
+    root /var/www/letsencrypt;
+  }
+}
+```
