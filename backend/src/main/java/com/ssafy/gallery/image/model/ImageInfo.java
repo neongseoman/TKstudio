@@ -2,6 +2,7 @@ package com.ssafy.gallery.image.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -10,13 +11,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor
-public class ImageInfo extends CreateImage {
-
-    public ImageInfo(int userId, String thumbnailImageUrl, String originalImageUrl, String processedImageUrl) {
-        super(thumbnailImageUrl,originalImageUrl,processedImageUrl);
-        this.userId = userId;
-    }
+@Setter
+@NoArgsConstructor
+public class ImageInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,22 +23,36 @@ public class ImageInfo extends CreateImage {
     private int userId;
 
     @Column(nullable = false)
+    private String originalImageUrl;
+
+    @Column(nullable = false)
+    private String thumbnailImageUrl;
+
+    @Column(nullable = false)
+    private String processedImageUrl;
+
+    @Column(nullable = false)
     private boolean isDeleted = false;
 
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdTime;
 
-    public ImageInfo() {
+    @OneToMany(mappedBy = "imageInfo", fetch = FetchType.LAZY)
+    private List<SelectOption> selectOptions = new ArrayList<>();
 
+    public ImageInfo(int i, String thumbnailImageUrl, String originalImageUrl, String processedImageUrl) {
     }
 
-//    @OneToMany(mappedBy = "selectOptionId")
-//    private List<SelectOption> selectOptions = new ArrayList<>();
-//
-//    public void addSelectOption(SelectOption selectOption){
-//        this.selectOptions.add(selectOption);
-//    }
+    public void addSelectOption(SelectOption selectOption) {
+        selectOptions.add(selectOption);
+    }
 
-    // Getters and setters omitted for brevity
+    public void removeSelectOption(SelectOption selectOption) {
+        selectOptions.remove(selectOption);
+    }
+
+    public void markAsDeleted() {
+        this.isDeleted = true;
+    }
 }
