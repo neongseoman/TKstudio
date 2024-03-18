@@ -25,7 +25,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class JwtUtil {
     private final LoginTokenRepository loginTokenRepository;
-    private final UserService userService;
 
     @Value("${jwt.access.expiration}")
     private long accessExpiration;
@@ -93,7 +92,7 @@ public class JwtUtil {
                 }
             }
 
-            userService.userId = loginTokenDto.getUserId();
+            request.setAttribute("userId", loginTokenDto.getUserId());
             return new UsernamePasswordAuthenticationToken(loginTokenDto.getUserId(), "", List.of(new SimpleGrantedAuthority("USER")));
         }
 
