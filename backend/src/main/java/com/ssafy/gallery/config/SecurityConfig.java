@@ -60,7 +60,7 @@ public class SecurityConfig {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowedHeaders(Collections.singletonList("*"));
             config.setAllowedMethods(Collections.singletonList("*"));
-            config.setAllowedOriginPatterns(Collections.singletonList("http://j10a101.p.ssafy.io:3000")); // ⭐️ 허용할 origin
+            config.setAllowedOriginPatterns(Collections.singletonList("https://j10a101.p.ssafy.io")); // ⭐️ 허용할 origin
             config.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000"));
             config.setAllowCredentials(true);
             config.addExposedHeader("accessToken");
