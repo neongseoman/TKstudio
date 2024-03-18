@@ -1,5 +1,6 @@
 package com.ssafy.gallery.image.model;
 
+import com.ssafy.gallery.option.model.OptionStore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -11,13 +12,13 @@ public class SelectOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int selectOptionId;
 
-    private int imageInfoId;
+    @ManyToOne
+    @JoinColumn(name = "image_info_id")
+    private ImageInfo imageInfo;
 
-    private int optionId;
+    @ManyToOne
+    @JoinColumn(name = "option_id")
+    private OptionStore optionId;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "imageInfoId")
-//    private ImageInfo imageInfo;
-
-    // Getters and setters omitted for brevity
+    // 생성자, 필요한 메서드 등 추가
 }
