@@ -10,13 +10,12 @@ import java.util.List;
 
 @Entity
 @Getter
-public class ImageInfo {
+@AllArgsConstructor
+public class ImageInfo extends CreateImage {
 
     public ImageInfo(int userId, String thumbnailImageUrl, String originalImageUrl, String processedImageUrl) {
+        super(thumbnailImageUrl,originalImageUrl,processedImageUrl);
         this.userId = userId;
-        this.thumbnailImageUrl = thumbnailImageUrl;
-        this.originalImageUrl = originalImageUrl;
-        this.processedImageUrl = processedImageUrl;
     }
 
     @Id
@@ -25,15 +24,6 @@ public class ImageInfo {
 
     @Column(nullable = false)
     private int userId;
-
-    @Column(nullable = false, length = 200)
-    private String thumbnailImageUrl;
-
-    @Column(nullable = false, length = 200)
-    private String originalImageUrl;
-
-    @Column(nullable = false, length = 200)
-    private String processedImageUrl;
 
     @Column(nullable = false)
     private boolean isDeleted = false;
