@@ -3,33 +3,29 @@ package com.ssafy.gallery.image.service;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
-import com.ssafy.gallery.image.model.CreateImage;
+import com.ssafy.gallery.image.model.CreateImageDto;
 import com.ssafy.gallery.image.model.ImageInfo;
 import com.ssafy.gallery.image.model.ImageOption;
+import com.ssafy.gallery.image.repository.ImageRepository;
 import com.ssafy.pjt.grpc.CreateImageGrpc;
 import com.ssafy.pjt.grpc.Image;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.util.List;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class ImageService {
-
-    @Autowired
     private ResourceLoader resourceLoader;
     private final String aiUrl = System.getenv("AI_URL");
+    private ImageRepository imageRepository;
 
     private final ManagedChannel channel
             = ManagedChannelBuilder.forTarget(aiUrl).usePlaintext().build();
@@ -37,9 +33,8 @@ public class ImageService {
     private final CreateImageGrpc.CreateImageBlockingStub imageStub
             = CreateImageGrpc.newBlockingStub(channel);
 
-    public CreateImage sendImage(MultipartFile image, ImageOption imageOption) throws Exception {
+    public CreateImageDto sendImage(MultipartFile image, ImageOption imageOption) throws Exception {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
-
 
         Image.ProcessedImageInfo receiveData = null;
         Image.Options options = Image.Options.newBuilder()
@@ -62,11 +57,20 @@ public class ImageService {
 
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
-            CreateImage imageInfo = new CreateImage(responseUrl.getThumbnailImageUrl(),
+            ImageInfo imageInfo = imageRepository.insertImageUrls(new ImageInfo(
+                    1, // 나중에 UserId로 수정해야함.
+                    responseUrl.getThumbnailImageUrl(),
+                    responseUrl.getOriginalImageUrl(),
+                    responseUrl.getProcessedImageUrl()
+            ));
+
+            CreateImageDto imageInfoDto = new CreateImageDto(
+                    imageInfo.getImageInfoId(),
+                    responseUrl.getThumbnailImageUrl(),
                     responseUrl.getOriginalImageUrl(),
                     responseUrl.getProcessedImageUrl());
 
-            return imageInfo;
+            return imageInfoDto;
         } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
             throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
         } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
@@ -74,5 +78,17 @@ public class ImageService {
         } else {
             throw new Exception("UNKOWN ERROR");
         }
+    }
+
+    public ImageInfo getImage(int imageId){
+        return imageRepository.getImage(imageId);
+    }
+
+    public List<ImageInfo> getImages(int userId){
+        return imageRepository.getImageInfoListByUserId(userId);
+    }
+
+    public void deleteImage(int imageId){
+        imageRepository.deleteImageInfo(imageId);
     }
 }
