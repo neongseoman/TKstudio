@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateImage {
+public class CreateImageDto {
+    private int imageInfoId;
 
     private String thumbnailImageUrl;
 

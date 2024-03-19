@@ -62,10 +62,3 @@ springdoc:
   model-and-view-allowed: true
   paths-to-match:
     - /api/v1/**
-
-#grpc:
-#  client:
-#    fastapi:
-#      address: 127.0.0.1:8000
-#  server:
-#    address: 127.0.0.1:8000
