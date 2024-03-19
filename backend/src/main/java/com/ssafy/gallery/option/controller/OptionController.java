@@ -8,11 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,5 +27,18 @@ public class OptionController {
         log.info("옵션리스트: {}", optionList);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionList));
+    }
+
+    @PostMapping("/buy")
+    ResponseEntity<ApiResponse<?>> optionBuy(
+            HttpServletRequest request,
+            @RequestBody Map<String, Object> params
+    ) {
+        int userId = (int) request.getAttribute("userId");
+        int optionId = (int) params.get("optionId");
+        log.info("{} 회원이 {} 옵션 구매", userId, optionId);
+        optionService.buyOption(userId, optionId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null));
     }
 }
