@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ImageInfo {
 
     @Id
@@ -22,26 +24,29 @@ public class ImageInfo {
     @Column(nullable = false)
     private int userId;
 
-    @Column(nullable = false)
+    @Column()
     private String originalImageUrl;
 
-    @Column(nullable = false)
+    @Column()
     private String thumbnailImageUrl;
 
-    @Column(nullable = false)
+    @Column()
     private String processedImageUrl;
 
-    @Column(nullable = false)
+    @Column()
     private boolean isDeleted = false;
 
     @CreatedDate
-    @Column(nullable = false)
     private LocalDateTime createdTime;
 
     @OneToMany(mappedBy = "imageInfo", fetch = FetchType.LAZY)
     private List<SelectOption> selectOptions = new ArrayList<>();
 
-    public ImageInfo(int i, String thumbnailImageUrl, String originalImageUrl, String processedImageUrl) {
+    public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl) {
+        this.userId = userId;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+        this.originalImageUrl = originalImageUrl;
+        this.processedImageUrl = processedImageUrl;
     }
 
     public void addSelectOption(SelectOption selectOption) {
