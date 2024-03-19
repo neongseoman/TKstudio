@@ -1,8 +1,7 @@
 package com.ssafy.gallery.auth.jwt.util;
 
-import com.ssafy.gallery.auth.redis.dto.LoginTokenDto;
-import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
-import com.ssafy.gallery.user.service.UserService;
+import com.ssafy.gallery.redis.dto.LoginTokenDto;
+import com.ssafy.gallery.redis.repository.LoginTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

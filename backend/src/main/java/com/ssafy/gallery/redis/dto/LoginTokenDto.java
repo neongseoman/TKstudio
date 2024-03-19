@@ -1,4 +1,4 @@
-package com.ssafy.gallery.auth.redis.dto;
+package com.ssafy.gallery.redis.dto;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;

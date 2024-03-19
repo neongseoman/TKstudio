@@ -1,4 +1,4 @@
-package com.ssafy.gallery.auth.oauth.type;
+package com.ssafy.gallery.oauth.type;
 
 public enum OauthServerType {
     kakao,
