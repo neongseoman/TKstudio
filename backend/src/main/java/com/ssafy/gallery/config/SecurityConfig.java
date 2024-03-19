@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -60,9 +61,8 @@ public class SecurityConfig {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowedHeaders(Collections.singletonList("*"));
             config.setAllowedMethods(Collections.singletonList("*"));
-            config.setAllowedOriginPatterns(Collections.singletonList("https://j10a101.p.ssafy.io")); // ⭐️ 허용할 origin
-            config.setAllowedOriginPatterns(Collections.singletonList("http://j10a101.p.ssafy.io:3000"));
-            config.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000"));
+//            config.setAllowedOriginPatterns(Collections.singletonList("https://j10a101.p.ssafy.io")); // ⭐️ 허용할 origin
+            config.setAllowedOriginPatterns(Arrays.asList("https://j10a101.p.ssafy.io", "http://localhost:3000"));
             config.setAllowCredentials(true);
             config.addExposedHeader("accessToken");
             config.addExposedHeader("refreshToken");
