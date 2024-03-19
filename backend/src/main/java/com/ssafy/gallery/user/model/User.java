@@ -1,6 +1,6 @@
 package com.ssafy.gallery.user.model;
 
-import com.ssafy.gallery.auth.oauth.dto.Domain;
+import com.ssafy.gallery.oauth.dto.Domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -4,3 +4,8 @@ oauth:
     redirect_uri: ${KAKAO_REDIRECT_URI}
     client_secret: ${KAKAO_CLINET_SECRET} # Client Secret 키
     scope: profile_nickname, account_email, gender
+
+pay:
+  kakao:
+    cid: TC0ONETIME
+    secret_key: SECRET_KEY ${KAKAO_SECRET_KEY}

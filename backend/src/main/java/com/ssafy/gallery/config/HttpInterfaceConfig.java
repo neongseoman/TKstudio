@@ -1,6 +1,6 @@
 package com.ssafy.gallery.config;
 
-import com.ssafy.gallery.auth.oauth.client.KakaoApiClient;
+import com.ssafy.gallery.oauth.client.KakaoApiClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
