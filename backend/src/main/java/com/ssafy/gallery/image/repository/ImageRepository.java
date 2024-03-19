@@ -2,39 +2,30 @@ package com.ssafy.gallery.image.repository;
 
 import com.ssafy.gallery.image.model.ImageInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
+@Repository
 @RequiredArgsConstructor
 public class ImageRepository {
-    private ImageInfoRepository imageInfoRepository;
+    private final ImageJpaRepository imageJpaRepository;
 
     public ImageInfo insertImageUrls(ImageInfo imageInfo) {
-        return imageInfoRepository.save(imageInfo);
+        return imageJpaRepository.save(imageInfo);
     }
 
-    @Transactional(readOnly = true)
     public List<ImageInfo> getImageInfoListByUserId(int userId) {
-        return imageInfoRepository.findByUserId(userId);
+        return imageJpaRepository.findImageInfoByUserId(userId);
     }
 
-    @Transactional
     public void deleteImageInfo(int imageInfoId) {
-        ImageInfo imageInfo = imageInfoRepository.findById(imageInfoId)
+        imageJpaRepository.findById(imageInfoId)
+                .map(imageInfo -> {
+                    imageInfo.markAsDeleted();
+                    return imageInfo;
+                })
                 .orElseThrow(() -> new IllegalArgumentException("해당 이미지 정보가 존재하지 않습니다. imageInfoId=" + imageInfoId));
-
-        imageInfo.markAsDeleted();
-        imageInfoRepository.save(imageInfo);
     }
 
-    @Transactional
-    public ImageInfo getImage(int imageId) {
-        return imageInfoRepository.findById(imageId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 이미지 정보가 존재하지 않습니다. imageInfoId="+imageId));
-
-    }
 }
