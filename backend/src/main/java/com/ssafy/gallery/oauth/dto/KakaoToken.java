@@ -1,4 +1,4 @@
-package com.ssafy.gallery.auth.oauth.dto;
+package com.ssafy.gallery.oauth.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

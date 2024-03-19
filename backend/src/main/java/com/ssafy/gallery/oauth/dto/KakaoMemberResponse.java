@@ -1,4 +1,4 @@
-package com.ssafy.gallery.auth.oauth.dto;
+package com.ssafy.gallery.oauth.dto;
 
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
@@ -7,7 +7,7 @@ import com.ssafy.gallery.user.model.User;
 
 import java.time.LocalDateTime;
 
-import static com.ssafy.gallery.auth.oauth.type.OauthServerType.kakao;
+import static com.ssafy.gallery.oauth.type.OauthServerType.kakao;
 
 
 @JsonNaming(SnakeCaseStrategy.class)

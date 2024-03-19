@@ -1,6 +1,6 @@
-package com.ssafy.gallery.auth.oauth.dto;
+package com.ssafy.gallery.oauth.dto;
 
-import com.ssafy.gallery.auth.oauth.type.OauthServerType;
+import com.ssafy.gallery.oauth.type.OauthServerType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Enumerated;

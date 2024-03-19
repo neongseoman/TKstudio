@@ -1,10 +1,10 @@
 package com.ssafy.gallery.user.service;
 
 import com.ssafy.gallery.auth.jwt.util.JwtUtil;
-import com.ssafy.gallery.auth.oauth.client.OauthMemberClientComposite;
-import com.ssafy.gallery.auth.oauth.type.OauthServerType;
-import com.ssafy.gallery.auth.redis.dto.LoginTokenDto;
-import com.ssafy.gallery.auth.redis.repository.LoginTokenRepository;
+import com.ssafy.gallery.oauth.client.OauthMemberClientComposite;
+import com.ssafy.gallery.oauth.type.OauthServerType;
+import com.ssafy.gallery.redis.dto.LoginTokenDto;
+import com.ssafy.gallery.redis.repository.LoginTokenRepository;
 import com.ssafy.gallery.user.model.User;
 import com.ssafy.gallery.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;

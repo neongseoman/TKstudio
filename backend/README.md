@@ -179,3 +179,13 @@ server{
   }
 }
 ```
+
+- 카카오 결제 흐름
+```text
+1. Front에서 Back으로 결제요청(POST)
+2. Back에서 Kakao로 결제준비(POST) 요청 -> Response에 url 있음
+3. 2에서 받은 url을 Front로 return -> Front는 페이지 redirect
+4. redirect된 페이지에서 결제를 완료하면 Back으로 정보가 return 된다.
+5. Back에서 Kakao로 결제승인(POST) 요청 -> 성공, 실패 Response
+6. 성공 시 DB에 기록하고 Front로 return
+```
