@@ -1,6 +1,9 @@
 package com.ssafy.gallery.option.controller;
 
+import com.ssafy.gallery.auth.exception.AuthExceptionEnum;
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.response.ApiResponse;
+import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
 import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
@@ -29,7 +32,7 @@ public class OptionController {
         log.info("{}유저 옵션리스트 요청", userId);
         List<OptionStore> optionList = optionService.getList();
         HashMap<Integer, OptionStore> result = new HashMap<>();
-        for(OptionStore o : optionList) {
+        for (OptionStore o : optionList) {
             result.put(o.getOptionId(), o);
         }
 
@@ -58,9 +61,18 @@ public class OptionController {
         int optionId = (int) params.get("optionId");
         log.info("{}회원이 {}옵션 구매 요청", userId, optionId);
 
+        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
+        for (OptionBuyLog o : buyOptionList) {
+            // 이미 구매한 옵션 예외처리
+            if (o.getOptionId() == optionId) {
+                log.info("이미 구매한 옵션입니다: {}", o);
+                throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.ALREADY_PURCHASED);
+            }
+        }
 
+        // 구매하기
         optionService.buyOption(userId, optionId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionId));
     }
 }
