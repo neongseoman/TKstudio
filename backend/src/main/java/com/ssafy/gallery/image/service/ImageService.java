@@ -15,6 +15,7 @@ import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,6 +106,10 @@ public class ImageService {
 
     public List<ImageInfo> getImages(int userId) {
         return imageRepository.getImageInfoListByUserId(userId);
+    }
+
+    public Resource getImage(int imageInfoId){
+        return imageRepository.getImageByImageInfoId(imageInfoId);
     }
 
     public void deleteImage(int imageId) {
