@@ -41,7 +41,7 @@ docker network create redis-net
 
 docker pull redis
 
-docker run --name redis-server -p 6379:6379 --network redis-net -d redis redis-server --appendonly yes
+docker run --name redis-server -p 6379:6379 --network redis-net -d redis redis-server --appendonly yes --requirepass a101rds
 
 docker run -it --network redis-net --rm redis redis-cli -h redis-server
 ```
@@ -51,7 +51,7 @@ docker run -it --network redis-net --rm redis redis-cli -h redis-server
 ```shell
 sudo docker pull mariadb:latest
 
-docker run -d --restart always -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 -v /var/lib/mysql:/var/lib/mysql --name mariadb mariadb
+docker run -d --restart always -p 3306:3306 -e MYSQL_ROOT_PASSWORD=a101mdb -e TZ=Asia/Seoul -v /var/lib/mysql:/var/lib/mysql --name mariadb mariadb
 ```
 
 - 자바 환경변수 설정
