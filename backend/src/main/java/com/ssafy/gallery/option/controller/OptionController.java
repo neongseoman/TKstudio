@@ -1,6 +1,7 @@
 package com.ssafy.gallery.option.controller;
 
 import com.ssafy.gallery.common.response.ApiResponse;
+import com.ssafy.gallery.option.model.OptionBuyLog;
 import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
 import com.ssafy.gallery.option.service.OptionService;
@@ -23,10 +24,13 @@ public class OptionController {
 
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
-//        int userId = (int) request.getAttribute("userId");
-//        log.info("{}유저 옵션리스트 요청", userId);
+        int userId = (int) request.getAttribute("userId");
+        log.info("{}유저 옵션리스트 요청", userId);
+        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
         List<OptionStore> optionList = optionService.getList();
-        log.info("옵션리스트: {}", optionList);
+        for (OptionBuyLog o : buyOptionList) {
+            optionList.get(o.getOptionId() - 1).setPurchased(true);
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionList));
     }
@@ -46,7 +50,7 @@ public class OptionController {
     ) {
         int userId = (int) request.getAttribute("userId");
         int optionId = (int) params.get("optionId");
-        log.info("{} 회원이 {} 옵션 구매", userId, optionId);
+        log.info("{}회원이 {}옵션 구매", userId, optionId);
         optionService.buyOption(userId, optionId);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null));
