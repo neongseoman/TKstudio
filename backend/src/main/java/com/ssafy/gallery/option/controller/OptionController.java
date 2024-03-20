@@ -1,6 +1,9 @@
 package com.ssafy.gallery.option.controller;
 
+import com.ssafy.gallery.auth.exception.AuthExceptionEnum;
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.response.ApiResponse;
+import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
 import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
@@ -12,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,13 +30,18 @@ public class OptionController {
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
         int userId = (int) request.getAttribute("userId");
         log.info("{}유저 옵션리스트 요청", userId);
-        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
         List<OptionStore> optionList = optionService.getList();
-        for (OptionBuyLog o : buyOptionList) {
-            optionList.get(o.getOptionId() - 1).setPurchased(true);
+        HashMap<Integer, OptionStore> result = new HashMap<>();
+        for (OptionStore o : optionList) {
+            result.put(o.getOptionId(), o);
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionList));
+        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
+        for (OptionBuyLog o : buyOptionList) {
+            result.get(o.getOptionId()).setPurchased(true);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(result.values()));
     }
 
     @GetMapping("/category")
@@ -50,9 +59,20 @@ public class OptionController {
     ) {
         int userId = (int) request.getAttribute("userId");
         int optionId = (int) params.get("optionId");
-        log.info("{}회원이 {}옵션 구매", userId, optionId);
+        log.info("{}회원이 {}옵션 구매 요청", userId, optionId);
+
+        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
+        for (OptionBuyLog o : buyOptionList) {
+            // 이미 구매한 옵션 예외처리
+            if (o.getOptionId() == optionId) {
+                log.info("이미 구매한 옵션입니다: {}", o);
+                throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.ALREADY_PURCHASED);
+            }
+        }
+
+        // 구매하기
         optionService.buyOption(userId, optionId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionId));
     }
 }
