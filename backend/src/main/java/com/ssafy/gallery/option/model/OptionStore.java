@@ -1,10 +1,8 @@
 package com.ssafy.gallery.option.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +26,9 @@ public class OptionStore {
     @Column(nullable = false, columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
     private String discription;
     private int categoryId;
+    @Setter
+    @ColumnDefault("false")
+    private boolean purchased;
     private LocalDateTime createdTime;
 
     @PrePersist

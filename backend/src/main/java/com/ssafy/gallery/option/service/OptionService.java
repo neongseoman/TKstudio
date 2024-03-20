@@ -8,12 +8,16 @@ import com.ssafy.gallery.option.repository.OptionCategoryRepository;
 import com.ssafy.gallery.option.repository.OptionStoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OptionService {
     private final OptionStoreRepository optionStoreRepository;
@@ -28,6 +32,12 @@ public class OptionService {
         return optionCategoryRepository.findAll();
     }
 
+    @Cacheable(cacheNames = "buyOption", key = "#userId", condition = "#userId != null", cacheManager = "cacheManager")
+    public List<OptionBuyLog> getBuyOptionList(int userId) {
+        return optionBuyLogRepository.findAllByUserId(userId);
+    }
+
+    @CacheEvict(cacheNames = "buyOption", key = "#userId", cacheManager = "cacheManager")
     public void buyOption(int userId, int optionId) {
         OptionBuyLog optionBuyLog = OptionBuyLog.builder().userId(userId).optionId(optionId).build();
         optionBuyLogRepository.save(optionBuyLog);

@@ -69,26 +69,17 @@ public class JwtUtil {
 
             String accessToken = loginTokenDto.getAccessToken();
             if (accessToken != null) {
-                if (loginTokenRepository.findById(accessToken).isPresent()) {
-                    // accessToken이 아직 유효하면 비정상적인 접근 -> 다시 로그인 시키기
-                    log.info("로그아웃: 엑세스 토큰, 리프레시 토큰 삭제");
+                // refreshToken으로 로그인하면 둘 다 재발급
+                log.info("리프레시 토큰 로그인: 토큰 재발급");
+                loginTokenRepository.deleteById(token);
 
-                    loginTokenRepository.deleteById(accessToken);
-                    loginTokenRepository.deleteById(token);
-                    return null;
-                } else {
-                    // accessToken이 만료되었으면 둘 다 재발급
-                    log.info("리프레시 토큰 로그인: 토큰 재발급");
-                    loginTokenRepository.deleteById(token);
+                accessToken = createToken("access");
+                String refreshToken = createToken("refresh");
+                saveTokens(accessToken, refreshToken, loginTokenDto.getUserId());
 
-                    accessToken = createToken("access");
-                    String refreshToken = createToken("refresh");
-                    saveTokens(accessToken, refreshToken, loginTokenDto.getUserId());
-
-                    response.setHeader("accessToken", accessToken);
-                    response.setHeader("refreshToken", refreshToken);
-                    request.setAttribute("refreshToken", refreshToken);
-                }
+                response.setHeader("accessToken", accessToken);
+                response.setHeader("refreshToken", refreshToken);
+                request.setAttribute("refreshToken", refreshToken);
             }
 
             request.setAttribute("userId", loginTokenDto.getUserId());

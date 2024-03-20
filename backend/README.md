@@ -44,6 +44,9 @@ docker pull redis
 docker run --name redis-server -p 6379:6379 --network redis-net -d redis redis-server --appendonly yes --requirepass a101rds
 
 docker run -it --network redis-net --rm redis redis-cli -h redis-server
+
+# 레디스 접속
+docker exec -it redis-server redis-cli -a "a101rds"
 ```
 
 - MariaDB 설치
@@ -52,6 +55,9 @@ docker run -it --network redis-net --rm redis redis-cli -h redis-server
 sudo docker pull mariadb:latest
 
 docker run -d --restart always -p 3306:3306 -e MYSQL_ROOT_PASSWORD=a101mdb -e TZ=Asia/Seoul -v /var/lib/mysql:/var/lib/mysql --name mariadb mariadb
+
+# MariaDB 접속
+docker exec -it mariadb bin/bash
 ```
 
 - 자바 환경변수 설정
