@@ -7,6 +7,7 @@ import com.ssafy.gallery.image.service.ImageService;
 import com.ssafy.gallery.user.service.UserService;
 import com.ssafy.pjt.grpc.Image;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.netty.http.server.HttpServerRequest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Tag(name = "이미지", description = "Image API")
 @Log4j2
@@ -48,17 +51,17 @@ public class ImageController {
 
     ) throws Exception {
 
-        try{
+        try {
 //            String id = (String) request.getAttribute("UserId");
 //            log.info("UserId : " + id);
-            CreateImageDto response = imageService.sendImage(originalImage,new ImageOption(background,suit,hair,sex));
+            CreateImageDto response = imageService.sendImage(originalImage, new ImageOption(background, suit, hair, sex));
 
             return ResponseEntity.ok()
                     .header("imageInfoId", String.valueOf(response.getImageInfoId()))
-                    .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
                     .body(response.getResource());
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest()
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
@@ -66,23 +69,46 @@ public class ImageController {
         }
     }
 
-    @PostMapping("delete")
-    public ResponseEntity deleteImage(int mageInfoId){
-
+    @GetMapping("delete/{imageInfoId}")
+    public ResponseEntity deleteImage(HttpServletRequest request, @PathVariable int imageInfoId) {
+        String id = (String) request.getAttribute("UserId");
+        log.info("UserId : " + id);
+        imageService.deleteImage(imageInfoId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("getImage")
-    public ResponseEntity<ImageInfo> getImage(int imageId){
-        return ResponseEntity.ok().build();
+//    @PostMapping("getImage")
+//    public ResponseEntity<ImageInfo> getImage( HttpServletRequest request){
+//        String id = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + id);
+//        imageService.deleteImage(1);
+//        return ResponseEntity.ok().build();
+//    }
+
+    @GetMapping("getImageInfoIds")
+    public ResponseEntity<Map<String, List<Integer>>> getImages(HttpServletRequest request) {
+        String id = (String) request.getAttribute("UserId");
+        log.info("UserId : " + id);
+        List<ImageInfo> imageInfoList = imageService.getImages(1);
+        Map<String, List<Integer>> response = new HashMap<>();
+        List<Integer> imageInfoIdList = imageInfoList.stream()
+                .map(ImageInfo::getImageInfoId)
+                .collect(Collectors.toList());
+
+        response.put("imageInfoId", imageInfoIdList);
+        return ResponseEntity.ok()
+                .body(response);
     }
 
-    @PostMapping("getImages")
-    public ResponseEntity<List<ImageInfo>> getImages(int userId){
-        return ResponseEntity.ok().build();
+    @GetMapping("getImage/{imageInfoId}")
+    public ResponseEntity<Resource> getImage(HttpServletRequest request, @PathVariable int imageInfoId) {
+        String id = (String) request.getAttribute("UserId");
+        log.info("UserId : " + id);
+        Resource image = null;
+//                imageService.getImage( int imageInfoId);
+        return ResponseEntity.ok().body(image);
+
     }
 
 
 }
-
-

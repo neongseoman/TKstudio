@@ -2,6 +2,7 @@ package com.ssafy.gallery.image.repository;
 
 import com.ssafy.gallery.image.model.ImageInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,6 +27,12 @@ public class ImageRepository {
                     return imageInfo;
                 })
                 .orElseThrow(() -> new IllegalArgumentException("해당 이미지 정보가 존재하지 않습니다. imageInfoId=" + imageInfoId));
+
+        imageJpaRepository.flush();
     }
 
+    public Resource getImageByImageInfoId(int imageInfoId) {
+
+        return null;
+    }
 }
