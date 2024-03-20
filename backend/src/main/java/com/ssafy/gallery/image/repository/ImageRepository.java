@@ -1,6 +1,11 @@
 package com.ssafy.gallery.image.repository;
 
 import com.ssafy.gallery.image.model.ImageInfo;
+import com.ssafy.gallery.image.model.ImageInfoDTO;
+import com.ssafy.pjt.grpc.Image;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
@@ -10,14 +15,18 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ImageRepository {
+    @PersistenceContext
+    private EntityManager em;
+
     private final ImageJpaRepository imageJpaRepository;
 
     public ImageInfo insertImageUrls(ImageInfo imageInfo) {
         return imageJpaRepository.save(imageInfo);
     }
 
-    public List<ImageInfo> getImageInfoListByUserId(int userId) {
-        return imageJpaRepository.findImageInfoByUserId(userId);
+    public List<ImageInfoDTO> getImageInfoDTOListByUserId(int userId) {
+
+
     }
 
     public void deleteImageInfo(int imageInfoId) {

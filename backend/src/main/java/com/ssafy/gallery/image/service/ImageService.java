@@ -6,12 +6,11 @@ import com.ssafy.gallery.common.stub.GrpcStubPool;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
 import com.ssafy.gallery.image.model.CreateImageDto;
 import com.ssafy.gallery.image.model.ImageInfo;
+import com.ssafy.gallery.image.model.ImageInfoDTO;
 import com.ssafy.gallery.image.model.ImageOption;
 import com.ssafy.gallery.image.repository.ImageRepository;
 import com.ssafy.pjt.grpc.CreateImageGrpc;
 import com.ssafy.pjt.grpc.Image;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ByteArrayResource;
@@ -36,13 +35,7 @@ public class ImageService {
     private final ImageRepository imageRepository;
     private final GrpcStubPool grpcStubPool;
 
-//    private final ManagedChannel channel
-//            = ManagedChannelBuilder.forTarget(aiUrl).usePlaintext().build();
-//
-//    private final CreateImageGrpc.CreateImageBlockingStub imageStub
-//            = CreateImageGrpc.newBlockingStub(channel);
-
-    public CreateImageDto sendImage(MultipartFile image, ImageOption imageOption) throws Exception {
+    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption) throws Exception {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
 
@@ -75,12 +68,12 @@ public class ImageService {
             ByteArrayResource byteArrayResource = getBufferedImage(processedImageData);
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
-            ImageInfo imageInfo = this.imageRepository.insertImageUrls(new ImageInfo(
-                    1, // 나중에 UserId로 수정해야함.
-                    responseUrl.getThumbnailImageUrl(),
-                    responseUrl.getOriginalImageUrl(),
-                    responseUrl.getProcessedImageUrl()
-            ));
+            ImageInfo imageInfo = ImageInfo.builder()
+                    .userId(1) // 나중에 UserId로 수정해야함.
+                    .thumbnailImageUrl(responseUrl.getThumbnailImageUrl())
+                    .originalImageUrl(responseUrl.getOriginalImageUrl())
+                    .processedImageUrl(responseUrl.getProcessedImageUrl())
+                    .build();
 
 
             CreateImageDto imageInfoDto = new CreateImageDto(
@@ -103,9 +96,8 @@ public class ImageService {
         }
     }
 
-
-    public List<ImageInfo> getImages(int userId) {
-        return imageRepository.getImageInfoListByUserId(userId);
+    public List<ImageInfoDTO> getImageInfos(int userId) {
+        return imageRepository.getImageInfoDTOListByUserId(userId);
     }
 
     public Resource getImage(int imageInfoId){
