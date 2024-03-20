@@ -62,7 +62,7 @@ public class SecurityConfig {
             config.setAllowedHeaders(Collections.singletonList("*"));
             config.setAllowedMethods(Collections.singletonList("*"));
 //            config.setAllowedOriginPatterns(Collections.singletonList("https://j10a101.p.ssafy.io")); // ⭐️ 허용할 origin
-            config.setAllowedOriginPatterns(Arrays.asList("https://j10a101.p.ssafy.io", "http://localhost:3000"));
+            config.setAllowedOriginPatterns(Arrays.asList("https://j10a101.p.ssafy.io", "http://localhost:3000", "*"));
             config.setAllowCredentials(true);
             config.addExposedHeader("accessToken");
             config.addExposedHeader("refreshToken");
