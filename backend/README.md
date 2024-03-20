@@ -189,3 +189,31 @@ server{
 5. Back에서 Kakao로 결제승인(POST) 요청 -> 성공, 실패 Response
 6. 성공 시 DB에 기록하고 Front로 return
 ```
+
+- 옵션 스토어 SQL 쿼리
+```sql
+INSERT INTO option_store (category_id, cost, discription, option_name, options3url, created_time)
+VALUES
+    (1, 1000, '올린 머리', '남자 머리1', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/hair/1/0.png', now()),
+    (1, 1500, '올린 가르마 머리', '남자 머리2', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/hair/1/1.png', now()),
+    (1, 1500, '내린 파마 머리', '남자 머리3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/hair/1/2.png', now()),
+    (1, 1000, '내린 머리', '남자 머리4', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/hair/1/3.png', now()),
+    (1, 1000, '그냥 머리', '남자 머리5', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/hair/1/4.png', now()),
+    (2, 10000, '아리따운 여성분이네요!', '여자 정장1', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/0.jfif', now()),
+    (2, 10000, '묶은 머리', '여자 정장2', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/1.jfif', now()),
+    (2, 10000, '단정한 여성 정장', '여자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/2.jfif', now()),
+    (2, 5000, '남자 정장1', '남자 정장1', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/0.jfif', now()),
+    (2, 5000, '남자 정장2', '남자 정장2', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/1.jfif', now()),
+    (3, 5000, '남자 정장3', '남자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/2.jfif', now()),
+    (3, 1000, '흰색 배경', '흰색 배경', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/background/0.jpg', now()),
+    (3, 1500, '하늘색 배경', '하늘색 배경', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/background/1.jpg', now())
+```
+
+- 옵션 카테고리 SQL 쿼리
+```sql
+INSERT INTO option_category (category_id, category_name)
+VALUES
+	(1, '머리'),
+    (2, '정장'),
+    (3, '배경')
+```
