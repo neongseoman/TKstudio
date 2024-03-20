@@ -3,6 +3,7 @@ package com.ssafy.gallery.image.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 
 @Getter
 @AllArgsConstructor
@@ -15,4 +16,5 @@ public class CreateImageDto {
     private String originalImageUrl;
 
     private String processedImageUrl;
+    private ByteArrayResource resource = null;
 }
