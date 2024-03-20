@@ -1,6 +1,7 @@
 package com.ssafy.gallery.option.controller;
 
 import com.ssafy.gallery.common.response.ApiResponse;
+import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
 import com.ssafy.gallery.option.service.OptionService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,11 +23,20 @@ public class OptionController {
 
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
-        log.info("옵션리스트 요청");
+//        int userId = (int) request.getAttribute("userId");
+//        log.info("{}유저 옵션리스트 요청", userId);
         List<OptionStore> optionList = optionService.getList();
         log.info("옵션리스트: {}", optionList);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionList));
+    }
+
+    @GetMapping("/category")
+    ResponseEntity<ApiResponse<?>> optionCategory() {
+        List<OptionCategory> category = optionService.getCategory();
+        log.info("옵션 카테고리 요청: {}", category);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(category));
     }
 
     @PostMapping("/buy")
