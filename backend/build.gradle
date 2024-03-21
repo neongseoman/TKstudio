@@ -49,6 +49,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    // aws s3
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.6.RELEASE'
+
     // grpc
     implementation 'net.devh:grpc-client-spring-boot-starter:2.12.0.RELEASE'
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
