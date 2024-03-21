@@ -37,7 +37,7 @@ public class UserService {
         String refreshToken = jwtUtil.createToken("refresh");
         jwtUtil.saveTokens(accessToken, refreshToken, saved.getUserId());
 
-        LoginLog loginLog = LoginLog.builder().userId(user.getUserId()).loginIp(getClientIP(request)).build();
+        LoginLog loginLog = LoginLog.builder().userId(saved.getUserId()).loginIp(getClientIP(request)).build();
         loginLogRepository.save(loginLog);
 
         response.setHeader("accessToken", accessToken);
