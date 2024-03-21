@@ -63,3 +63,17 @@ springdoc:
   model-and-view-allowed: true
   paths-to-match:
     - /api/v1/**
+
+
+cloud:
+  aws:
+    credentials:
+      instance-profile : false
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    region:
+      static: ${AWS_REGION}
+    stack:
+      auto : false
+    s3:
+      bucket:${AWS_S3_BUCKET}
