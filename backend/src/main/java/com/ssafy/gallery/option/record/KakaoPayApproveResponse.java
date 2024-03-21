@@ -1,8 +1,7 @@
-package com.ssafy.gallery.oauth.dto;
+package com.ssafy.gallery.option.record;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.google.type.DateTime;
 
 @JsonNaming(SnakeCaseStrategy.class)
 public record KakaoPayApproveResponse(
@@ -18,8 +17,8 @@ public record KakaoPayApproveResponse(
         String itemName,
         String itemCode,
         Integer quantity,
-        DateTime createdAt,
-        DateTime approvedAt,
+        String createdAt,
+        String approvedAt,
         String payload
 ) {
     @JsonNaming(SnakeCaseStrategy.class)
