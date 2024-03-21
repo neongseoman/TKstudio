@@ -76,4 +76,4 @@ cloud:
     stack:
       auto : false
     s3:
-      bucket:${AWS_S3_BUCKET}
+      bucket: ${AWS_S3_BUCKET}
