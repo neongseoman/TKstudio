@@ -26,15 +26,12 @@ public class ImageRepository {
         return imageJpaRepository.save(imageInfo);
     }
 
-    public List<ImageInfoDTO> getImageInfoListByUserId(int userId) {
+    public List<ImageInfo> getImageInfoListByUserId(int userId) {
         String jpql = "SELECT i FROM ImageInfo i LEFT JOIN FETCH i.selectOptions WHERE i.userId = :userId AND i.isDeleted = false";
         TypedQuery<ImageInfo> query = em.createQuery(jpql,ImageInfo.class);
         query.setParameter("userId", userId);
         List<ImageInfo> list = query.getResultList();
-        List<ImageInfoDTO> listDto = list.stream()
-                .map(ImageInfoDTO::new)
-                .toList();
-        return listDto;
+        return list;
     }
 
     public void deleteImageInfo(int imageInfoId) {
