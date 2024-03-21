@@ -1,7 +1,7 @@
 package com.ssafy.gallery.user.controller;
 
-import com.ssafy.gallery.common.response.ApiResponse;
 import com.ssafy.gallery.oauth.type.OauthServerType;
+import com.ssafy.gallery.common.response.ApiResponse;
 import com.ssafy.gallery.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,13 +24,12 @@ public class UserController {
 
     @PostMapping("/login/{oauthServerType}")
     ResponseEntity<ApiResponse<?>> login(
-            HttpServletRequest request,
             HttpServletResponse response,
             @PathVariable OauthServerType oauthServerType,
             @RequestBody Map<String, Object> params
     ) {
         log.info("{} 로그인 시도, authCode: {}", oauthServerType, params.get("authCode"));
-        boolean login = userService.login(request, response, oauthServerType, (String) params.get("authCode"));
+        boolean login = userService.login(response, oauthServerType, (String) params.get("authCode"));
         log.info("{} 로그인 결과: {}", oauthServerType, login);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(login));
