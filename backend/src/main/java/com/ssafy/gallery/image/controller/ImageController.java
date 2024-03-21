@@ -90,7 +90,7 @@ public class ImageController {
 //        String id = (String) request.getAttribute("UserId");
 //        log.info("UserId : " + id);
         Resource image = null;
-                imageService.getImage(imageInfoId);
+//                imageService.getImage(imageInfoId);
         return ResponseEntity.ok().body(image);
 
     }
