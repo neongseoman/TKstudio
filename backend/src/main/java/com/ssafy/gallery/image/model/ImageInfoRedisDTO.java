@@ -8,9 +8,11 @@ import org.springframework.data.redis.core.TimeToLive;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @RedisHash("image")
 public class ImageInfoRedisDTO {
 
@@ -21,11 +23,18 @@ public class ImageInfoRedisDTO {
     private String thumbnailImageUrl;
     private String processedImageUrl;
 
+    @TimeToLive(unit = TimeUnit.MILLISECONDS)
+    private long expiration;
+
+    public ImageInfoRedisDTO(int imageInfoId) {
+        this.imageInfoId = imageInfoId;
+    }
 
     public ImageInfoRedisDTO(ImageInfo image) {
         imageInfoId = image.getImageInfoId();
         originalImageUrl = image.getOriginalImageUrl();
         thumbnailImageUrl = image.getThumbnailImageUrl();
         processedImageUrl = image.getProcessedImageUrl();
+        expiration = 60000000;
     }
 }
