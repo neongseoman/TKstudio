@@ -24,10 +24,12 @@ public class OptionService {
     private final OptionBuyLogRepository optionBuyLogRepository;
     private final OptionCategoryRepository optionCategoryRepository;
 
+    @Cacheable(cacheNames = "optionList",cacheManager = "cacheManager")
     public List<OptionStore> getList() {
         return optionStoreRepository.findAll();
     }
 
+    @Cacheable(cacheNames = "optionCategory", cacheManager = "cacheManager")
     public List<OptionCategory> getCategory() {
         return optionCategoryRepository.findAll();
     }
