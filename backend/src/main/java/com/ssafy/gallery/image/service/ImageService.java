@@ -97,7 +97,8 @@ public class ImageService {
     }
 
     public List<ImageInfoDTO> getImageInfos(int userId) {
-        return imageRepository.getImageInfoDTOListByUserId(userId);
+
+        return  imageRepository.getImageInfoListByUserId(userId);
     }
 
     public Resource getImage(int imageInfoId){

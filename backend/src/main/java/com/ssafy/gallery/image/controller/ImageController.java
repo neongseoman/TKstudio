@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Tag(name = "이미지", description = "Image API")
@@ -71,27 +72,17 @@ public class ImageController {
     }
 
     @GetMapping("getImageInfos")
-    public ResponseEntity<Map<Integer, List<SelectOptionDTO>>> getImageInfos(HttpServletRequest request) {
-//        String id = (String) request.getAttribute("UserId");
-//        log.info("UserId : " + id);
-//        List<ImageInfo> imageInfoList = imageService.getImageInfos(Integer.parseInt(id));
+    public ResponseEntity<Map<Integer,ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
+//        int userId = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + userId);
+//        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(userId);
         List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
+        Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
+                .collect(Collectors.toMap(
+                        ImageInfoDTO::getImageInfoId,
+                        Function.identity()));
 
-        Map<Integer, List<SelectOptionDTO>> response = new HashMap<>();
-        for (ImageInfoDTO i : imageInfoList){
-            response.put(i.getImageInfoId(),i.getSelectOptions());
-        }
-//        Map<Integer, List<SelectOption>> response = imageInfoList.stream()
-//                .collect(Collectors.toMap(
-//                        ImageInfo::getImageInfoId,
-//                        ImageInfo::getSelectOptions
-//                ));
-
-//        imageInfoList.stream()
-//                .map(imageinfo -> response.put(imageinfo.getImageInfoId(),imageinfo.getSelectOptions()));
-
-        return ResponseEntity.ok()
-                .body(response);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @GetMapping("getImage/{imageInfoId}")

@@ -15,7 +15,7 @@ public class SelectOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int selectOptionId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_info_id")
     private ImageInfo imageInfo;
 
