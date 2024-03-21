@@ -1,13 +1,16 @@
 package com.ssafy.gallery.option.controller;
 
-import com.ssafy.gallery.auth.exception.AuthExceptionEnum;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.response.ApiResponse;
 import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
 import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
+import com.ssafy.gallery.option.record.KakaoPayApproveResponse;
+import com.ssafy.gallery.option.record.KakaoPayReadyResponse;
 import com.ssafy.gallery.option.service.OptionService;
+import com.ssafy.gallery.redis.dto.KakaoPayReadyDto;
+import com.ssafy.gallery.redis.repository.KakaoPayReadyRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,6 +29,7 @@ import java.util.Map;
 @RestController
 public class OptionController {
     private final OptionService optionService;
+    private final KakaoPayReadyRepository kakaoPayReadyRepository;
 
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
@@ -74,5 +79,69 @@ public class OptionController {
         optionService.buyOption(userId, optionId);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionId));
+    }
+
+    @PostMapping("/payment/ready")
+    ResponseEntity<ApiResponse<?>> paymentReadyReq(
+            HttpServletRequest request,
+            @RequestBody Map<String, Object> params
+    ) throws Exception {
+        int userId = (int) request.getAttribute("userId");
+        int optionId = (int) params.get("optionId");
+        log.info("{}회원이 {}옵션 구매 요청", userId, optionId);
+
+        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
+        for (OptionBuyLog o : buyOptionList) {
+            // 이미 구매한 옵션 예외처리
+            if (o.getOptionId() == optionId) {
+                log.info("이미 구매한 옵션입니다: {}", o);
+                throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.ALREADY_PURCHASED);
+            }
+        }
+
+        Optional<OptionStore> option = optionService.getOption(optionId);
+        if (option.isEmpty()) {
+            log.info("존재하지 않는 옵션 구매 요청입니다");
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.NO_OPTION);
+        }
+
+        String optionName = option.get().getOptionName();
+        int cost = option.get().getCost();
+        log.info("옵션이름:{}, 가격:{}", optionName, cost);
+
+        KakaoPayReadyResponse kakaoPayReadyResponse = optionService.paymentReady(userId, optionName, cost);
+        KakaoPayReadyDto kakaoPayReadyDto = KakaoPayReadyDto.builder().id(userId).tid(kakaoPayReadyResponse.tid()).build();
+        kakaoPayReadyRepository.save(kakaoPayReadyDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(kakaoPayReadyResponse.nextRedirectMobileUrl()));
+    }
+
+    @PostMapping("/payment/success")
+    ResponseEntity<ApiResponse<?>> paymentApproveReq(
+            @RequestParam("user_id") String userId,
+            @RequestParam("pg_token") String pgToken
+    ) throws Exception {
+        Optional<KakaoPayReadyDto> kakaoPayReadyDto = kakaoPayReadyRepository.findById(userId);
+        if (kakaoPayReadyDto.isEmpty()) {
+            log.info("결제 정보가 없습니다.");
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.NO_TID);
+        }
+
+        String tid = kakaoPayReadyDto.get().getTid();
+        KakaoPayApproveResponse kakaoPayApproveResponse = optionService.paymentApprove(tid, pgToken);
+        log.info("결제 결과: {}", kakaoPayApproveResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(kakaoPayApproveResponse));
+    }
+
+    @GetMapping("/payment/cancel")
+    public void cancel() {
+        log.info("결제가 취소되었습니다.");
+        throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_CANCEL);
+    }
+
+    @GetMapping("/payment/fail")
+    public void fail() {
+        log.info("결제가 실패했습니다.");
+        throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_FAIL);
     }
 }
