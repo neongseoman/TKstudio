@@ -1,8 +1,5 @@
 package com.ssafy.gallery.image.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.S3ObjectResource;
-import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
@@ -38,7 +35,6 @@ public class ImageService {
     private final ImageRedisRepository imageRedisRepository;
     private final GrpcStubPool grpcStubPool;
 
-    private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -121,8 +117,8 @@ public class ImageService {
 //        String originalImageUrl = imageRedisRepository.findById(image)
 
 //        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
-
-
+//
+//
 //        getImageByImageInfoId(imageInfoId);
         return null;
     }

@@ -85,14 +85,23 @@ public class ImageController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
-    @GetMapping("getImage/{imageInfoId}")
-    public ResponseEntity<Resource> getImage(HttpServletRequest request, @PathVariable int imageInfoId) {
+    @GetMapping("getImage/orignalImage/{imageInfoId}")
+    public ResponseEntity<Resource> getOriginalImage(HttpServletRequest request, @PathVariable int imageInfoId) {
 //        String id = (String) request.getAttribute("UserId");
 //        log.info("UserId : " + id);
         Resource image = null;
-//                imageService.getImage(imageInfoId);
+//                imageService.getOriginalImage(imageInfoId);
         return ResponseEntity.ok().body(image);
-
     }
+
+    @GetMapping("getImage/processedImage/{imageInfoId}")
+    public ResponseEntity<Resource> getProcessedImage(HttpServletRequest request, @PathVariable int imageInfoId) {
+//        String id = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + id);
+        Resource image = null;
+//                imageService.getOriginalImage(imageInfoId);
+        return ResponseEntity.ok().body(image);
+    }
+
 
 }
