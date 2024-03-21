@@ -3,6 +3,9 @@ package com.ssafy.gallery.image.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.S3ObjectResource;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
@@ -27,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -117,14 +121,34 @@ public class ImageService {
         return listDto;
     }
 
-    public Resource getOrigianlImage(int imageInfoId) {
-//        String originalImageUrl = imageRedisRepository.findById(image)
+    public Resource getOrigianlImage(String imageInfoId) throws Exception {
+        System.out.println(imageInfoId);
 
+        ImageInfoRedisDTO imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
+                .orElseThrow(() -> new Exception("Redis error"))).get();
+        String originalImageURL = imageInfo.getOriginalImageUrl();
 //        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
-
-
+//        log.info(amazonS3.getS3AccountOwner());
+        System.out.println(originalImageURL);
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,"thumbnailImages/7d2c765a-e5c8-11ee-8b06-0242ac110004.png"));
+        S3ObjectInputStream objectInputStream = object.getObjectContent();
+        byte[] data = IOUtils.toByteArray(objectInputStream);
+        ByteArrayResource resource = new ByteArrayResource(data);
 //        getImageByImageInfoId(imageInfoId);
-        return null;
+        return resource;
+    }
+
+    public Resource getProcessedImage(String imageInfoId) throws Exception {
+        Optional<ImageInfoRedisDTO> imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
+                .orElseThrow( () -> new Exception("redis infomation error")));
+//        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
+        String originalImageURL = imageInfo.get().getProcessedImageUrl();
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,originalImageURL));
+        S3ObjectInputStream objectInputStream = object.getObjectContent();
+        byte[] data = IOUtils.toByteArray(objectInputStream);
+        ByteArrayResource resource = new ByteArrayResource(data);
+//        getImageByImageInfoId(imageInfoId);
+        return resource;
     }
 
     public void deleteImage(int imageId) {

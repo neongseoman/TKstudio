@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,10 +74,7 @@ public class ImageController {
 
     @GetMapping("getImageInfos")
     public ResponseEntity<Map<Integer,ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
-//        int userId = (String) request.getAttribute("UserId");
-//        log.info("UserId : " + userId);
-//        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(userId);
-        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
+       List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
                 .collect(Collectors.toMap(
                         ImageInfoDTO::getImageInfoId,
@@ -85,14 +83,24 @@ public class ImageController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
-    @GetMapping("getImage/{imageInfoId}")
-    public ResponseEntity<Resource> getImage(HttpServletRequest request, @PathVariable int imageInfoId) {
+    @GetMapping("getImage/originalImage/{imageInfoId}")
+    public ResponseEntity<Resource> getOriginalImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
 //        String id = (String) request.getAttribute("UserId");
 //        log.info("UserId : " + id);
-        Resource image = null;
-//                imageService.getImage(imageInfoId);
-        return ResponseEntity.ok().body(image);
+        Resource image = imageService.getOrigianlImage(imageInfoId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
+                .body(image);
 
     }
+    @GetMapping("getImage/processedImage/{imageInfoId}")
+    public ResponseEntity<Resource> getProcessedImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
+//        String id = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + id);
+        Resource image = imageService.getProcessedImage(imageInfoId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
+                .body(image);
 
+    }
 }
