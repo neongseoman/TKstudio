@@ -1,19 +1,23 @@
 package com.ssafy.gallery.image.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.S3ObjectResource;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
-import com.ssafy.gallery.image.model.CreateImageDto;
-import com.ssafy.gallery.image.model.ImageInfo;
-import com.ssafy.gallery.image.model.ImageOption;
+import com.ssafy.gallery.image.model.*;
+import com.ssafy.gallery.image.repository.ImageRedisRepository;
 import com.ssafy.gallery.image.repository.ImageRepository;
 import com.ssafy.pjt.grpc.CreateImageGrpc;
 import com.ssafy.pjt.grpc.Image;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -26,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -34,15 +39,14 @@ public class ImageService {
     private ResourceLoader resourceLoader;
     private final String aiUrl = System.getenv("AI_URL");
     private final ImageRepository imageRepository;
+    private final ImageRedisRepository imageRedisRepository;
     private final GrpcStubPool grpcStubPool;
+    private final AmazonS3 amazonS3;
 
-//    private final ManagedChannel channel
-//            = ManagedChannelBuilder.forTarget(aiUrl).usePlaintext().build();
-//
-//    private final CreateImageGrpc.CreateImageBlockingStub imageStub
-//            = CreateImageGrpc.newBlockingStub(channel);
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
-    public CreateImageDto sendImage(MultipartFile image, ImageOption imageOption) throws Exception {
+    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption) throws Exception {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
 
@@ -75,12 +79,12 @@ public class ImageService {
             ByteArrayResource byteArrayResource = getBufferedImage(processedImageData);
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
-            ImageInfo imageInfo = this.imageRepository.insertImageUrls(new ImageInfo(
-                    1, // 나중에 UserId로 수정해야함.
-                    responseUrl.getThumbnailImageUrl(),
-                    responseUrl.getOriginalImageUrl(),
-                    responseUrl.getProcessedImageUrl()
-            ));
+            ImageInfo imageInfo = ImageInfo.builder()
+                    .userId(1) // 나중에 UserId로 수정해야함.
+                    .thumbnailImageUrl(responseUrl.getThumbnailImageUrl())
+                    .originalImageUrl(responseUrl.getOriginalImageUrl())
+                    .processedImageUrl(responseUrl.getProcessedImageUrl())
+                    .build();
 
 
             CreateImageDto imageInfoDto = new CreateImageDto(
@@ -103,13 +107,47 @@ public class ImageService {
         }
     }
 
+    public List<ImageInfoDTO> getImageInfos(int userId) {
+        List<ImageInfo> imageInfoList = imageRepository.getImageInfoListByUserId(userId);
+        List<ImageInfoRedisDTO> redisImageInfoList = imageInfoList.stream()
+                .map(ImageInfoRedisDTO::new)
+                .toList();
 
-    public List<ImageInfo> getImages(int userId) {
-        return imageRepository.getImageInfoListByUserId(userId);
+        imageRedisRepository.saveAll(redisImageInfoList);
+        List<ImageInfoDTO> listDto = imageInfoList.stream()
+                .map(ImageInfoDTO::new)
+                .toList();
+        return listDto;
     }
 
-    public Resource getImage(int imageInfoId){
-        return imageRepository.getImageByImageInfoId(imageInfoId);
+    public Resource getOrigianlImage(String imageInfoId) throws Exception {
+        System.out.println(imageInfoId);
+
+        ImageInfoRedisDTO imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
+                .orElseThrow(() -> new Exception("Redis error"))).get();
+        String originalImageURL = imageInfo.getOriginalImageUrl();
+//        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
+//        log.info(amazonS3.getS3AccountOwner());
+        System.out.println(originalImageURL);
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,"thumbnailImages/7d2c765a-e5c8-11ee-8b06-0242ac110004.png"));
+        S3ObjectInputStream objectInputStream = object.getObjectContent();
+        byte[] data = IOUtils.toByteArray(objectInputStream);
+        ByteArrayResource resource = new ByteArrayResource(data);
+//        getImageByImageInfoId(imageInfoId);
+        return resource;
+    }
+
+    public Resource getProcessedImage(String imageInfoId) throws Exception {
+        Optional<ImageInfoRedisDTO> imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
+                .orElseThrow( () -> new Exception("redis infomation error")));
+//        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
+        String originalImageURL = imageInfo.get().getProcessedImageUrl();
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,originalImageURL));
+        S3ObjectInputStream objectInputStream = object.getObjectContent();
+        byte[] data = IOUtils.toByteArray(objectInputStream);
+        ByteArrayResource resource = new ByteArrayResource(data);
+//        getImageByImageInfoId(imageInfoId);
+        return resource;
     }
 
     public void deleteImage(int imageId) {
