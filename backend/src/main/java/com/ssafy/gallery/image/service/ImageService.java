@@ -41,7 +41,6 @@ public class ImageService {
     private final ImageRepository imageRepository;
     private final ImageRedisRepository imageRedisRepository;
     private final GrpcStubPool grpcStubPool;
-
     private final AmazonS3 amazonS3;
 
 //    @Value("${cloud.aws.s3.bucket}")
