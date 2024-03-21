@@ -2,6 +2,7 @@ package com.ssafy.gallery.image.repository;
 
 import com.ssafy.gallery.image.model.ImageInfo;
 import com.ssafy.gallery.image.model.ImageInfoDTO;
+import com.ssafy.gallery.image.model.SelectOptionDTO;
 import com.ssafy.pjt.grpc.Image;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,9 +26,15 @@ public class ImageRepository {
         return imageJpaRepository.save(imageInfo);
     }
 
-    public List<ImageInfoDTO> getImageInfoDTOListByUserId(int userId) {
-
-
+    public List<ImageInfoDTO> getImageInfoListByUserId(int userId) {
+        String jpql = "SELECT i FROM ImageInfo i LEFT JOIN FETCH i.selectOptions WHERE i.userId = :userId AND i.isDeleted = false";
+        TypedQuery<ImageInfo> query = em.createQuery(jpql,ImageInfo.class);
+        query.setParameter("userId", userId);
+        List<ImageInfo> list = query.getResultList();
+        List<ImageInfoDTO> listDto = list.stream()
+                .map(ImageInfoDTO::new)
+                .toList();
+        return listDto;
     }
 
     public void deleteImageInfo(int imageInfoId) {
