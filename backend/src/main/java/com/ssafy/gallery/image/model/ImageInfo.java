@@ -1,8 +1,8 @@
 package com.ssafy.gallery.image.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,6 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class ImageInfo {
 
@@ -24,40 +26,30 @@ public class ImageInfo {
     @Column(nullable = false)
     private int userId;
 
-    @Column()
+    @Column(nullable = false)
     private String originalImageUrl;
 
-    @Column()
+    @Column(nullable = false)
     private String thumbnailImageUrl;
 
-    @Column()
+    @Column(nullable = false)
     private String processedImageUrl;
 
-    @Column()
+    @Column(nullable = false)
     private boolean isDeleted = false;
 
     @CreatedDate
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdTime;
 
-    @OneToMany(mappedBy = "imageInfo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "imageInfo")
     private List<SelectOption> selectOptions = new ArrayList<>();
-
-    public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl) {
-        this.userId = userId;
-        this.thumbnailImageUrl = thumbnailImageUrl;
-        this.originalImageUrl = originalImageUrl;
-        this.processedImageUrl = processedImageUrl;
-    }
 
     public void addSelectOption(SelectOption selectOption) {
         selectOptions.add(selectOption);
     }
 
-    public void removeSelectOption(SelectOption selectOption) {
-        selectOptions.remove(selectOption);
-    }
-
     public void markAsDeleted() {
-        this.isDeleted = true;
+        isDeleted = true;
     }
 }

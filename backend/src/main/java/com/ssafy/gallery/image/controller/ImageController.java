@@ -1,17 +1,12 @@
 package com.ssafy.gallery.image.controller;
 
-import com.ssafy.gallery.image.model.CreateImageDto;
-import com.ssafy.gallery.image.model.ImageInfo;
-import com.ssafy.gallery.image.model.ImageOption;
+import com.ssafy.gallery.image.model.*;
 import com.ssafy.gallery.image.service.ImageService;
 import com.ssafy.gallery.user.service.UserService;
 import com.ssafy.pjt.grpc.Image;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,12 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import reactor.netty.http.server.HttpServerRequest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Tag(name = "이미지", description = "Image API")
@@ -54,7 +48,7 @@ public class ImageController {
         try {
 //            String id = (String) request.getAttribute("UserId");
 //            log.info("UserId : " + id);
-            CreateImageDto response = imageService.sendImage(originalImage, new ImageOption(background, suit, hair, sex));
+            CreateImageDto response = imageService.createImage(originalImage, new ImageOption(background, suit, hair, sex));
 
             return ResponseEntity.ok()
                     .header("imageInfoId", String.valueOf(response.getImageInfoId()))
@@ -71,44 +65,34 @@ public class ImageController {
 
     @GetMapping("delete/{imageInfoId}")
     public ResponseEntity deleteImage(HttpServletRequest request, @PathVariable int imageInfoId) {
-        String id = (String) request.getAttribute("UserId");
-        log.info("UserId : " + id);
+//        String id = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + id);
         imageService.deleteImage(imageInfoId);
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("getImage")
-//    public ResponseEntity<ImageInfo> getImage( HttpServletRequest request){
-//        String id = (String) request.getAttribute("UserId");
-//        log.info("UserId : " + id);
-//        imageService.deleteImage(1);
-//        return ResponseEntity.ok().build();
-//    }
+    @GetMapping("getImageInfos")
+    public ResponseEntity<Map<Integer,ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
+//        int userId = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + userId);
+//        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(userId);
+        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
+        Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
+                .collect(Collectors.toMap(
+                        ImageInfoDTO::getImageInfoId,
+                        Function.identity()));
 
-    @GetMapping("getImageInfoIds")
-    public ResponseEntity<Map<String, List<Integer>>> getImages(HttpServletRequest request) {
-        String id = (String) request.getAttribute("UserId");
-        log.info("UserId : " + id);
-        List<ImageInfo> imageInfoList = imageService.getImages(1);
-        Map<String, List<Integer>> response = new HashMap<>();
-        List<Integer> imageInfoIdList = imageInfoList.stream()
-                .map(ImageInfo::getImageInfoId)
-                .collect(Collectors.toList());
-
-        response.put("imageInfoId", imageInfoIdList);
-        return ResponseEntity.ok()
-                .body(response);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @GetMapping("getImage/{imageInfoId}")
     public ResponseEntity<Resource> getImage(HttpServletRequest request, @PathVariable int imageInfoId) {
-        String id = (String) request.getAttribute("UserId");
-        log.info("UserId : " + id);
+//        String id = (String) request.getAttribute("UserId");
+//        log.info("UserId : " + id);
         Resource image = null;
-//                imageService.getImage( int imageInfoId);
+                imageService.getImage(imageInfoId);
         return ResponseEntity.ok().body(image);
 
     }
-
 
 }
