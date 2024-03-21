@@ -7,5 +7,4 @@ oauth:
 
 pay:
   kakao:
-    cid: TC0ONETIME
-    secret_key: SECRET_KEY ${KAKAO_SECRET_KEY}
+    secret_key: ${KAKAOPAY_SECRET_KEY}
