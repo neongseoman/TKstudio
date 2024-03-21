@@ -44,8 +44,8 @@ public class ImageService {
 
     private final AmazonS3 amazonS3;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
+//    @Value("${cloud.aws.s3.bucket}")
+    private String bucket = System.getenv("AWS_S3_BUCKET");
 
     public CreateImageDto createImage(MultipartFile image, ImageOption imageOption) throws Exception {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
