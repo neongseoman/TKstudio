@@ -147,6 +147,18 @@ public class ImageService {
         return resource;
     }
 
+    public Resource getThumbnailImage(String imageInfoId) throws Exception {
+        Optional<ImageInfoRedisDTO> imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
+                .orElseThrow( () -> new Exception("redis infomation error")));
+
+        String thumbnailImageURL = imageInfo.get().getThumbnailImageUrl();
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, thumbnailImageURL));
+        S3ObjectInputStream objectInputStream = object.getObjectContent();
+        byte[] data = IOUtils.toByteArray(objectInputStream);
+        ByteArrayResource resource = new ByteArrayResource(data);
+
+        return resource;
+    }
     public void deleteImage(int imageId) {
         imageRepository.deleteImageInfo(imageId);
     }
