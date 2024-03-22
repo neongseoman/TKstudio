@@ -205,7 +205,7 @@ VALUES
     (1, 18000, '여자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/2.jfif', now()),
     (1, 15000, '남자 정장1', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/0.jfif', now()),
     (1, 14000, '남자 정장2', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/1.jfif', now()),
-    (2, 17000, '남자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/2.jfif', now()),
+    (1, 17000, '남자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/2.jfif', now()),
     (2, 1000, '흰색 배경', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/background/0.jpg', now()),
     (2, 1500, '하늘색 배경', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/background/1.jpg', now());
 ```
