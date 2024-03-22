@@ -29,9 +29,7 @@ public class LoginLog {
     private int userId;
     @Column(nullable = false, columnDefinition = "VARCHAR(20)")
     private String loginIp;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    
     private LocalDateTime loginTime;
 
     @PrePersist
