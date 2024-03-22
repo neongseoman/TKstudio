@@ -37,9 +37,4 @@ public class OptionStore {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @CreatedDate
     private LocalDateTime createdTime;
-
-    @PrePersist
-    protected void onCreate() {
-        createdTime = LocalDateTime.now();
-    }
 }
