@@ -1,4 +1,4 @@
-package com.ssafy.gallery.option.record;
+package com.ssafy.gallery.option.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
