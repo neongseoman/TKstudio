@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -29,11 +30,7 @@ public class LoginLog {
     private int userId;
     @Column(nullable = false, columnDefinition = "VARCHAR(20)")
     private String loginIp;
-    
-    private LocalDateTime loginTime;
 
-    @PrePersist
-    protected void onCreate() {
-        loginTime = LocalDateTime.now();
-    }
+    @CreatedDate
+    private LocalDateTime loginTime;
 }

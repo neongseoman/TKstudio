@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -31,10 +32,6 @@ public class OptionBuyLog {
     private int optionId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    @CreatedDate
     private LocalDateTime createdTime;
-
-    @PrePersist
-    protected void onCreate() {
-        createdTime = LocalDateTime.now();
-    }
 }

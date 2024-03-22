@@ -70,7 +70,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // 역직렬화 문제 해결 패키지
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
 tasks.named('test') {
