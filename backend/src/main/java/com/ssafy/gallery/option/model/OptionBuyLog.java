@@ -28,6 +28,7 @@ public class OptionBuyLog {
 
     private int userId;
     private int optionId;
+
     private LocalDateTime createdTime;
 
     @PrePersist
