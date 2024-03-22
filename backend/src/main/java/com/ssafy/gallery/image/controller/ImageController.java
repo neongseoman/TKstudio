@@ -104,4 +104,15 @@ public class ImageController {
                 .body(image);
 
     }
+
+    @GetMapping("getImage/thumbnailImage/{imageInfoId}")
+    public ResponseEntity<Resource> getThumbnailImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
+        int id = (int) request.getAttribute("userId");
+
+        log.info("getOriginalImage id : " + imageInfoId);
+        Resource image = imageService.getThumbnailImage(imageInfoId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
+                .body(image);
+    }
 }
