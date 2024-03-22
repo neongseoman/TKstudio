@@ -25,10 +25,9 @@ public class KakaoMemberClient implements OauthMemberClient {
 
     @Override
     public User fetch(String authCode) {
-        KakaoToken tokenInfo = kakaoApiClient.fetchToken(tokenRequestParams(authCode)); // (1)
-        KakaoMemberResponse kakaoMemberResponse =
-                kakaoApiClient.fetchMember("Bearer " + tokenInfo.accessToken());  // (2)
-        return kakaoMemberResponse.toDomain();  // (3)
+        KakaoToken tokenInfo = kakaoApiClient.fetchToken(tokenRequestParams(authCode));
+        KakaoMemberResponse kakaoMemberResponse = kakaoApiClient.fetchMember("Bearer " + tokenInfo.accessToken());
+        return kakaoMemberResponse.toDomain();
     }
 
     private MultiValueMap<String, String> tokenRequestParams(String authCode) {
