@@ -5,6 +5,12 @@ oauth:
     client_secret: ${KAKAO_CLINET_SECRET} # Client Secret 키
     scope: profile_nickname, account_email, gender
 
+  naver:
+    client_id: ${NAVER_CLIENT_ID}
+    redirect_uri: ${NAVER_REDIRECT_URI}
+    client_secret: ${NAVER_CLIENT_SECRET}
+    scope: name, email, gender
+
 pay:
   kakao:
     secret_key: ${KAKAOPAY_SECRET_KEY}
