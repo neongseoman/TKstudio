@@ -33,9 +33,4 @@ public class LoginLog {
 
     @CreatedDate
     private LocalDateTime loginTime;
-
-//    @PrePersist
-//    protected void onCreate() {
-//        loginTime = LocalDateTime.now();
-//    }
 }
