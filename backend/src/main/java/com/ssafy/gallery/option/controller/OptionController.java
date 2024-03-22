@@ -38,7 +38,6 @@ public class OptionController {
         List<OptionStore> optionList = optionService.getList();
         HashMap<Integer, OptionStore> result = new HashMap<>();
         for (OptionStore o : optionList) {
-            log.info("옵션: {}", o);
             result.put(o.getOptionId(), o);
         }
 
