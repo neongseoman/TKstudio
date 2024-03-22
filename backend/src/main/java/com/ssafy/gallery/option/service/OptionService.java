@@ -63,9 +63,9 @@ public class OptionService {
         optionBuyLogRepository.save(optionBuyLog);
     }
 
-    public KakaoPayReadyResponse paymentReady(int userId, String optionName, int cost) throws Exception {
+    public KakaoPayReadyResponse paymentReady(int userId, String optionName, int optionId, int cost) throws Exception {
         String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
-        HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getReadyParams(userId, optionName, cost)), getHeaders());
+        HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getReadyParams(userId, optionName, optionId, cost)), getHeaders());
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.postForObject(url, urlRequest, KakaoPayReadyResponse.class);
     }
@@ -84,12 +84,13 @@ public class OptionService {
         return headers;
     }
 
-    private Map<String, Object> getReadyParams(int userId, String optionName, int cost) {
+    private Map<String, Object> getReadyParams(int userId, String optionName, int optionId, int cost) {
         Map<String, Object> params = new HashMap<>();
         params.put("cid", "TC0ONETIME");
         params.put("partner_order_id", "partner_order_id");
         params.put("partner_user_id", "partner_user_id");
         params.put("item_name", optionName);
+        params.put("item_code", optionId);
         params.put("quantity", "1");
         params.put("total_amount", String.valueOf(cost));
         params.put("tax_free_amount", "0");
