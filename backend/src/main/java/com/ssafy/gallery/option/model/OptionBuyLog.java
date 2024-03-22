@@ -26,12 +26,8 @@ public class OptionBuyLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sequence;
 
-
     private int userId;
     private int optionId;
-
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdTime;
 
     @PrePersist
