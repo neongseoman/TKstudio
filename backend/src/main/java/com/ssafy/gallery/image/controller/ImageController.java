@@ -48,9 +48,9 @@ public class ImageController {
     ) throws Exception {
 
         try {
-//            String id = (String) request.getAttribute("UserId");
-//            log.info("UserId : " + id);
-            CreateImageDto response = imageService.createImage(originalImage, new ImageOption(background, suit, hair, sex));
+            int id = (int) request.getAttribute("userId");
+            log.info("UserId : " + id);
+            CreateImageDto response = imageService.createImage(originalImage, new ImageOption(background, suit, hair, sex),id);
 
             return ResponseEntity.ok()
                     .header("imageInfoId", String.valueOf(response.getImageInfoId()))
@@ -67,14 +67,16 @@ public class ImageController {
 
     @GetMapping("delete/{imageInfoId}")
     public ResponseEntity deleteImage(HttpServletRequest request, @PathVariable int imageInfoId) {
-//        String id = (String) request.getAttribute("UserId");
-//        log.info("UserId : " + id);
+        int id = (int) request.getAttribute("userId");
+        log.info("UserId : " + id);
         imageService.deleteImage(imageInfoId);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("getImageInfos")
     public ResponseEntity<Map<Integer,ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
+        int id = (int) request.getAttribute("userId");
+        log.info("UserId : " + id);
        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
                 .collect(Collectors.toMap(
@@ -86,8 +88,9 @@ public class ImageController {
 
     @GetMapping("getImage/originalImage/{imageInfoId}")
     public ResponseEntity<Resource> getOriginalImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
+        int id = (int) request.getAttribute("userId");
 //        String id = (String) request.getAttribute("UserId");
-//        log.info("UserId : " + id);
+        log.info("getOriginalImage id : " + imageInfoId);
         Resource image = imageService.getOrigianlImage(imageInfoId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
@@ -96,8 +99,8 @@ public class ImageController {
     }
     @GetMapping("getImage/processedImage/{imageInfoId}")
     public ResponseEntity<Resource> getProcessedImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
-//        String id = (String) request.getAttribute("UserId");
-//        log.info("UserId : " + id);
+        int id = (int) request.getAttribute("userId");
+        log.info("UserId : " + id);
         Resource image = imageService.getProcessedImage(imageInfoId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
