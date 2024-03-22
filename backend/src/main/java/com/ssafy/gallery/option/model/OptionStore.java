@@ -23,8 +23,6 @@ public class OptionStore {
     private String optionName;
     private int cost;
     private String optionS3Url;
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
-    private String description;
     private int categoryId;
     @Setter
     @ColumnDefault("false")
