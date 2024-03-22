@@ -31,8 +31,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/image")
 public class ImageController {
-    private static final Logger logger = LogManager.getLogger(ImageController.class);
-    private final UserService userService;
     private final ImageService imageService;
 
     // Login한 사용자의 UserId값이 있어야 JPA로 DB에 데이터 넘길 수 있음.
@@ -44,13 +42,12 @@ public class ImageController {
             @RequestParam(value = "suit") String suit,
             @RequestParam(value = "hair") String hair,
             @RequestParam(value = "sex") Image.SEX sex
-
     ) throws Exception {
 
         try {
             int id = (int) request.getAttribute("userId");
-            log.info("UserId : " + id);
-            CreateImageDto response = imageService.createImage(originalImage, new ImageOption(background, suit, hair, sex),id);
+
+            CreateImageDto response = imageService.createImage(originalImage, new ImageOption(background, suit, hair, sex), id);
 
             return ResponseEntity.ok()
                     .header("imageInfoId", String.valueOf(response.getImageInfoId()))
@@ -68,16 +65,16 @@ public class ImageController {
     @GetMapping("delete/{imageInfoId}")
     public ResponseEntity deleteImage(HttpServletRequest request, @PathVariable int imageInfoId) {
         int id = (int) request.getAttribute("userId");
-        log.info("UserId : " + id);
+
         imageService.deleteImage(imageInfoId);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("getImageInfos")
-    public ResponseEntity<Map<Integer,ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
+    public ResponseEntity<Map<Integer, ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
         int id = (int) request.getAttribute("userId");
-        log.info("UserId : " + id);
-       List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
+
+        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
                 .collect(Collectors.toMap(
                         ImageInfoDTO::getImageInfoId,
@@ -89,22 +86,33 @@ public class ImageController {
     @GetMapping("getImage/originalImage/{imageInfoId}")
     public ResponseEntity<Resource> getOriginalImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
         int id = (int) request.getAttribute("userId");
-//        String id = (String) request.getAttribute("UserId");
+
         log.info("getOriginalImage id : " + imageInfoId);
         Resource image = imageService.getOrigianlImage(imageInfoId);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
                 .body(image);
-
     }
+
     @GetMapping("getImage/processedImage/{imageInfoId}")
     public ResponseEntity<Resource> getProcessedImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
         int id = (int) request.getAttribute("userId");
-        log.info("UserId : " + id);
+
         Resource image = imageService.getProcessedImage(imageInfoId);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE,MediaType.IMAGE_PNG_VALUE)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
                 .body(image);
 
+    }
+
+    @GetMapping("getImage/thumbnailImage/{imageInfoId}")
+    public ResponseEntity<Resource> getThumbnailImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
+        int id = (int) request.getAttribute("userId");
+
+        log.info("getOriginalImage id : " + imageInfoId);
+        Resource image = imageService.getThumbnailImage(imageInfoId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
+                .body(image);
     }
 }
