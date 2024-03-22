@@ -1,7 +1,6 @@
 package com.ssafy.gallery.image.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.S3ObjectResource;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -46,7 +45,7 @@ public class ImageService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption) throws Exception {
+    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption, int userId) throws Exception {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
 
@@ -79,23 +78,22 @@ public class ImageService {
             ByteArrayResource byteArrayResource = getBufferedImage(processedImageData);
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
-            ImageInfo imageInfo = ImageInfo.builder()
-                    .userId(1) // 나중에 UserId로 수정해야함.
-                    .thumbnailImageUrl(responseUrl.getThumbnailImageUrl())
-                    .originalImageUrl(responseUrl.getOriginalImageUrl())
-                    .processedImageUrl(responseUrl.getProcessedImageUrl())
-                    .build();
+            ImageInfo imageInfo = new ImageInfo(
+                    userId,
+                    responseUrl.getOriginalImageUrl(),
+                    responseUrl.getThumbnailImageUrl(),
+                    responseUrl.getProcessedImageUrl());
 
+            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo);
+            log.info("DB insert Image info : " + insertResult.getImageInfoId());
 
             CreateImageDto imageInfoDto = new CreateImageDto(
-                    1,
-//                    imageInfo.getImageInfoId(),
-                    responseUrl.getThumbnailImageUrl(),
-                    responseUrl.getOriginalImageUrl(),
-                    responseUrl.getProcessedImageUrl(),
+                    imageInfo.getImageInfoId(),
+                    imageInfo.getThumbnailImageUrl(),
+                    imageInfo.getOriginalImageUrl(),
+                    imageInfo.getProcessedImageUrl(),
                     byteArrayResource
             );
-            log.info("DB insert Image info : " + imageInfo.getImageInfoId());
 
             return imageInfoDto;
         } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
@@ -126,27 +124,26 @@ public class ImageService {
         ImageInfoRedisDTO imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
                 .orElseThrow(() -> new Exception("Redis error"))).get();
         String originalImageURL = imageInfo.getOriginalImageUrl();
-//        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
-//        log.info(amazonS3.getS3AccountOwner());
-        System.out.println(originalImageURL);
-        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,"thumbnailImages/7d2c765a-e5c8-11ee-8b06-0242ac110004.png"));
+
+
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,originalImageURL));
         S3ObjectInputStream objectInputStream = object.getObjectContent();
         byte[] data = IOUtils.toByteArray(objectInputStream);
         ByteArrayResource resource = new ByteArrayResource(data);
-//        getImageByImageInfoId(imageInfoId);
+
         return resource;
     }
 
     public Resource getProcessedImage(String imageInfoId) throws Exception {
         Optional<ImageInfoRedisDTO> imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
                 .orElseThrow( () -> new Exception("redis infomation error")));
-//        S3ObjectResource o = amazonS3.getObject(new GetObjectRequest(bucket,))
-        String originalImageURL = imageInfo.get().getProcessedImageUrl();
-        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,originalImageURL));
+
+        String processedImageURL = imageInfo.get().getProcessedImageUrl();
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, processedImageURL));
         S3ObjectInputStream objectInputStream = object.getObjectContent();
         byte[] data = IOUtils.toByteArray(objectInputStream);
         ByteArrayResource resource = new ByteArrayResource(data);
-//        getImageByImageInfoId(imageInfoId);
+
         return resource;
     }
 

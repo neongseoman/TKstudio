@@ -38,6 +38,13 @@ public class ImageInfo {
     @Column(nullable = false)
     private boolean isDeleted = false;
 
+    public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl) {
+        this.userId = userId;
+        this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
+        this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
+        this.processedImageUrl = processedImageUrl.substring(processedImageUrl.indexOf("processedImages/"));
+    }
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdTime;
