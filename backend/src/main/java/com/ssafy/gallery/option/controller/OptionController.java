@@ -57,30 +57,6 @@ public class OptionController {
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(category));
     }
 
-    @PostMapping("/buy")
-    ResponseEntity<ApiResponse<?>> optionBuy(
-            HttpServletRequest request,
-            @RequestBody Map<String, Object> params
-    ) {
-        int userId = (int) request.getAttribute("userId");
-        int optionId = (int) params.get("optionId");
-        log.info("{}회원이 {}옵션 구매 요청", userId, optionId);
-
-        List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
-        for (OptionBuyLog o : buyOptionList) {
-            // 이미 구매한 옵션 예외처리
-            if (o.getOptionId() == optionId) {
-                log.info("이미 구매한 옵션입니다: {}", o);
-                throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.ALREADY_PURCHASED);
-            }
-        }
-
-        // 구매하기
-        optionService.buyOption(userId, optionId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(optionId));
-    }
-
     @PostMapping("/payment/ready")
     ResponseEntity<ApiResponse<?>> paymentReadyReq(
             HttpServletRequest request,
@@ -109,18 +85,20 @@ public class OptionController {
         int cost = option.get().getCost();
         log.info("옵션이름:{}, 가격:{}", optionName, cost);
 
-        KakaoPayReadyResponse kakaoPayReadyResponse = optionService.paymentReady(userId, optionName, cost);
+        KakaoPayReadyResponse kakaoPayReadyResponse = optionService.paymentReady(userId, optionName, optionId, cost);
         KakaoPayReadyDto kakaoPayReadyDto = KakaoPayReadyDto.builder().id(userId).tid(kakaoPayReadyResponse.tid()).build();
         kakaoPayReadyRepository.save(kakaoPayReadyDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(kakaoPayReadyResponse.nextRedirectMobileUrl()));
     }
 
-    @PostMapping("/payment/success")
+    @GetMapping("/payment/success")
     ResponseEntity<ApiResponse<?>> paymentApproveReq(
             @RequestParam("user_id") String userId,
             @RequestParam("pg_token") String pgToken
     ) throws Exception {
+        log.info("결제 성공: {}, {}",userId, pgToken);
+
         Optional<KakaoPayReadyDto> kakaoPayReadyDto = kakaoPayReadyRepository.findById(userId);
         if (kakaoPayReadyDto.isEmpty()) {
             log.info("결제 정보가 없습니다.");
@@ -130,7 +108,16 @@ public class OptionController {
         String tid = kakaoPayReadyDto.get().getTid();
         KakaoPayApproveResponse kakaoPayApproveResponse = optionService.paymentApprove(tid, pgToken);
         log.info("결제 결과: {}", kakaoPayApproveResponse);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(kakaoPayApproveResponse));
+
+        if(kakaoPayApproveResponse == null){
+            log.info("결제가 실패했습니다.");
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_FAIL);
+        }
+
+        log.info("옵션 구매 처리");
+        optionService.buyOption(Integer.parseInt(userId), Integer.parseInt(kakaoPayApproveResponse.itemCode()));
+
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(true));
     }
 
     @GetMapping("/payment/cancel")
