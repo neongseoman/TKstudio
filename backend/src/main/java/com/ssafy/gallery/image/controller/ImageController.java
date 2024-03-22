@@ -74,7 +74,7 @@ public class ImageController {
     public ResponseEntity<Map<Integer, ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
         int id = (int) request.getAttribute("userId");
 
-        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(1);
+        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(id);
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
                 .collect(Collectors.toMap(
                         ImageInfoDTO::getImageInfoId,
