@@ -217,3 +217,8 @@ VALUES
     (1, '정장'),
     (2, '배경')
 ```
+
+- Redis에 캐싱된 키 지우기
+```redis
+EVAL "return redis.call('del', unpack(redis.call('keys', ARGV[1])))" 0 option*
+```
