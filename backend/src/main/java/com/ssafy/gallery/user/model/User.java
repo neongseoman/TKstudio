@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -43,6 +42,10 @@ public class User {
     private String email;
     private String gender;
 
-    @CreatedDate
     private LocalDateTime registerTime;
+
+    @PrePersist
+    protected void onCreate() {
+        registerTime = LocalDateTime.now();
+    }
 }
