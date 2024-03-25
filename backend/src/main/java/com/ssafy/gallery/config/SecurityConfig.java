@@ -66,6 +66,7 @@ public class SecurityConfig {
             config.setAllowCredentials(true);
             config.addExposedHeader("accessToken");
             config.addExposedHeader("refreshToken");
+            config.addExposedHeader("imageInfoId");
             return config;
         };
     }
