@@ -1,5 +1,6 @@
 package com.ssafy.gallery.config;
 
+import com.ssafy.gallery.oauth.client.GoogleApiClient;
 import com.ssafy.gallery.oauth.client.KakaoApiClient;
 import com.ssafy.gallery.oauth.client.NaverApiClient;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,11 @@ public class HttpInterfaceConfig {
     @Bean
     public NaverApiClient naverApiClient() {
         return createHttpInterface(NaverApiClient.class);
+    }
+
+    @Bean
+    public GoogleApiClient googleApiClient() {
+        return createHttpInterface(GoogleApiClient.class);
     }
 
     private <T> T createHttpInterface(Class<T> clazz) {
