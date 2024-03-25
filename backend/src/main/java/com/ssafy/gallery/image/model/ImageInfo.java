@@ -39,6 +39,7 @@ public class ImageInfo {
     private boolean isDeleted = false;
 
     public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl) {
+        // 생성자 에러 핸들링 Throws 필요함.
         this.userId = userId;
         this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
         this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
@@ -59,4 +60,5 @@ public class ImageInfo {
     public void markAsDeleted() {
         isDeleted = true;
     }
+
 }

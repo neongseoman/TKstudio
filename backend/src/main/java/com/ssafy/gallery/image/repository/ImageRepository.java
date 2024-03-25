@@ -45,8 +45,4 @@ public class ImageRepository {
         imageJpaRepository.flush();
     }
 
-    public Resource getImageByImageInfoId(int imageInfoId) {
-
-        return null;
-    }
 }
