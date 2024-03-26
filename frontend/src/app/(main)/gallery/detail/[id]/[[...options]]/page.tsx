@@ -68,8 +68,6 @@ function GalleryDetailPage() {
 
   const handleDownload = (width: number, height: number) => {
     if (images[1] && canvas.current) {
-      // const canvas = document.getElementById('canvas') as HTMLCanvasElement
-      // const ctx = canvas.getContext('2d')
       const ctx = canvas.current.getContext('2d')
       const img = new Image()
 
@@ -203,7 +201,7 @@ function GalleryDetailPage() {
         </SlideupModal>
       )}
       <OptionsWrapper>{renderOptions()}</OptionsWrapper>
-      <canvas ref={canvas} id="canvas" style={{ display: 'none' }} />
+      <canvas ref={canvas} style={{ display: 'none' }} />
     </main>
   )
 }
