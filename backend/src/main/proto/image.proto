@@ -21,10 +21,8 @@ message ProcessedImageInfo {
 }
 
 message Options {
-  string background = 1;
-  string suit = 2;
-  string hair = 3;
-  SEX sex = 4;
+  string optionName = 1;
+  Sex sex = 2;
 }
 
 message ResponseUrl {
@@ -33,7 +31,7 @@ message ResponseUrl {
   string thumbnailImageUrl = 3;
 }
 
-enum SEX{
+enum Sex{
   MALE = 0;
   FEMALE = 1;
 }
