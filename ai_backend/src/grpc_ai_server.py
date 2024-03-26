@@ -111,35 +111,22 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         # Codes to save ORIGINAL image in S3 server
         original_image_url = self.uploadToS3(save_path, "original")
 
-        # try:
-        #     original_image_url = self.uploadToS3(save_path, "original")
-
-        # except:
-        #     print("Error uploading Original Image to AWS S3 server")
-        #     return_value = self.makeReturnValue(status="NO_FACE")
-
-        #     return pb2.ProcessedImageInfo(**return_value)
-
-        options = request.options  # 이후 옵션에 따라 템플릿사진 선택
+        # Select options by request
+        options = request.options
         if options.sex == 0:
             sex = "male"
         else:
             sex = "female"
 
-        # bg = options.background
-        # suit = options.suit
-        # hair = options.hair
+        suit_option_name = options.suit
 
-        # Detect face from bg img
+        # DETECT FACE FROM TEMPLATE IMAGE
 
         # Img dir
-        bg_0_img_path = (
-            f"./image/{sex}_bg_0.jpg"  # f-string 사용해서 옵션에 따라 bg image 변경
-        )
-        bg_0_img = plt.imread(bg_0_img_path)
-        print("BACKGROUND IMAGE SIZE", bg_0_img.shape)
-        bg_faces = faceswap_app.get(bg_0_img)
-        bg_face = bg_faces[0]
+        template_img_path = f"./image/{sex}/{suit_option_name}.jpg"
+        template_img = plt.imread(template_img_path)
+        template_faces = faceswap_app.get(template_img)
+        template_face = template_faces[0]
 
         try:
             # Detect face from input img
@@ -159,10 +146,12 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
             return pb2.ProcessedImageInfo(**return_value)
 
-        # Swap face from bg img to input img
+        # Swap face from template img to input img
         source_face = faces[0]
-        processed_image = bg_0_img.copy()
-        processed_image = swapper.get(bg_0_img, bg_face, source_face, paste_back=True)
+        processed_image = template_img.copy()
+        processed_image = swapper.get(
+            template_img, template_face, source_face, paste_back=True
+        )
 
         processed_image = cv2.cvtColor(
             processed_image, cv2.COLOR_BGR2RGB
