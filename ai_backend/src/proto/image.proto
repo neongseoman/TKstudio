@@ -24,7 +24,7 @@ message ProcessedImageInfo {
 }
 
 message Options {
-  string suit = 1;
+  string optionName = 1;
   Sex sex = 2;
 }
 
