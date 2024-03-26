@@ -68,18 +68,19 @@ function GalleryDetailPage() {
 
   const handleDownload = (width: number, height: number) => {
     if (images[1] && canvas.current) {
-      const canvas = document.getElementById('canvas') as HTMLCanvasElement
-      const ctx = canvas.getContext('2d')
+      // const canvas = document.getElementById('canvas') as HTMLCanvasElement
+      // const ctx = canvas.getContext('2d')
+      const ctx = canvas.current.getContext('2d')
       const img = new Image()
 
-      canvas.width = width
-      canvas.height = height
+      canvas.current.width = width
+      canvas.current.height = height
 
       img.src = images[1]
       img.onload = () => {
         ctx?.drawImage(img, 0, 0, width, height)
         const anchor = document.createElement('a')
-        anchor.href = canvas.toDataURL('image/png', 1)
+        anchor.href = canvas.current?.toDataURL('image/png', 1) as string
         anchor.download = '증명 사진.png'
         anchor.click()
         anchor.remove()
