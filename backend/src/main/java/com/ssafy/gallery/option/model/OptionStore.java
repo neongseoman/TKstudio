@@ -23,11 +23,12 @@ public class OptionStore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int optionId;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
+    @Column(nullable = false, columnDefinition = "VARCHAR(30) CHARACTER SET UTF8")
     private String optionName;
     private int cost;
     private String optionS3Url;
     private int categoryId;
+    private String gender;
     @Setter
     @ColumnDefault("false")
     private boolean purchased;
