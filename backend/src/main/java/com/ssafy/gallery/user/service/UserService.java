@@ -1,11 +1,13 @@
 package com.ssafy.gallery.user.service;
 
 import com.ssafy.gallery.auth.jwt.util.JwtUtil;
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.common.exception.CommonExceptionEnum;
 import com.ssafy.gallery.oauth.client.OauthMemberClientComposite;
 import com.ssafy.gallery.oauth.type.OauthServerType;
-import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
 import com.ssafy.gallery.redis.dto.LoginTokenDto;
 import com.ssafy.gallery.redis.repository.LoginTokenRepository;
+import com.ssafy.gallery.user.exception.UserExceptionEnum;
 import com.ssafy.gallery.user.model.LoginLog;
 import com.ssafy.gallery.user.model.User;
 import com.ssafy.gallery.user.repository.LoginLogRepository;
@@ -14,9 +16,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClientException;
 
 @Slf4j
 @Service
@@ -30,21 +33,32 @@ public class UserService {
     private final LoginLogRepository loginLogRepository;
     private final JwtUtil jwtUtil;
 
-    public boolean login(HttpServletRequest request, HttpServletResponse response, OauthServerType oauthServerType, String authCode) {
-        User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
-        User saved = userRepository.findByDomain(user.getDomain())
-                .orElseGet(() -> userRepository.save(user));
+    public void login(HttpServletRequest request, HttpServletResponse response, OauthServerType oauthServerType, String authCode) {
+        try {
+            User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
+            User saved = userRepository.findByDomain(user.getDomain())
+                    .orElseGet(() -> userRepository.save(user));
 
-        String accessToken = jwtUtil.createToken("access");
-        String refreshToken = jwtUtil.createToken("refresh");
-        jwtUtil.saveTokens(accessToken, refreshToken, saved.getUserId());
+            String accessToken = jwtUtil.createToken("access");
+            String refreshToken = jwtUtil.createToken("refresh");
+            jwtUtil.saveTokens(accessToken, refreshToken, saved.getUserId());
 
-        LoginLog loginLog = LoginLog.builder().userId(saved.getUserId()).loginIp(getClientIP(request)).build();
-        loginLogRepository.save(loginLog);
+            LoginLog loginLog = LoginLog.builder().userId(saved.getUserId()).loginIp(getClientIP(request)).build();
+            loginLogRepository.save(loginLog);
 
-        response.setHeader("accessToken", accessToken);
-        response.setHeader("refreshToken", refreshToken);
-        return true;
+            response.setHeader("accessToken", accessToken);
+            response.setHeader("refreshToken", refreshToken);
+
+        } catch (DataAccessException dae) {
+            log.error(dae.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.DATA_ACCESS_ERROR);
+        } catch (WebClientException wce) {
+            log.error(wce.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.WRONG_CODE);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
+        }
     }
 
     public boolean logout(HttpServletRequest request) {
