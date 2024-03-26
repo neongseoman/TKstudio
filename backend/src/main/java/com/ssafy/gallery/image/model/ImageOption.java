@@ -13,7 +13,7 @@ public class ImageOption {
     String background;
     String suit;
     String hair;
-    Image.SEX sex;
+    Image.Sex sex;
 
     @Override
     public String toString() {

@@ -15,9 +15,9 @@ public final class Image {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
-   * Protobuf enum {@code com.ssafy.pjt.grpc.SEX}
+   * Protobuf enum {@code com.ssafy.pjt.grpc.Sex}
    */
-  public enum SEX
+  public enum Sex
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>MALE = 0;</code>
@@ -54,7 +54,7 @@ public final class Image {
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
-    public static SEX valueOf(int value) {
+    public static Sex valueOf(int value) {
       return forNumber(value);
     }
 
@@ -62,7 +62,7 @@ public final class Image {
      * @param value The numeric wire value of the corresponding enum entry.
      * @return The enum associated with the given numeric wire value.
      */
-    public static SEX forNumber(int value) {
+    public static Sex forNumber(int value) {
       switch (value) {
         case 0: return MALE;
         case 1: return FEMALE;
@@ -70,15 +70,15 @@ public final class Image {
       }
     }
 
-    public static com.google.protobuf.Internal.EnumLiteMap<SEX>
+    public static com.google.protobuf.Internal.EnumLiteMap<Sex>
         internalGetValueMap() {
       return internalValueMap;
     }
     private static final com.google.protobuf.Internal.EnumLiteMap<
-        SEX> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<SEX>() {
-            public SEX findValueByNumber(int number) {
-              return SEX.forNumber(number);
+        Sex> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Sex>() {
+            public Sex findValueByNumber(int number) {
+              return Sex.forNumber(number);
             }
           };
 
@@ -99,9 +99,9 @@ public final class Image {
       return com.ssafy.pjt.grpc.Image.getDescriptor().getEnumTypes().get(0);
     }
 
-    private static final SEX[] VALUES = values();
+    private static final Sex[] VALUES = values();
 
-    public static SEX valueOf(
+    public static Sex valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
         throw new java.lang.IllegalArgumentException(
@@ -115,11 +115,11 @@ public final class Image {
 
     private final int value;
 
-    private SEX(int value) {
+    private Sex(int value) {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:com.ssafy.pjt.grpc.SEX)
+    // @@protoc_insertion_point(enum_scope:com.ssafy.pjt.grpc.Sex)
   }
 
   /**
@@ -1881,51 +1881,27 @@ public final class Image {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string background = 1;</code>
-     * @return The background.
+     * <code>string optionName = 1;</code>
+     * @return The optionName.
      */
-    java.lang.String getBackground();
+    java.lang.String getOptionName();
     /**
-     * <code>string background = 1;</code>
-     * @return The bytes for background.
-     */
-    com.google.protobuf.ByteString
-        getBackgroundBytes();
-
-    /**
-     * <code>string suit = 2;</code>
-     * @return The suit.
-     */
-    java.lang.String getSuit();
-    /**
-     * <code>string suit = 2;</code>
-     * @return The bytes for suit.
+     * <code>string optionName = 1;</code>
+     * @return The bytes for optionName.
      */
     com.google.protobuf.ByteString
-        getSuitBytes();
+        getOptionNameBytes();
 
     /**
-     * <code>string hair = 3;</code>
-     * @return The hair.
-     */
-    java.lang.String getHair();
-    /**
-     * <code>string hair = 3;</code>
-     * @return The bytes for hair.
-     */
-    com.google.protobuf.ByteString
-        getHairBytes();
-
-    /**
-     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
      * @return The enum numeric value on the wire for sex.
      */
     int getSexValue();
     /**
-     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
      * @return The sex.
      */
-    com.ssafy.pjt.grpc.Image.SEX getSex();
+    com.ssafy.pjt.grpc.Image.Sex getSex();
   }
   /**
    * Protobuf type {@code com.ssafy.pjt.grpc.Options}
@@ -1940,9 +1916,7 @@ public final class Image {
       super(builder);
     }
     private Options() {
-      background_ = "";
-      suit_ = "";
-      hair_ = "";
+      optionName_ = "";
       sex_ = 0;
     }
 
@@ -1979,22 +1953,10 @@ public final class Image {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              background_ = s;
+              optionName_ = s;
               break;
             }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              suit_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              hair_ = s;
-              break;
-            }
-            case 32: {
+            case 16: {
               int rawValue = input.readEnum();
 
               sex_ = rawValue;
@@ -2032,137 +1994,61 @@ public final class Image {
               com.ssafy.pjt.grpc.Image.Options.class, com.ssafy.pjt.grpc.Image.Options.Builder.class);
     }
 
-    public static final int BACKGROUND_FIELD_NUMBER = 1;
-    private volatile java.lang.Object background_;
+    public static final int OPTIONNAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object optionName_;
     /**
-     * <code>string background = 1;</code>
-     * @return The background.
+     * <code>string optionName = 1;</code>
+     * @return The optionName.
      */
     @java.lang.Override
-    public java.lang.String getBackground() {
-      java.lang.Object ref = background_;
+    public java.lang.String getOptionName() {
+      java.lang.Object ref = optionName_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        background_ = s;
+        optionName_ = s;
         return s;
       }
     }
     /**
-     * <code>string background = 1;</code>
-     * @return The bytes for background.
+     * <code>string optionName = 1;</code>
+     * @return The bytes for optionName.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getBackgroundBytes() {
-      java.lang.Object ref = background_;
+        getOptionNameBytes() {
+      java.lang.Object ref = optionName_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        background_ = b;
+        optionName_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int SUIT_FIELD_NUMBER = 2;
-    private volatile java.lang.Object suit_;
-    /**
-     * <code>string suit = 2;</code>
-     * @return The suit.
-     */
-    @java.lang.Override
-    public java.lang.String getSuit() {
-      java.lang.Object ref = suit_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        suit_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string suit = 2;</code>
-     * @return The bytes for suit.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getSuitBytes() {
-      java.lang.Object ref = suit_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        suit_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int HAIR_FIELD_NUMBER = 3;
-    private volatile java.lang.Object hair_;
-    /**
-     * <code>string hair = 3;</code>
-     * @return The hair.
-     */
-    @java.lang.Override
-    public java.lang.String getHair() {
-      java.lang.Object ref = hair_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        hair_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string hair = 3;</code>
-     * @return The bytes for hair.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHairBytes() {
-      java.lang.Object ref = hair_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        hair_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SEX_FIELD_NUMBER = 4;
+    public static final int SEX_FIELD_NUMBER = 2;
     private int sex_;
     /**
-     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
      * @return The enum numeric value on the wire for sex.
      */
     @java.lang.Override public int getSexValue() {
       return sex_;
     }
     /**
-     * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
      * @return The sex.
      */
-    @java.lang.Override public com.ssafy.pjt.grpc.Image.SEX getSex() {
+    @java.lang.Override public com.ssafy.pjt.grpc.Image.Sex getSex() {
       @SuppressWarnings("deprecation")
-      com.ssafy.pjt.grpc.Image.SEX result = com.ssafy.pjt.grpc.Image.SEX.valueOf(sex_);
-      return result == null ? com.ssafy.pjt.grpc.Image.SEX.UNRECOGNIZED : result;
+      com.ssafy.pjt.grpc.Image.Sex result = com.ssafy.pjt.grpc.Image.Sex.valueOf(sex_);
+      return result == null ? com.ssafy.pjt.grpc.Image.Sex.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2179,17 +2065,11 @@ public final class Image {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getBackgroundBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, background_);
+      if (!getOptionNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, optionName_);
       }
-      if (!getSuitBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, suit_);
-      }
-      if (!getHairBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, hair_);
-      }
-      if (sex_ != com.ssafy.pjt.grpc.Image.SEX.MALE.getNumber()) {
-        output.writeEnum(4, sex_);
+      if (sex_ != com.ssafy.pjt.grpc.Image.Sex.MALE.getNumber()) {
+        output.writeEnum(2, sex_);
       }
       unknownFields.writeTo(output);
     }
@@ -2200,18 +2080,12 @@ public final class Image {
       if (size != -1) return size;
 
       size = 0;
-      if (!getBackgroundBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, background_);
+      if (!getOptionNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, optionName_);
       }
-      if (!getSuitBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, suit_);
-      }
-      if (!getHairBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, hair_);
-      }
-      if (sex_ != com.ssafy.pjt.grpc.Image.SEX.MALE.getNumber()) {
+      if (sex_ != com.ssafy.pjt.grpc.Image.Sex.MALE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, sex_);
+          .computeEnumSize(2, sex_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2228,12 +2102,8 @@ public final class Image {
       }
       com.ssafy.pjt.grpc.Image.Options other = (com.ssafy.pjt.grpc.Image.Options) obj;
 
-      if (!getBackground()
-          .equals(other.getBackground())) return false;
-      if (!getSuit()
-          .equals(other.getSuit())) return false;
-      if (!getHair()
-          .equals(other.getHair())) return false;
+      if (!getOptionName()
+          .equals(other.getOptionName())) return false;
       if (sex_ != other.sex_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -2246,12 +2116,8 @@ public final class Image {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + BACKGROUND_FIELD_NUMBER;
-      hash = (53 * hash) + getBackground().hashCode();
-      hash = (37 * hash) + SUIT_FIELD_NUMBER;
-      hash = (53 * hash) + getSuit().hashCode();
-      hash = (37 * hash) + HAIR_FIELD_NUMBER;
-      hash = (53 * hash) + getHair().hashCode();
+      hash = (37 * hash) + OPTIONNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getOptionName().hashCode();
       hash = (37 * hash) + SEX_FIELD_NUMBER;
       hash = (53 * hash) + sex_;
       hash = (29 * hash) + unknownFields.hashCode();
@@ -2387,11 +2253,7 @@ public final class Image {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        background_ = "";
-
-        suit_ = "";
-
-        hair_ = "";
+        optionName_ = "";
 
         sex_ = 0;
 
@@ -2421,9 +2283,7 @@ public final class Image {
       @java.lang.Override
       public com.ssafy.pjt.grpc.Image.Options buildPartial() {
         com.ssafy.pjt.grpc.Image.Options result = new com.ssafy.pjt.grpc.Image.Options(this);
-        result.background_ = background_;
-        result.suit_ = suit_;
-        result.hair_ = hair_;
+        result.optionName_ = optionName_;
         result.sex_ = sex_;
         onBuilt();
         return result;
@@ -2473,16 +2333,8 @@ public final class Image {
 
       public Builder mergeFrom(com.ssafy.pjt.grpc.Image.Options other) {
         if (other == com.ssafy.pjt.grpc.Image.Options.getDefaultInstance()) return this;
-        if (!other.getBackground().isEmpty()) {
-          background_ = other.background_;
-          onChanged();
-        }
-        if (!other.getSuit().isEmpty()) {
-          suit_ = other.suit_;
-          onChanged();
-        }
-        if (!other.getHair().isEmpty()) {
-          hair_ = other.hair_;
+        if (!other.getOptionName().isEmpty()) {
+          optionName_ = other.optionName_;
           onChanged();
         }
         if (other.sex_ != 0) {
@@ -2517,244 +2369,92 @@ public final class Image {
         return this;
       }
 
-      private java.lang.Object background_ = "";
+      private java.lang.Object optionName_ = "";
       /**
-       * <code>string background = 1;</code>
-       * @return The background.
+       * <code>string optionName = 1;</code>
+       * @return The optionName.
        */
-      public java.lang.String getBackground() {
-        java.lang.Object ref = background_;
+      public java.lang.String getOptionName() {
+        java.lang.Object ref = optionName_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          background_ = s;
+          optionName_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string background = 1;</code>
-       * @return The bytes for background.
+       * <code>string optionName = 1;</code>
+       * @return The bytes for optionName.
        */
       public com.google.protobuf.ByteString
-          getBackgroundBytes() {
-        java.lang.Object ref = background_;
+          getOptionNameBytes() {
+        java.lang.Object ref = optionName_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          background_ = b;
+          optionName_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string background = 1;</code>
-       * @param value The background to set.
+       * <code>string optionName = 1;</code>
+       * @param value The optionName to set.
        * @return This builder for chaining.
        */
-      public Builder setBackground(
+      public Builder setOptionName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        background_ = value;
+        optionName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string background = 1;</code>
+       * <code>string optionName = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearBackground() {
+      public Builder clearOptionName() {
         
-        background_ = getDefaultInstance().getBackground();
+        optionName_ = getDefaultInstance().getOptionName();
         onChanged();
         return this;
       }
       /**
-       * <code>string background = 1;</code>
-       * @param value The bytes for background to set.
+       * <code>string optionName = 1;</code>
+       * @param value The bytes for optionName to set.
        * @return This builder for chaining.
        */
-      public Builder setBackgroundBytes(
+      public Builder setOptionNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        background_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object suit_ = "";
-      /**
-       * <code>string suit = 2;</code>
-       * @return The suit.
-       */
-      public java.lang.String getSuit() {
-        java.lang.Object ref = suit_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          suit_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string suit = 2;</code>
-       * @return The bytes for suit.
-       */
-      public com.google.protobuf.ByteString
-          getSuitBytes() {
-        java.lang.Object ref = suit_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          suit_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string suit = 2;</code>
-       * @param value The suit to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSuit(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        suit_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string suit = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSuit() {
-        
-        suit_ = getDefaultInstance().getSuit();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string suit = 2;</code>
-       * @param value The bytes for suit to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSuitBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        suit_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object hair_ = "";
-      /**
-       * <code>string hair = 3;</code>
-       * @return The hair.
-       */
-      public java.lang.String getHair() {
-        java.lang.Object ref = hair_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          hair_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string hair = 3;</code>
-       * @return The bytes for hair.
-       */
-      public com.google.protobuf.ByteString
-          getHairBytes() {
-        java.lang.Object ref = hair_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          hair_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string hair = 3;</code>
-       * @param value The hair to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHair(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        hair_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string hair = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHair() {
-        
-        hair_ = getDefaultInstance().getHair();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string hair = 3;</code>
-       * @param value The bytes for hair to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHairBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        hair_ = value;
+        optionName_ = value;
         onChanged();
         return this;
       }
 
       private int sex_ = 0;
       /**
-       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
        * @return The enum numeric value on the wire for sex.
        */
       @java.lang.Override public int getSexValue() {
         return sex_;
       }
       /**
-       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
        * @param value The enum numeric value on the wire for sex to set.
        * @return This builder for chaining.
        */
@@ -2765,21 +2465,21 @@ public final class Image {
         return this;
       }
       /**
-       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
        * @return The sex.
        */
       @java.lang.Override
-      public com.ssafy.pjt.grpc.Image.SEX getSex() {
+      public com.ssafy.pjt.grpc.Image.Sex getSex() {
         @SuppressWarnings("deprecation")
-        com.ssafy.pjt.grpc.Image.SEX result = com.ssafy.pjt.grpc.Image.SEX.valueOf(sex_);
-        return result == null ? com.ssafy.pjt.grpc.Image.SEX.UNRECOGNIZED : result;
+        com.ssafy.pjt.grpc.Image.Sex result = com.ssafy.pjt.grpc.Image.Sex.valueOf(sex_);
+        return result == null ? com.ssafy.pjt.grpc.Image.Sex.UNRECOGNIZED : result;
       }
       /**
-       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
        * @param value The sex to set.
        * @return This builder for chaining.
        */
-      public Builder setSex(com.ssafy.pjt.grpc.Image.SEX value) {
+      public Builder setSex(com.ssafy.pjt.grpc.Image.Sex value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -2789,7 +2489,7 @@ public final class Image {
         return this;
       }
       /**
-       * <code>.com.ssafy.pjt.grpc.SEX sex = 4;</code>
+       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearSex() {
@@ -3755,17 +3455,16 @@ public final class Image {
       "mage\030\001 \001(\014\0224\n\013responseUrl\030\002 \001(\0132\037.com.ss" +
       "afy.pjt.grpc.ResponseUrl\0229\n\006Result\030\003 \001(\016" +
       "2).com.ssafy.pjt.grpc.ImageProcessingRes" +
-      "ult\"_\n\007Options\022\022\n\nbackground\030\001 \001(\t\022\014\n\004su" +
-      "it\030\002 \001(\t\022\014\n\004hair\030\003 \001(\t\022$\n\003sex\030\004 \001(\0162\027.co" +
-      "m.ssafy.pjt.grpc.SEX\"]\n\013ResponseUrl\022\030\n\020o" +
-      "riginalImageUrl\030\001 \001(\t\022\031\n\021processedImageU" +
-      "rl\030\002 \001(\t\022\031\n\021thumbnailImageUrl\030\003 \001(\t*\033\n\003S" +
-      "EX\022\010\n\004MALE\020\000\022\n\n\006FEMALE\020\001*@\n\025ImageProcess" +
-      "ingResult\022\013\n\007SUCCESS\020\000\022\013\n\007NO_FACE\020\001\022\r\n\tM" +
-      "ANY_FACE\020\0022i\n\013CreateImage\022Z\n\tsendImage\022%" +
-      ".com.ssafy.pjt.grpc.OriginalImageInfo\032&." +
-      "com.ssafy.pjt.grpc.ProcessedImageInfob\006p" +
-      "roto3"
+      "ult\"C\n\007Options\022\022\n\noptionName\030\001 \001(\t\022$\n\003se" +
+      "x\030\002 \001(\0162\027.com.ssafy.pjt.grpc.Sex\"]\n\013Resp" +
+      "onseUrl\022\030\n\020originalImageUrl\030\001 \001(\t\022\031\n\021pro" +
+      "cessedImageUrl\030\002 \001(\t\022\031\n\021thumbnailImageUr" +
+      "l\030\003 \001(\t*\033\n\003Sex\022\010\n\004MALE\020\000\022\n\n\006FEMALE\020\001*@\n\025" +
+      "ImageProcessingResult\022\013\n\007SUCCESS\020\000\022\013\n\007NO" +
+      "_FACE\020\001\022\r\n\tMANY_FACE\020\0022i\n\013CreateImage\022Z\n" +
+      "\tsendImage\022%.com.ssafy.pjt.grpc.Original" +
+      "ImageInfo\032&.com.ssafy.pjt.grpc.Processed" +
+      "ImageInfob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3788,7 +3487,7 @@ public final class Image {
     internal_static_com_ssafy_pjt_grpc_Options_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ssafy_pjt_grpc_Options_descriptor,
-        new java.lang.String[] { "Background", "Suit", "Hair", "Sex", });
+        new java.lang.String[] { "OptionName", "Sex", });
     internal_static_com_ssafy_pjt_grpc_ResponseUrl_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_ssafy_pjt_grpc_ResponseUrl_fieldAccessorTable = new

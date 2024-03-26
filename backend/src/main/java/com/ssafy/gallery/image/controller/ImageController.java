@@ -33,16 +33,13 @@ public class ImageController {
     public ResponseEntity<Resource> createImage(
             HttpServletRequest request,
             @RequestParam(value = "originalImage") MultipartFile originalImage,
-            @RequestParam(value = "background") String background,
-            @RequestParam(value = "suit") String suit,
-            @RequestParam(value = "hair") String hair,
-            @RequestParam(value = "sex") Image.SEX sex
+            @RequestParam(value = "optionId") String optionId
     ) throws Exception {
 
         try {
             int id = (int) request.getAttribute("userId");
 
-            CreateImageDto response = imageService.createImage(originalImage, new ImageOption(background, suit, hair, sex), id);
+            CreateImageDto response = imageService.createImage(originalImage, optionId, id);
 
             return ResponseEntity.ok()
                     .header("imageInfoId", String.valueOf(response.getImageInfoId()))

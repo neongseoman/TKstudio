@@ -7,11 +7,14 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.common.exception.RedisExceptionEnum;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
 import com.ssafy.gallery.image.model.*;
 import com.ssafy.gallery.image.repository.ImageRedisRepository;
 import com.ssafy.gallery.image.repository.ImageRepository;
+import com.ssafy.gallery.option.model.OptionStore;
+import com.ssafy.gallery.option.repository.OptionStoreRepository;
 import com.ssafy.pjt.grpc.CreateImageGrpc;
 import com.ssafy.pjt.grpc.Image;
 import lombok.RequiredArgsConstructor;
@@ -36,23 +39,27 @@ import java.util.Optional;
 public class ImageService {
     private final ImageRepository imageRepository;
     private final ImageRedisRepository imageRedisRepository;
+    private final OptionStoreRepository optionStoreRepository;
     private final GrpcStubPool grpcStubPool;
     private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
     private static String bucket;
 
-    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption, int userId) throws IOException {
+    public CreateImageDto createImage(MultipartFile image,String optionId, int userId) throws IOException {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
-
         Image.ProcessedImageInfo receiveData = null;
-        Image.Options options = Image.Options.newBuilder()
-                .setBackground(imageOption.getBackground())
-                .setHair(imageOption.getHair())
-                .setSex(imageOption.getSex())
-                .setSuit(imageOption.getSuit()).build();
+        System.out.println(optionId);
 
+        Optional<OptionStore> optionStore = Optional.of(optionStoreRepository.findById(Integer.valueOf(optionId))
+                .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
+
+        Image.Options options = Image.Options.newBuilder()
+//                .setSex(optionStore.get().getSex())
+                .setSex(Image.Sex.MALE)
+                .setOptionName(optionStore.get().getOptionName())
+                .build();
         try {
             imageStub = grpcStubPool.getStub();
             receiveData = imageStub.sendImage(Image.OriginalImageInfo.newBuilder()
@@ -110,10 +117,9 @@ public class ImageService {
     }
 
     public Resource getOriginalImage(String imageInfoId) throws Exception {
-        System.out.println(imageInfoId);
-
         ImageInfoRedisDTO imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
                 .orElseThrow(() -> new Exception("Redis error"))).get();
+
         String originalImageURL = imageInfo.getOriginalImageUrl();
 
         return getS3Image(originalImageURL);
@@ -136,10 +142,10 @@ public class ImageService {
 
         return getS3Image(thumbnailImageURL);
     }
+
     public void deleteImage(int imageId) {
         imageRepository.deleteImageInfo(imageId);
     }
-
 
     private ByteArrayResource getBufferedImage(byte[] processedImageData) throws IOException, IOException {
         BufferedImage bufferedImage = new BufferedImage(768, 1024, BufferedImage.TYPE_3BYTE_BGR);
