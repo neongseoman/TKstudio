@@ -112,9 +112,6 @@ function GalleryPage() {
 
   return (
     <main>
-      <Link href={`/gallery/detail/8/예쁜정장/포마드머리`} locale="ko_KR.euckr">
-        테스트
-      </Link>
       <Grid>{renderPictures()}</Grid>
       {isLoading ? (
         <div style={{ verticalAlign: 'middle' }}>
