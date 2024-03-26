@@ -19,7 +19,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,17 +34,15 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ImageService {
-    private ResourceLoader resourceLoader;
-    private final String aiUrl = System.getenv("AI_URL");
     private final ImageRepository imageRepository;
     private final ImageRedisRepository imageRedisRepository;
     private final GrpcStubPool grpcStubPool;
     private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
+    private static String bucket;
 
-    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption, int userId) throws Exception {
+    public CreateImageDto createImage(MultipartFile image, ImageOption imageOption, int userId) throws IOException {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
 
@@ -55,23 +52,16 @@ public class ImageService {
                 .setHair(imageOption.getHair())
                 .setSex(imageOption.getSex())
                 .setSuit(imageOption.getSuit()).build();
+
         try {
             imageStub = grpcStubPool.getStub();
             receiveData = imageStub.sendImage(Image.OriginalImageInfo.newBuilder()
                     .setOriginalImage(imageData)
                     .setOptions(options)
                     .build());
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException | InterruptedException e) {
             throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.GRPC_ERROR);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException("Failed to get gRPC stub from the pool", e);
-        } finally {
-            if (imageStub != null) {
-                grpcStubPool.returnStub(imageStub);
-            }
         }
-
 
         if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
             byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
@@ -94,6 +84,7 @@ public class ImageService {
                     imageInfo.getProcessedImageUrl(),
                     byteArrayResource
             );
+            grpcStubPool.returnStub(imageStub);
 
             return imageInfoDto;
         } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
@@ -101,7 +92,7 @@ public class ImageService {
         } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
             throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
         } else {
-            throw new Exception("UNKOWN ERROR");
+            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
         }
     }
 
@@ -118,20 +109,14 @@ public class ImageService {
         return listDto;
     }
 
-    public Resource getOrigianlImage(String imageInfoId) throws Exception {
+    public Resource getOriginalImage(String imageInfoId) throws Exception {
         System.out.println(imageInfoId);
 
         ImageInfoRedisDTO imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
                 .orElseThrow(() -> new Exception("Redis error"))).get();
         String originalImageURL = imageInfo.getOriginalImageUrl();
 
-
-        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket,originalImageURL));
-        S3ObjectInputStream objectInputStream = object.getObjectContent();
-        byte[] data = IOUtils.toByteArray(objectInputStream);
-        ByteArrayResource resource = new ByteArrayResource(data);
-
-        return resource;
+        return getS3Image(originalImageURL);
     }
 
     public Resource getProcessedImage(String imageInfoId) throws Exception {
@@ -139,12 +124,8 @@ public class ImageService {
                 .orElseThrow( () -> new Exception("redis infomation error")));
 
         String processedImageURL = imageInfo.get().getProcessedImageUrl();
-        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, processedImageURL));
-        S3ObjectInputStream objectInputStream = object.getObjectContent();
-        byte[] data = IOUtils.toByteArray(objectInputStream);
-        ByteArrayResource resource = new ByteArrayResource(data);
 
-        return resource;
+        return getS3Image(processedImageURL);
     }
 
     public Resource getThumbnailImage(String imageInfoId) throws Exception {
@@ -152,19 +133,15 @@ public class ImageService {
                 .orElseThrow( () -> new Exception("redis infomation error")));
 
         String thumbnailImageURL = imageInfo.get().getThumbnailImageUrl();
-        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, thumbnailImageURL));
-        S3ObjectInputStream objectInputStream = object.getObjectContent();
-        byte[] data = IOUtils.toByteArray(objectInputStream);
-        ByteArrayResource resource = new ByteArrayResource(data);
 
-        return resource;
+        return getS3Image(thumbnailImageURL);
     }
     public void deleteImage(int imageId) {
         imageRepository.deleteImageInfo(imageId);
     }
 
 
-    private static ByteArrayResource getBufferedImage(byte[] processedImageData) throws IOException, IOException {
+    private ByteArrayResource getBufferedImage(byte[] processedImageData) throws IOException, IOException {
         BufferedImage bufferedImage = new BufferedImage(768, 1024, BufferedImage.TYPE_3BYTE_BGR);
 
         // BufferedImage에 byte 배열 데이터 채우기
@@ -188,4 +165,13 @@ public class ImageService {
         return resource;
     }
 
+    private Resource getS3Image(String imageURL) throws IOException {
+        S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, imageURL));
+        S3ObjectInputStream objectInputStream = object.getObjectContent();
+        byte[] data = IOUtils.toByteArray(objectInputStream);
+        ByteArrayResource resource = new ByteArrayResource(data);
+
+        return resource;
+
+    }
 }
