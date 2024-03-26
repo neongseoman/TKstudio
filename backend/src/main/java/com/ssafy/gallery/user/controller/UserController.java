@@ -35,10 +35,7 @@ public class UserController {
 
     @GetMapping("/logout")
     ResponseEntity<ApiResponse<?>> logout(HttpServletRequest request) {
-        log.info("로그아웃 요청");
-        boolean result = userService.logout(request);
-        log.info("로그아웃 결과: {}", result);
-
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(result));
+        userService.logout(request);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null));
     }
 }

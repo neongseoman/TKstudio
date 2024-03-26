@@ -48,7 +48,7 @@ public class UserService {
 
             response.setHeader("accessToken", accessToken);
             response.setHeader("refreshToken", refreshToken);
-
+            log.info("{} {} 유저 로그인", saved.getUserId(), saved.getNickname());
         } catch (DataAccessException dae) {
             log.error(dae.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.DATA_ACCESS_ERROR);
@@ -61,27 +61,32 @@ public class UserService {
         }
     }
 
-    public boolean logout(HttpServletRequest request) {
+    public void logout(HttpServletRequest request) {
         String refreshToken = (String) request.getAttribute("refreshToken");
+        if (refreshToken == null) {
+            throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.NEED_REFRESH_TOKEN);
+        }
 
-        if (refreshToken != null) {
-            log.info("refreshToken: {}", refreshToken);
-
+        try {
             if (loginTokenRepository.findById(refreshToken).isPresent()) {
                 LoginTokenDto loginTokenDto = loginTokenRepository.findById(refreshToken).get();
-                log.info("로그인한 유저의 정보: {}", loginTokenDto);
 
                 String accessToken = loginTokenDto.getAccessToken();
-                if (accessToken != null) {
-                    if (loginTokenRepository.findById(accessToken).isPresent()) {
-                        loginTokenRepository.deleteById(accessToken);
-                    }
-                    loginTokenRepository.deleteById(refreshToken);
-                    return true;
+                if (accessToken == null) {
+                    throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.NEED_REFRESH_TOKEN);
                 }
+
+                loginTokenRepository.deleteById(accessToken);
+                loginTokenRepository.deleteById(refreshToken);
+                log.info("{} 유저 로그아웃", loginTokenDto.getUserId());
             }
+        } catch (DataAccessException dae) {
+            log.error(dae.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.DATA_ACCESS_ERROR);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
         }
-        return false;
     }
 
     private static String getClientIP(HttpServletRequest request) {
