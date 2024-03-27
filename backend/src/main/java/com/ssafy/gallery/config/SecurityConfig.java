@@ -32,6 +32,8 @@ public class SecurityConfig {
 
     private static final String[] AUTH_BLACKLIST = {
             "/api/v1/user/logout", "/api/v1/option/list", "/api/v1/option/category", "/api/v1/option/payment/ready",
+            "/api/v1/image/create", "/api/v1/image/delete", "/api/v1/image/getImageInfos",
+            "/api/v1/image/getImage/originalImage","/api/v1/image/getImage/thumbnailImage","/api/v1/image/getImage/processedImage"
     };
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
