@@ -33,7 +33,7 @@ public class ImageController {
     public ResponseEntity<Resource> createImage(
             HttpServletRequest request,
             @RequestParam(value = "originalImage") MultipartFile originalImage,
-            @RequestParam(value = "optionId") String optionId
+            @RequestParam(value = "optionId") int optionId
     ) throws Exception {
 
         try {
