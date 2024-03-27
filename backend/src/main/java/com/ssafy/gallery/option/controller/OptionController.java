@@ -79,7 +79,11 @@ public class OptionController {
         KakaoPayReadyDto kakaoPayReadyDto = KakaoPayReadyDto.builder().id(userId).tid(kakaoPayReadyResponse.tid()).build();
         kakaoPayReadyRepository.save(kakaoPayReadyDto);
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(kakaoPayReadyResponse.nextRedirectMobileUrl()));
+        HashMap<String, String> result = new HashMap<>();
+        result.put("nextRedirectPcUrl", kakaoPayReadyResponse.nextRedirectPcUrl());
+        result.put("nextRedirectMobileUrl", kakaoPayReadyResponse.nextRedirectMobileUrl());
+
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(result));
     }
 
     @GetMapping("/payment/success")
