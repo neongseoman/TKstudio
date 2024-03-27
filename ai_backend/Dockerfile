@@ -9,6 +9,7 @@ COPY image ./image
 #COPY src/.env .
 COPY src/proto/ ./proto/
 COPY src/inswapper_128.onnx .
+COPY src/image .
 COPY src/grpc_ai_server.py .
 
 RUN apt-get update && apt-get install -y libgl1-mesa-glx
