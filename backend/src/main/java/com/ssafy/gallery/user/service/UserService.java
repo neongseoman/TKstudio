@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClientException;
@@ -49,9 +48,6 @@ public class UserService {
             response.setHeader("accessToken", accessToken);
             response.setHeader("refreshToken", refreshToken);
             log.info("{} 유저 로그인", saved.getUserId());
-        } catch (DataAccessException dae) {
-            log.error(dae.getMessage());
-            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.DATA_ACCESS_ERROR);
         } catch (WebClientException wce) {
             log.error(wce.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.WRONG_CODE);
@@ -80,9 +76,6 @@ public class UserService {
                 loginTokenRepository.deleteById(refreshToken);
                 log.info("{} 유저 로그아웃", loginTokenDto.getUserId());
             }
-        } catch (DataAccessException dae) {
-            log.error(dae.getMessage());
-            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.DATA_ACCESS_ERROR);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);

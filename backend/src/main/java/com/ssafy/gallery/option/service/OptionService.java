@@ -1,11 +1,15 @@
 package com.ssafy.gallery.option.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.common.exception.CommonExceptionEnum;
+import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
+import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
+import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
 import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
-import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
-import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
 import com.ssafy.gallery.option.repository.OptionBuyLogRepository;
 import com.ssafy.gallery.option.repository.OptionCategoryRepository;
 import com.ssafy.gallery.option.repository.OptionStoreRepository;
@@ -19,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -63,18 +68,40 @@ public class OptionService {
         optionBuyLogRepository.save(optionBuyLog);
     }
 
-    public KakaoPayReadyResponse paymentReady(int userId, String optionName, int optionId, int cost) throws Exception {
-        String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
-        HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getReadyParams(userId, optionName, optionId, cost)), getHeaders());
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(url, urlRequest, KakaoPayReadyResponse.class);
+    public KakaoPayReadyResponse paymentReady(int userId, String optionName, int optionId, int cost) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
+            HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getReadyParams(userId, optionName, optionId, cost)), getHeaders());
+            return restTemplate.postForObject(url, urlRequest, KakaoPayReadyResponse.class);
+        } catch (JsonProcessingException jpe) {
+            log.error(jpe.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.JSON_PROCESSING);
+        } catch (RestClientException rce) {
+            log.error(rce.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.WRONG__PAYMENT_REQUEST);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
+        }
     }
 
     public KakaoPayApproveResponse paymentApprove(String tid, String pgToken) throws Exception {
-        String url = "https://open-api.kakaopay.com/online/v1/payment/approve";
-        HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getApproveParams(tid, pgToken)), getHeaders());
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(url, urlRequest, KakaoPayApproveResponse.class);
+        try {
+            String url = "https://open-api.kakaopay.com/online/v1/payment/approve";
+            HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getApproveParams(tid, pgToken)), getHeaders());
+            RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.postForObject(url, urlRequest, KakaoPayApproveResponse.class);
+        } catch (JsonProcessingException jpe) {
+            log.error(jpe.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.JSON_PROCESSING);
+        } catch (RestClientException rce) {
+            log.error(rce.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.WRONG__PAYMENT_REQUEST);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
+        }
     }
 
     private HttpHeaders getHeaders() {
@@ -110,7 +137,7 @@ public class OptionService {
         return params;
     }
 
-    public String mapToJson(Map<String, Object> map) throws Exception {
+    public String mapToJson(Map<String, Object> map) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(map);
     }
