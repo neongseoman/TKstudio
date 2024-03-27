@@ -33,6 +33,8 @@ public class OptionController {
 
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
+        log.info("옵션 리스트 요청");
+
         int userId = (int) request.getAttribute("userId");
         List<OptionStore> optionList = optionService.getList();
         HashMap<Integer, OptionStore> result = new HashMap<>();
@@ -50,6 +52,7 @@ public class OptionController {
 
     @GetMapping("/category")
     ResponseEntity<ApiResponse<?>> optionCategory() {
+        log.info("옵션 카테고리 요청");
         List<OptionCategory> category = optionService.getCategory();
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(category));
     }
@@ -58,6 +61,7 @@ public class OptionController {
     ResponseEntity<ApiResponse<?>> paymentReadyReq(HttpServletRequest request, @RequestBody Map<String, Object> params) {
         int userId = (int) request.getAttribute("userId");
         int optionId = (int) params.get("optionId");
+        log.info("{} 유저의 {} 옵션 구매 요청", userId, optionId);
 
         // 이미 구매한 옵션 예외처리
         List<OptionBuyLog> buyOptionList = optionService.getBuyOptionList(userId);
