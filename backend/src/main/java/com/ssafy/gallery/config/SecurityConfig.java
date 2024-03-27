@@ -29,11 +29,10 @@ public class SecurityConfig {
     private JwtUtil jwtUtil;
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
-    
+
     private static final String[] AUTH_BLACKLIST = {
-            "/api/v1/user/logout", "/api/v1/option/list", "/api/v1/option/category",
-            "/api/v1/option/payment/ready", "/api/v1/option/payment/success", "/api/v1/option/payment/cancel",
-            "/api/v1/option/payment/fail"
+            "/api/v1/user/logout", "/api/v1/option/list", "/api/v1/option/category", "/api/v1/option/payment/ready",
+//            "/api/v1/option/payment/success", "/api/v1/option/payment/cancel", "/api/v1/option/payment/fail"
     };
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
