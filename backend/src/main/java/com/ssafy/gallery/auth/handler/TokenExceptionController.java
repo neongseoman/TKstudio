@@ -14,13 +14,11 @@ public class TokenExceptionController {
 
     @GetMapping("/entrypoint")
     public void entryPoint() {
-        log.error("로그인이 필요합니다");
         throw ApiExceptionFactory.fromExceptionEnum(AuthExceptionEnum.NO_LOGIN);
     }
 
     @GetMapping("/accessDenied")
     public void denied() {
-        log.error("권한이 없습니다");
         throw ApiExceptionFactory.fromExceptionEnum(AuthExceptionEnum.NO_ADMIN);
     }
 }

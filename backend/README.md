@@ -198,16 +198,49 @@ server{
 
 - 옵션 스토어 SQL 쿼리
 ```sql
-INSERT INTO option_store (category_id, cost, option_name, options3url, created_time)
+INSERT INTO option_store (option_id, category_id, cost, option_name, options3url, created_time, gender)
 VALUES
-    (1, 20000, '여자 정장1', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/0.jfif', now()),
-    (1, 220000, '여자 정장2', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/1.jfif', now()),
-    (1, 18000, '여자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/0/2.jfif', now()),
-    (1, 15000, '남자 정장1', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/0.jfif', now()),
-    (1, 14000, '남자 정장2', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/1.jfif', now()),
-    (1, 17000, '남자 정장3', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/suit/1/2.jfif', now()),
-    (2, 1000, '흰색 배경', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/background/0.jpg', now()),
-    (2, 1500, '하늘색 배경', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/background/1.jpg', now());
+    (1, 1, 20000, '기본', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/0_original.jpg', now(), 'FEMALE'),
+    (2, 1, 20000, '트위드 블랙', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/1_tweed_black.jpg', now(), 'FEMALE'),
+    (3, 1, 20000, '러스티 블랙', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/2_rusty_black.jpg', now(), 'FEMALE'),
+    (4, 1, 20000, '블랙 스네이크', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/3_black_snake.jpg', now(), 'FEMALE'),
+    (5, 1, 20000, '네이비 골지자켓', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/4_Ribbed_navy.jpg', now(), 'FEMALE'),
+    (6, 1, 20000, '퍼시픽 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/5_pacific_navy.jpg', now(), 'FEMALE'),
+    (7, 1, 20000, '깔끔 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/6_neat_navy.jpg', now(), 'FEMALE'),
+    (8, 1, 20000, '네이비 코트', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/7_navy_coat.jpg', now(), 'FEMALE'),
+    (9, 1, 20000, '네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/8_navy.jpg', now(), 'FEMALE'),
+    (10, 1, 20000, '그랭구아르', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/9_gringoire.jpg', now(), 'FEMALE'),
+    (11, 1, 20000, '다크 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/10_dark_navy.jpg', now(), 'FEMALE'),
+    (12, 1, 20000, '네이비 코듀로이', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/11_corduroy_navy.jpg', now(), 'FEMALE'),
+    (13, 1, 20000, '브러쉬드 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/12_brushed_navy.jpg', now(), 'FEMALE'),
+    (14, 1, 20000, '수직 스트라이프', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/13_vertical_stripe.jpg', now(), 'FEMALE'),
+    (15, 1, 20000, '수평 스트라이프', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/14_horizontal_stripe.jpg', now(), 'FEMALE'),
+    (16, 1, 20000, '봄버 재킷', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/15_bomber_jacket.jpg', now(), 'FEMALE'),
+    (17, 1, 20000, '버건디', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/16_burgundy.jpg', now(), 'FEMALE'),
+    (18, 1, 20000, '데님 재킷', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/17_denim_jaacket.jpg', now(), 'FEMALE'),
+    (19, 1, 20000, '레더 재킷', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/18_leather_jacket.jpg', now(), 'FEMALE'),
+    (20, 1, 20000, '트로트 블루', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/female/19_trot_blue.jpg', now(), 'FEMALE'),
+
+    (21, 1, 20000, '기본', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/20_original.jpg', now(), 'MALE'),
+    (22, 1, 20000, '웜 차콜', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/21_warm_charcoal.jpg', now(), 'MALE'),
+    (23, 1, 20000, '이브의 유혹', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/22_temptation_of_eve.jpg', now(), 'MALE'),
+    (24, 1, 20000, '미디엄 그레이', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/23_medium_grey.jpg', now(), 'MALE'),
+    (25, 1, 20000, '은갈치', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/24_eungalichi.jpg', now(), 'MALE'),
+    (26, 1, 20000, '아수라 그레이', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/25_asura_grey.jpg', now(), 'MALE'),
+    (27, 1, 20000, '포인트 블루', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/26_blue_point.jpg', now(), 'MALE'),
+    (28, 1, 20000, '차콜 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/27_charcoal_navy.jpg', now(), 'MALE'),
+    (29, 1, 20000, '브라이트 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/28_bright_navy.jpg', now(), 'MALE'),
+    (30, 1, 20000, '나이브 블루', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/29_naive_blue.jpg', now(), 'MALE'),
+    (31, 1, 20000, '블루 체크', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/30_blue_check.jpg', now(), 'MALE'),
+    (32, 1, 20000, '네이비 체크', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/31_navy_check.jpg', now(), 'MALE'),
+    (33, 1, 20000, '앤티크 네이비', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/32_antique_navy.jpg', now(), 'MALE'),
+    (34, 1, 20000, '딥 브라운', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/33_deep_brown.jpg', now(), 'MALE'),
+    (35, 1, 20000, '버건디', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/34_burgundy.jpg', now(), 'MALE'),
+    (36, 1, 20000, '다크 베이지', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/35_dark_beige.jpg', now(), 'MALE'),
+    (37, 1, 20000, '리치 브라운', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/36_rich_brown.jpg', now(), 'MALE'),
+    (38, 1, 20000, '브라운 체크', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/37_brown_check.jpg', now(), 'MALE'),
+    (39, 1, 20000, '꽃을 단 남자', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/38_flower_point.jpg', now(), 'MALE'),
+    (40, 1, 20000, '체크 후리스', 'https://ddalkkak101-bucket.s3.ap-northeast-2.amazonaws.com/options/male/39_check_fleece.jpg', now(), 'MALE');
 ```
 
 - 옵션 카테고리 SQL 쿼리
