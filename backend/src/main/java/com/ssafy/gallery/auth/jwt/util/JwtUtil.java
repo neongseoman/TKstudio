@@ -34,7 +34,6 @@ public class JwtUtil {
         String secretKey = UUID.randomUUID().toString() + UUID.randomUUID().toString();
         secretKey = secretKey.replace("-", "");
         long expiration = type.equals("access") ? accessExpiration : refreshExpiration;
-        log.info("{} 토큰 만들기, secretKey: {}", type, secretKey);
 
         Claims claims = Jwts.claims();
         claims.put("jti", UUID.randomUUID());
@@ -52,7 +51,6 @@ public class JwtUtil {
     }
 
     public void saveTokens(String accessToken, String refreshToken, int userId) {
-        log.info("Redis에 토큰 저장 : {}, {}", accessToken, refreshToken);
         LoginTokenDto accessTokenDto = new LoginTokenDto(accessToken, userId, null, accessExpiration);
         LoginTokenDto refreshTokenDto = new LoginTokenDto(refreshToken, userId, accessToken, refreshExpiration);
         loginTokenRepository.save(accessTokenDto);
@@ -61,16 +59,13 @@ public class JwtUtil {
 
     public UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response, String token) {
         token = token.split(" ")[1];
-        log.info("getAuthentication: {}", token);
 
         if (loginTokenRepository.findById(token).isPresent()) {
             LoginTokenDto loginTokenDto = loginTokenRepository.findById(token).get();
-            log.info("로그인한 유저의 정보: {}", loginTokenDto);
 
             String accessToken = loginTokenDto.getAccessToken();
             if (accessToken != null) {
                 // refreshToken으로 로그인하면 둘 다 재발급
-                log.info("리프레시 토큰 로그인: 토큰 재발급");
                 loginTokenRepository.deleteById(token);
 
                 accessToken = createToken("access");
