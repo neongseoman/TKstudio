@@ -16,11 +16,6 @@ public class ApiExceptionAdvice {
 
         return ResponseEntity
                 .status(e.getStatus())
-                .body(ApiResponse
-                        .builder()
-                        .status(String.valueOf(e.getStatus()))
-                        .message(String.valueOf(e.getMessage()))
-                        .data(null)
-                        .build());
+                .body(ApiResponse.error(e.getMessage()));
     }
 }

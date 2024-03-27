@@ -48,7 +48,7 @@ public class UserService {
 
             response.setHeader("accessToken", accessToken);
             response.setHeader("refreshToken", refreshToken);
-            log.info("{} {} 유저 로그인", saved.getUserId(), saved.getNickname());
+            log.info("{} 유저 로그인", saved.getUserId());
         } catch (DataAccessException dae) {
             log.error(dae.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.DATA_ACCESS_ERROR);
