@@ -44,7 +44,7 @@ public class ImageService {
     private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
-    private static String bucket;
+    private String bucket;
 
     public CreateImageDto createImage(MultipartFile image, String optionId, int userId) throws IOException {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
@@ -179,6 +179,7 @@ public class ImageService {
     }
 
     private Resource getS3Image(String imageURL) throws IOException {
+        System.out.println(bucket);
         S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, imageURL));
         S3ObjectInputStream objectInputStream = object.getObjectContent();
         byte[] data = IOUtils.toByteArray(objectInputStream);
