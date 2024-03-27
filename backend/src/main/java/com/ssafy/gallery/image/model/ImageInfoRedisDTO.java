@@ -18,17 +18,14 @@ public class ImageInfoRedisDTO {
 
     @Id
     private int imageInfoId;
-
+    private String optionName;
+    private int categoryId;
     private String originalImageUrl;
     private String thumbnailImageUrl;
     private String processedImageUrl;
 
     @TimeToLive(unit = TimeUnit.MILLISECONDS)
     private long expiration;
-
-    public ImageInfoRedisDTO(int imageInfoId) {
-        this.imageInfoId = imageInfoId;
-    }
 
     public ImageInfoRedisDTO(ImageInfo image) {
         imageInfoId = image.getImageInfoId();
