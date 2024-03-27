@@ -55,7 +55,7 @@ public class OptionController {
     }
 
     @PostMapping("/payment/ready")
-    ResponseEntity<ApiResponse<?>> paymentReadyReq(HttpServletRequest request, @RequestBody Map<String, Object> params) throws Exception {
+    ResponseEntity<ApiResponse<?>> paymentReadyReq(HttpServletRequest request, @RequestBody Map<String, Object> params) {
         int userId = (int) request.getAttribute("userId");
         int optionId = (int) params.get("optionId");
 
@@ -87,10 +87,9 @@ public class OptionController {
     }
 
     @GetMapping("/payment/success")
-    ResponseEntity<ApiResponse<?>> paymentApproveReq(
-            @RequestParam("user_id") String userId,
-            @RequestParam("pg_token") String pgToken
-    ) throws Exception {
+    ResponseEntity<ApiResponse<?>> paymentApproveReq(@RequestParam("user_id") String userId, @RequestParam("pg_token") String pgToken) {
+        log.info("결제 성공 - userId: {}, pgToken:{}", userId, pgToken);
+
         Optional<KakaoPayReadyDto> kakaoPayReadyDto = kakaoPayReadyRepository.findById(userId);
         if (kakaoPayReadyDto.isEmpty()) {
             throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.NO_TID);
@@ -110,11 +109,13 @@ public class OptionController {
 
     @GetMapping("/payment/cancel")
     public void cancel() {
+        log.info("결제 취소");
         throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_CANCEL);
     }
 
     @GetMapping("/payment/fail")
     public void fail() {
+        log.info("결제 실패");
         throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_FAIL);
     }
 }
