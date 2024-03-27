@@ -6,7 +6,10 @@ from proto import image_pb2 as image__pb2
 
 
 class CreateImageStub(object):
-    """python -m grpc_tools.protoc --python_out=. --grpc_python_out=. --proto_path=. image.proto"""
+    """In dir 'src/proto'
+    python -m grpc_tools.protoc --python_out=. --grpc_python_out=. --proto_path=. ./image.proto
+
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -22,7 +25,10 @@ class CreateImageStub(object):
 
 
 class CreateImageServicer(object):
-    """python -m grpc_tools.protoc --python_out=. --grpc_python_out=. --proto_path=. image.proto"""
+    """In dir 'src/proto'
+    python -m grpc_tools.protoc --python_out=. --grpc_python_out=. --proto_path=. ./image.proto
+
+    """
 
     def sendImage(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -47,7 +53,10 @@ def add_CreateImageServicer_to_server(servicer, server):
 
 # This class is part of an EXPERIMENTAL API.
 class CreateImage(object):
-    """python -m grpc_tools.protoc --python_out=. --grpc_python_out=. --proto_path=. image.proto"""
+    """In dir 'src/proto'
+    python -m grpc_tools.protoc --python_out=. --grpc_python_out=. --proto_path=. ./image.proto
+
+    """
 
     @staticmethod
     def sendImage(

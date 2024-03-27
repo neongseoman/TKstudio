@@ -118,7 +118,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         else:
             sex = "female"
 
-        suit_option_name = options.suit
+        suit_option_name = options.optionName
 
         # DETECT FACE FROM TEMPLATE IMAGE
 
