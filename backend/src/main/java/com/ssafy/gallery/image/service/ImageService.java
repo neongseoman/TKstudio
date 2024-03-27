@@ -201,6 +201,7 @@ public class ImageService {
     }
 
     public void deleteImage(int imageId) {
+        imageRedisRepository.deleteById(String.valueOf(imageId));
         imageRepository.deleteImageInfo(imageId);
     }
 
