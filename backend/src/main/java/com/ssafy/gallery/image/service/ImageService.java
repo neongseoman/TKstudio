@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -56,16 +56,19 @@ public class ImageService {
                 .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
 
         Image.Options options = Image.Options.newBuilder()
-//                .setSex(optionStore.get().getSex())
-                .setSex(Image.Sex.MALE)
                 .setOptionName(optionStore.get().getOptionName())
+                .setSex(0)
                 .build();
+
         try {
             imageStub = grpcStubPool.getStub();
-            receiveData = imageStub.sendImage(Image.OriginalImageInfo.newBuilder()
+            Image.OriginalImageInfo buildImageInfo = Image.OriginalImageInfo.newBuilder()
                     .setOriginalImage(imageData)
                     .setOptions(options)
-                    .build());
+                    .build();
+            System.out.println(buildImageInfo.getOptions().getSex());
+            receiveData = imageStub.sendImage(buildImageInfo);
+
         } catch (IllegalStateException | InterruptedException e) {
             throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.GRPC_ERROR);
         }
