@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -38,7 +39,7 @@ public class ImageController {
 
         try {
             int id = (int) request.getAttribute("userId");
-
+            log.info("create Image request userId : " + id + LocalDateTime.now());
             CreateImageDto response = imageService.createImage(originalImage, optionId, id);
 
             return ResponseEntity.ok()
@@ -66,6 +67,7 @@ public class ImageController {
     public ResponseEntity<Map<Integer, ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
         int id = (int) request.getAttribute("userId");
 
+        log.info("getImageInfos request userId: " + id + LocalDateTime.now());
         List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(id);
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
                 .collect(Collectors.toMap(
@@ -79,7 +81,7 @@ public class ImageController {
     public ResponseEntity<Resource> getOriginalImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
         int id = (int) request.getAttribute("userId");
 
-        log.info("getOriginalImage id : " + imageInfoId);
+        log.info("getOriginalImage request userId: " + id + LocalDateTime.now());
         Resource image = imageService.getOriginalImage(imageInfoId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
@@ -89,6 +91,7 @@ public class ImageController {
     @GetMapping("getImage/processedImage/{imageInfoId}")
     public ResponseEntity<Resource> getProcessedImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
         int id = (int) request.getAttribute("userId");
+        log.info("getProcessedImage request userId: " + id + LocalDateTime.now());
 
         Resource image = imageService.getProcessedImage(imageInfoId);
         return ResponseEntity.ok()
@@ -100,6 +103,7 @@ public class ImageController {
     @GetMapping("getImage/thumbnailImage/{imageInfoId}")
     public ResponseEntity<Resource> getThumbnailImage(HttpServletRequest request, @PathVariable String imageInfoId) throws Exception {
         int id = (int) request.getAttribute("userId");
+        log.info("getThumbnailImage request userId: " + id + LocalDateTime.now());
 
         log.info("getOriginalImage id : " + imageInfoId);
         Resource image = imageService.getThumbnailImage(imageInfoId);
