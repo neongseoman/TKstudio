@@ -50,14 +50,18 @@ public class ImageService {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
+        int sex = 0;
         System.out.println(optionId);
 
         Optional<OptionStore> optionStore = Optional.of(optionStoreRepository.findById(Integer.valueOf(optionId))
                 .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
 
+        if(optionStore.get().getGender().equals("FEMALE")) {
+            sex = 1;
+        }
         Image.Options options = Image.Options.newBuilder()
                 .setOptionName(optionStore.get().getOptionName())
-                .setSex(1)
+                .setSex(sex)
                 .build();
 
         try {
