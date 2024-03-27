@@ -46,7 +46,7 @@ public class ImageService {
     @Value("${cloud.aws.s3.bucket}")
     private static String bucket;
 
-    public CreateImageDto createImage(MultipartFile image,String optionId, int userId) throws IOException {
+    public CreateImageDto createImage(MultipartFile image, String optionId, int userId) throws IOException {
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
@@ -57,7 +57,7 @@ public class ImageService {
 
         Image.Options options = Image.Options.newBuilder()
                 .setOptionName(optionStore.get().getOptionName())
-                .setSex(0)
+                .setSex(1)
                 .build();
 
         try {
