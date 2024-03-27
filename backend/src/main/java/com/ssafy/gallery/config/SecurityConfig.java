@@ -32,7 +32,6 @@ public class SecurityConfig {
 
     private static final String[] AUTH_BLACKLIST = {
             "/api/v1/user/logout", "/api/v1/option/list", "/api/v1/option/category", "/api/v1/option/payment/ready",
-//            "/api/v1/option/payment/success", "/api/v1/option/payment/cancel", "/api/v1/option/payment/fail"
     };
 
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
@@ -60,7 +59,7 @@ public class SecurityConfig {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowedHeaders(Collections.singletonList("*"));
             config.setAllowedMethods(Collections.singletonList("*"));
-            config.setAllowedOriginPatterns(Arrays.asList("https://j10a101.p.ssafy.io", "http://localhost:3000", "https://online-pay.kakao.com", "*"));
+            config.setAllowedOriginPatterns(Arrays.asList("https://j10a101.p.ssafy.io", "http://localhost:3000", "https://online-pay.kakao.com"));
             config.setAllowCredentials(true);
             config.addExposedHeader("accessToken");
             config.addExposedHeader("refreshToken");
