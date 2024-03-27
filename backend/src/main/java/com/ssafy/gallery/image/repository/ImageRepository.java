@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -41,6 +42,14 @@ public class ImageRepository {
                 .orElseThrow(() -> new IllegalArgumentException("해당 이미지 정보가 존재하지 않습니다. imageInfoId=" + imageInfoId));
 
         imageJpaRepository.flush();
+    }
+
+    public ImageInfo getImage(int imageInfoId){
+        Optional<ImageInfo> imageInfoOptional = imageJpaRepository.findById(imageInfoId);
+        if (imageInfoOptional.isPresent()){
+            return imageInfoOptional.get();
+        }
+        return null;
     }
 
 }
