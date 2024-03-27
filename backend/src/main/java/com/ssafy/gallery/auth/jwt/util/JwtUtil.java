@@ -78,9 +78,12 @@ public class JwtUtil {
             }
 
             request.setAttribute("userId", loginTokenDto.getUserId());
+            log.info("{} 유저 인증 성공", request.getAttribute("userId"));
+
             return new UsernamePasswordAuthenticationToken(loginTokenDto.getUserId(), "", List.of(new SimpleGrantedAuthority("USER")));
         }
 
+        log.info("유저 인증 실패");
         return null;
     }
 
