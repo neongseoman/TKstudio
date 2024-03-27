@@ -15,7 +15,6 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(ApiException.class)
     @ResponseStatus
     public ResponseEntity<ApiResponse<?>> handleApiException(ApiException e) {
-
         return ResponseEntity
                 .status(e.getStatus())
                 .body(ApiResponse.error(e.getMessage()));
@@ -24,7 +23,6 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus
     public ResponseEntity<ApiResponse<?>> handleDataException() {
-
         return ResponseEntity
                 .status(DATA_ACCESS_ERROR.getStatus())
                 .body(ApiResponse.error(DATA_ACCESS_ERROR.getMessage()));
