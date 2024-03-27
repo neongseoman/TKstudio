@@ -119,7 +119,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             sex = "female"
 
         suit_option_name = options.optionName
-
+        print(suit_option_name)
         # DETECT FACE FROM TEMPLATE IMAGE
 
         # Img dir
