@@ -86,7 +86,7 @@ public class OptionService {
         }
     }
 
-    public KakaoPayApproveResponse paymentApprove(String tid, String pgToken) throws Exception {
+    public KakaoPayApproveResponse paymentApprove(String tid, String pgToken) {
         try {
             String url = "https://open-api.kakaopay.com/online/v1/payment/approve";
             HttpEntity<?> urlRequest = new HttpEntity<>(mapToJson(getApproveParams(tid, pgToken)), getHeaders());
