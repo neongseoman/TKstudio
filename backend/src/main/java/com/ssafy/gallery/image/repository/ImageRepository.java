@@ -6,13 +6,16 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Repository
 @RequiredArgsConstructor
 public class ImageRepository {
@@ -34,6 +37,7 @@ public class ImageRepository {
     }
 
     public void deleteImageInfo(int imageInfoId) {
+        log.info(imageInfoId +" is delete");
         imageJpaRepository.findById(imageInfoId)
                 .map(imageInfo -> {
                     imageInfo.markAsDeleted();
@@ -44,12 +48,16 @@ public class ImageRepository {
         imageJpaRepository.flush();
     }
 
-    public ImageInfo getImage(int imageInfoId){
-        Optional<ImageInfo> imageInfoOptional = imageJpaRepository.findById(imageInfoId);
-        if (imageInfoOptional.isPresent()){
-            return imageInfoOptional.get();
+    public ImageInfo getImage(int imageInfoId) {
+        log.info(imageInfoId);
+        String jpql = "SELECT i FROM ImageInfo i WHERE i.imageInfoId = :imageInfoId AND i.isDeleted = false";
+        TypedQuery<ImageInfo> query = em.createQuery(jpql, ImageInfo.class);
+        query.setParameter("imageInfoId", imageInfoId);
+
+        List<ImageInfo> resultList = query.getResultList();
+        if (!resultList.isEmpty()) {
+            return resultList.get(0);
         }
         return null;
     }
-
 }
