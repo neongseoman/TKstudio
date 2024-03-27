@@ -22,7 +22,7 @@ message ProcessedImageInfo {
 
 message Options {
   string optionName = 1;
-  Sex sex = 2;
+  int32 sex = 2;
 }
 
 message ResponseUrl {
@@ -31,10 +31,6 @@ message ResponseUrl {
   string thumbnailImageUrl = 3;
 }
 
-enum Sex{
-  MALE = 0;
-  FEMALE = 1;
-}
 
 enum ImageProcessingResult {
   // 처리 성공

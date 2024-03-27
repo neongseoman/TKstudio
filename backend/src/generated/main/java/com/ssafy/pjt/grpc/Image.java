@@ -15,114 +15,6 @@ public final class Image {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
-   * Protobuf enum {@code com.ssafy.pjt.grpc.Sex}
-   */
-  public enum Sex
-      implements com.google.protobuf.ProtocolMessageEnum {
-    /**
-     * <code>MALE = 0;</code>
-     */
-    MALE(0),
-    /**
-     * <code>FEMALE = 1;</code>
-     */
-    FEMALE(1),
-    UNRECOGNIZED(-1),
-    ;
-
-    /**
-     * <code>MALE = 0;</code>
-     */
-    public static final int MALE_VALUE = 0;
-    /**
-     * <code>FEMALE = 1;</code>
-     */
-    public static final int FEMALE_VALUE = 1;
-
-
-    public final int getNumber() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalArgumentException(
-            "Can't get the number of an unknown enum value.");
-      }
-      return value;
-    }
-
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     * @deprecated Use {@link #forNumber(int)} instead.
-     */
-    @java.lang.Deprecated
-    public static Sex valueOf(int value) {
-      return forNumber(value);
-    }
-
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     */
-    public static Sex forNumber(int value) {
-      switch (value) {
-        case 0: return MALE;
-        case 1: return FEMALE;
-        default: return null;
-      }
-    }
-
-    public static com.google.protobuf.Internal.EnumLiteMap<Sex>
-        internalGetValueMap() {
-      return internalValueMap;
-    }
-    private static final com.google.protobuf.Internal.EnumLiteMap<
-        Sex> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<Sex>() {
-            public Sex findValueByNumber(int number) {
-              return Sex.forNumber(number);
-            }
-          };
-
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalStateException(
-            "Can't get the descriptor of an unrecognized enum value.");
-      }
-      return getDescriptor().getValues().get(ordinal());
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return com.ssafy.pjt.grpc.Image.getDescriptor().getEnumTypes().get(0);
-    }
-
-    private static final Sex[] VALUES = values();
-
-    public static Sex valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      if (desc.getIndex() == -1) {
-        return UNRECOGNIZED;
-      }
-      return VALUES[desc.getIndex()];
-    }
-
-    private final int value;
-
-    private Sex(int value) {
-      this.value = value;
-    }
-
-    // @@protoc_insertion_point(enum_scope:com.ssafy.pjt.grpc.Sex)
-  }
-
-  /**
    * Protobuf enum {@code com.ssafy.pjt.grpc.ImageProcessingResult}
    */
   public enum ImageProcessingResult
@@ -237,7 +129,7 @@ public final class Image {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.ssafy.pjt.grpc.Image.getDescriptor().getEnumTypes().get(1);
+      return com.ssafy.pjt.grpc.Image.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final ImageProcessingResult[] VALUES = values();
@@ -1893,15 +1785,10 @@ public final class Image {
         getOptionNameBytes();
 
     /**
-     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
-     * @return The enum numeric value on the wire for sex.
-     */
-    int getSexValue();
-    /**
-     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
+     * <code>int32 sex = 2;</code>
      * @return The sex.
      */
-    com.ssafy.pjt.grpc.Image.Sex getSex();
+    int getSex();
   }
   /**
    * Protobuf type {@code com.ssafy.pjt.grpc.Options}
@@ -1917,7 +1804,6 @@ public final class Image {
     }
     private Options() {
       optionName_ = "";
-      sex_ = 0;
     }
 
     @java.lang.Override
@@ -1957,9 +1843,8 @@ public final class Image {
               break;
             }
             case 16: {
-              int rawValue = input.readEnum();
 
-              sex_ = rawValue;
+              sex_ = input.readInt32();
               break;
             }
             default: {
@@ -2035,20 +1920,12 @@ public final class Image {
     public static final int SEX_FIELD_NUMBER = 2;
     private int sex_;
     /**
-     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
-     * @return The enum numeric value on the wire for sex.
-     */
-    @java.lang.Override public int getSexValue() {
-      return sex_;
-    }
-    /**
-     * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
+     * <code>int32 sex = 2;</code>
      * @return The sex.
      */
-    @java.lang.Override public com.ssafy.pjt.grpc.Image.Sex getSex() {
-      @SuppressWarnings("deprecation")
-      com.ssafy.pjt.grpc.Image.Sex result = com.ssafy.pjt.grpc.Image.Sex.valueOf(sex_);
-      return result == null ? com.ssafy.pjt.grpc.Image.Sex.UNRECOGNIZED : result;
+    @java.lang.Override
+    public int getSex() {
+      return sex_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2068,8 +1945,8 @@ public final class Image {
       if (!getOptionNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, optionName_);
       }
-      if (sex_ != com.ssafy.pjt.grpc.Image.Sex.MALE.getNumber()) {
-        output.writeEnum(2, sex_);
+      if (sex_ != 0) {
+        output.writeInt32(2, sex_);
       }
       unknownFields.writeTo(output);
     }
@@ -2083,9 +1960,9 @@ public final class Image {
       if (!getOptionNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, optionName_);
       }
-      if (sex_ != com.ssafy.pjt.grpc.Image.Sex.MALE.getNumber()) {
+      if (sex_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, sex_);
+          .computeInt32Size(2, sex_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2104,7 +1981,8 @@ public final class Image {
 
       if (!getOptionName()
           .equals(other.getOptionName())) return false;
-      if (sex_ != other.sex_) return false;
+      if (getSex()
+          != other.getSex()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2119,7 +1997,7 @@ public final class Image {
       hash = (37 * hash) + OPTIONNAME_FIELD_NUMBER;
       hash = (53 * hash) + getOptionName().hashCode();
       hash = (37 * hash) + SEX_FIELD_NUMBER;
-      hash = (53 * hash) + sex_;
+      hash = (53 * hash) + getSex();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2337,8 +2215,8 @@ public final class Image {
           optionName_ = other.optionName_;
           onChanged();
         }
-        if (other.sex_ != 0) {
-          setSexValue(other.getSexValue());
+        if (other.getSex() != 0) {
+          setSex(other.getSex());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2445,51 +2323,28 @@ public final class Image {
         return this;
       }
 
-      private int sex_ = 0;
+      private int sex_ ;
       /**
-       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
-       * @return The enum numeric value on the wire for sex.
+       * <code>int32 sex = 2;</code>
+       * @return The sex.
        */
-      @java.lang.Override public int getSexValue() {
+      @java.lang.Override
+      public int getSex() {
         return sex_;
       }
       /**
-       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
-       * @param value The enum numeric value on the wire for sex to set.
+       * <code>int32 sex = 2;</code>
+       * @param value The sex to set.
        * @return This builder for chaining.
        */
-      public Builder setSexValue(int value) {
+      public Builder setSex(int value) {
         
         sex_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
-       * @return The sex.
-       */
-      @java.lang.Override
-      public com.ssafy.pjt.grpc.Image.Sex getSex() {
-        @SuppressWarnings("deprecation")
-        com.ssafy.pjt.grpc.Image.Sex result = com.ssafy.pjt.grpc.Image.Sex.valueOf(sex_);
-        return result == null ? com.ssafy.pjt.grpc.Image.Sex.UNRECOGNIZED : result;
-      }
-      /**
-       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
-       * @param value The sex to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSex(com.ssafy.pjt.grpc.Image.Sex value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        
-        sex_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.com.ssafy.pjt.grpc.Sex sex = 2;</code>
+       * <code>int32 sex = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearSex() {
@@ -3455,16 +3310,15 @@ public final class Image {
       "mage\030\001 \001(\014\0224\n\013responseUrl\030\002 \001(\0132\037.com.ss" +
       "afy.pjt.grpc.ResponseUrl\0229\n\006Result\030\003 \001(\016" +
       "2).com.ssafy.pjt.grpc.ImageProcessingRes" +
-      "ult\"C\n\007Options\022\022\n\noptionName\030\001 \001(\t\022$\n\003se" +
-      "x\030\002 \001(\0162\027.com.ssafy.pjt.grpc.Sex\"]\n\013Resp" +
-      "onseUrl\022\030\n\020originalImageUrl\030\001 \001(\t\022\031\n\021pro" +
-      "cessedImageUrl\030\002 \001(\t\022\031\n\021thumbnailImageUr" +
-      "l\030\003 \001(\t*\033\n\003Sex\022\010\n\004MALE\020\000\022\n\n\006FEMALE\020\001*@\n\025" +
-      "ImageProcessingResult\022\013\n\007SUCCESS\020\000\022\013\n\007NO" +
-      "_FACE\020\001\022\r\n\tMANY_FACE\020\0022i\n\013CreateImage\022Z\n" +
-      "\tsendImage\022%.com.ssafy.pjt.grpc.Original" +
-      "ImageInfo\032&.com.ssafy.pjt.grpc.Processed" +
-      "ImageInfob\006proto3"
+      "ult\"*\n\007Options\022\022\n\noptionName\030\001 \001(\t\022\013\n\003se" +
+      "x\030\002 \001(\005\"]\n\013ResponseUrl\022\030\n\020originalImageU" +
+      "rl\030\001 \001(\t\022\031\n\021processedImageUrl\030\002 \001(\t\022\031\n\021t" +
+      "humbnailImageUrl\030\003 \001(\t*@\n\025ImageProcessin" +
+      "gResult\022\013\n\007SUCCESS\020\000\022\013\n\007NO_FACE\020\001\022\r\n\tMAN" +
+      "Y_FACE\020\0022i\n\013CreateImage\022Z\n\tsendImage\022%.c" +
+      "om.ssafy.pjt.grpc.OriginalImageInfo\032&.co" +
+      "m.ssafy.pjt.grpc.ProcessedImageInfob\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

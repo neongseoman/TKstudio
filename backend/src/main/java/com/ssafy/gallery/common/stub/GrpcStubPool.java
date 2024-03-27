@@ -15,6 +15,7 @@ public class GrpcStubPool {
     private final ManagedChannel channel;
     private final BlockingQueue<CreateImageGrpc.CreateImageBlockingStub> stubPool;
     private final String aiUrl = System.getenv("AI_URL");
+//    private final String aiUrl = "localhost:9090";
     private final int poolSize = 5;
     public GrpcStubPool() {
         this.channel = ManagedChannelBuilder.forTarget(aiUrl).usePlaintext().build();
