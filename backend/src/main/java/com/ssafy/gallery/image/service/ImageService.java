@@ -30,6 +30,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,8 +126,24 @@ public class ImageService {
     }
 
     public Resource getOriginalImage(String imageInfoId) throws Exception {
-        ImageInfoRedisDTO imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
-                .orElseThrow(() -> new Exception("Redis error"))).get();
+        ImageInfoRedisDTO imageInfo = null;
+        try {
+            imageInfo = imageRedisRepository.findById(imageInfoId).orElse(null);
+        } catch (Exception e) {
+            // Redis 오류 처리
+            throw new Exception("Redis error", e);
+        }
+
+        if (imageInfo == null) {
+            // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
+            ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
+            if (imageInfoFromDB == null){ // 예외처리 필요함
+                log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
+            }
+            // Redis에 이미지 정보 저장
+            imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
+            imageRedisRepository.save(imageInfo);
+        }
 
         String originalImageURL = imageInfo.getOriginalImageUrl();
 
@@ -133,19 +151,51 @@ public class ImageService {
     }
 
     public Resource getProcessedImage(String imageInfoId) throws Exception {
-        Optional<ImageInfoRedisDTO> imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
-                .orElseThrow( () -> new Exception("redis infomation error")));
+        ImageInfoRedisDTO imageInfo = null;
+        try {
+            imageInfo = imageRedisRepository.findById(imageInfoId).orElse(null);
+        } catch (Exception e) {
+            // Redis 오류 처리
+            throw new Exception("Redis error", e);
+        }
 
-        String processedImageURL = imageInfo.get().getProcessedImageUrl();
+        if (imageInfo == null) {
+            // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
+            ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
+            if (imageInfoFromDB == null){ // 예외처리 필요함
+                log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
+            }
+            // Redis에 이미지 정보 저장
+            imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
+            imageRedisRepository.save(imageInfo);
+        }
+
+        String processedImageURL = imageInfo.getProcessedImageUrl();
 
         return getS3Image(processedImageURL);
     }
 
     public Resource getThumbnailImage(String imageInfoId) throws Exception {
-        Optional<ImageInfoRedisDTO> imageInfo = Optional.ofNullable(imageRedisRepository.findById(imageInfoId)
-                .orElseThrow( () -> new Exception("redis infomation error")));
+        ImageInfoRedisDTO imageInfo = null;
+        try {
+            imageInfo = imageRedisRepository.findById(imageInfoId).orElse(null);
+        } catch (Exception e) {
+            // Redis 오류 처리
+            throw new Exception("Redis error", e);
+        }
 
-        String thumbnailImageURL = imageInfo.get().getThumbnailImageUrl();
+        if (imageInfo == null) {
+            // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
+            ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
+            if (imageInfoFromDB == null){ // 예외처리 필요함
+                log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
+            }
+            // Redis에 이미지 정보 저장
+            imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
+            imageRedisRepository.save(imageInfo);
+        }
+
+        String thumbnailImageURL = imageInfo.getThumbnailImageUrl();
 
         return getS3Image(thumbnailImageURL);
     }
@@ -154,7 +204,7 @@ public class ImageService {
         imageRepository.deleteImageInfo(imageId);
     }
 
-    private ByteArrayResource getBufferedImage(byte[] processedImageData) throws IOException, IOException {
+    private ByteArrayResource getBufferedImage(byte[] processedImageData) throws IOException {
         BufferedImage bufferedImage = new BufferedImage(768, 1024, BufferedImage.TYPE_3BYTE_BGR);
 
         // BufferedImage에 byte 배열 데이터 채우기
@@ -179,7 +229,7 @@ public class ImageService {
     }
 
     private Resource getS3Image(String imageURL) throws IOException {
-        System.out.println(bucket);
+
         S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, imageURL));
         S3ObjectInputStream objectInputStream = object.getObjectContent();
         byte[] data = IOUtils.toByteArray(objectInputStream);
