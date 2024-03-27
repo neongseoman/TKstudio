@@ -1,9 +1,7 @@
 package com.ssafy.gallery.image.repository;
 
 import com.ssafy.gallery.image.model.ImageInfo;
-import com.ssafy.gallery.image.model.ImageInfoDTO;
-import com.ssafy.gallery.image.model.SelectOptionDTO;
-import com.ssafy.pjt.grpc.Image;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -45,8 +43,4 @@ public class ImageRepository {
         imageJpaRepository.flush();
     }
 
-    public Resource getImageByImageInfoId(int imageInfoId) {
-
-        return null;
-    }
 }

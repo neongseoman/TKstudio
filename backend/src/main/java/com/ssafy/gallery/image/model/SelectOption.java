@@ -28,5 +28,9 @@ public class SelectOption {
         imageInfo.addSelectOption(this);
     }
 
+    public SelectOption(OptionStore optionId) {
+        this.optionId = optionId;
+    }
+
     // 생성자, 필요한 메서드 등 추가
 }
