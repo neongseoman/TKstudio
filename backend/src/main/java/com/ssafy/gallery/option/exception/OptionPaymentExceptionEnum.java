@@ -17,7 +17,7 @@ public enum OptionPaymentExceptionEnum {
             "    <script>\n" +
             "        alert(\"결제가 취소되었습니다.\");\n" +
             "    </script>\n" +
-            "    <p>잠시 후에 쇼핑 스토어로 이동합니다...</p>\n" +
+            "    <h1>잠시 후에 쇼핑 스토어로 이동합니다...</h1>\n" +
             "</body>\n" +
             "</html>"),
 
@@ -32,7 +32,7 @@ public enum OptionPaymentExceptionEnum {
             "    <script>\n" +
             "        alert(\"결제가 실패되었습니다.\");\n" +
             "    </script>\n" +
-            "    <p>잠시 후에 쇼핑 스토어로 이동합니다...</p>\n" +
+            "    <h1>잠시 후에 쇼핑 스토어로 이동합니다...</h1>\n" +
             "</body>\n" +
             "</html>");
 
