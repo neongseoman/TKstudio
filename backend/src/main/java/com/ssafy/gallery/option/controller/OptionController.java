@@ -5,6 +5,7 @@ import com.ssafy.gallery.common.response.ApiResponse;
 import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
 import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
 import com.ssafy.gallery.option.exception.OptionExceptionEnum;
+import com.ssafy.gallery.option.exception.OptionPaymentExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
 import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
@@ -23,8 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static com.ssafy.gallery.common.exception.CommonExceptionEnum.DATA_ACCESS_ERROR;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -118,14 +117,14 @@ public class OptionController {
     }
 
     @GetMapping("/payment/cancel")
-    ResponseEntity<ApiResponse<?>> cancel() {
+    ResponseEntity<?> cancel() {
         log.info("결제 취소");
-        return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).body(ApiResponse.error(OptionExceptionEnum.PAY_CANCEL.getMessage()));
+        return ResponseEntity.status(HttpStatus.FOUND).body(OptionPaymentExceptionEnum.CANCEL_ERROR_MESSAGE.getErrorMessage());
     }
 
     @GetMapping("/payment/fail")
-    ResponseEntity<ApiResponse<?>> fail() {
+    ResponseEntity<?> fail() {
         log.info("결제 실패");
-        return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).body(ApiResponse.error(OptionExceptionEnum.PAY_FAIL.getMessage()));
+        return ResponseEntity.status(HttpStatus.FOUND).body(OptionPaymentExceptionEnum.FAIL_ERROR_MESSAGE.getErrorMessage());
     }
 }
