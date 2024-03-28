@@ -54,33 +54,6 @@ public class ImageController {
         }
     }
 
-    @PostMapping("/createWithBytes")
-    public ResponseEntity<Resource> createImageFromBytes(
-            HttpServletRequest request,
-            @RequestParam(value = "originalImage") byte[] imageData,
-            @RequestParam(value = "width") int width,
-            @RequestParam(value = "heigth") int height,
-            @RequestParam(value = "optionId") String optionId
-    ) throws Exception {
-
-        try {
-            int id = (int) request.getAttribute("userId");
-            log.info("create Image request userId : " + id + LocalDateTime.now());
-            CreateImageDto response = imageService.createImageFromBytes(imageData,width,height,optionId, id);
-
-            return ResponseEntity.ok()
-                    .header("imageInfoId", String.valueOf(response.getImageInfoId()))
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
-                    .body(response.getResource());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest()
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
-                    .body(null);
-        }
-    }
-
     @GetMapping("delete/{imageInfoId}")
     public ResponseEntity deleteImage(HttpServletRequest request, @PathVariable int imageInfoId) {
         int id = (int) request.getAttribute("userId");
