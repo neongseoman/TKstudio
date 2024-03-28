@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.ssafy.gallery.common.exception.CommonExceptionEnum.DATA_ACCESS_ERROR;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/option")
@@ -116,14 +118,14 @@ public class OptionController {
     }
 
     @GetMapping("/payment/cancel")
-    public void cancel() {
+    ResponseEntity<ApiResponse<?>> cancel() {
         log.info("결제 취소");
-        throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_CANCEL);
+        return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).body(ApiResponse.error(OptionExceptionEnum.PAY_CANCEL.getMessage()));
     }
 
     @GetMapping("/payment/fail")
-    public void fail() {
+    ResponseEntity<ApiResponse<?>> fail() {
         log.info("결제 실패");
-        throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.PAY_FAIL);
+        return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).body(ApiResponse.error(OptionExceptionEnum.PAY_FAIL.getMessage()));
     }
 }
