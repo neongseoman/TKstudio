@@ -70,7 +70,7 @@ public class ImageController {
         List<ImageInfoDTO> imageInfoList = new ArrayList<>(imageService.getImageInfos(id));
 
         // imageInfoList를 생성 시간에 맞춰 내림차순으로 정렬
-        imageInfoList.sort(Comparator.comparing(ImageInfoDTO::getCreatedTime).reversed());
+        imageInfoList.sort(Comparator.comparing(ImageInfoDTO::getCreatedTime));
 
         // 정렬된 순서를 유지하기 위해 LinkedHashMap을 사용하여 responseDTO 생성
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
