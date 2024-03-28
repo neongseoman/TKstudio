@@ -7,6 +7,7 @@ import Spinner from '@/components/Spinner'
 import Link from 'next/link'
 import Grid from './_components/Grid'
 import NoImage from './_components/NoImage'
+import { LightGray } from '@@/assets/styles/pallete'
 
 function GalleryPage() {
   const [target, setTarget] = useState<HTMLElement | null>(null)
@@ -50,7 +51,7 @@ function GalleryPage() {
               $aspectRatio="1 / 1"
             />
           ) : (
-            <div style={{ width: '100%', height: '100%', color: 'black' }} />
+            <div style={{ width: '100%', height: '100%', color: LightGray }} />
           )}
         </Link>
       )
