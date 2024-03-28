@@ -3,4 +3,4 @@ jwt:
     expiration: 1800000 # 30분
 
   refresh:
-    expiration: 1800000 # 30분
+    expiration: 7200000 # 2시간
