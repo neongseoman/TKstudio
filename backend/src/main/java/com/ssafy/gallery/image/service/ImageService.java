@@ -89,9 +89,11 @@ public class ImageService {
                     userId,
                     responseUrl.getOriginalImageUrl(),
                     responseUrl.getThumbnailImageUrl(),
-                    responseUrl.getProcessedImageUrl());
+                    responseUrl.getProcessedImageUrl(),
+                    optionStore.get()
+                    );
 
-            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo);
+            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo,optionStore.get());
             log.info("DB insert Image info : " + insertResult.getImageInfoId());
 
             CreateImageDto imageInfoDto = new CreateImageDto(
