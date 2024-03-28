@@ -11,7 +11,7 @@ const NavWrapper = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 4rem;
   background-color: ${White};
   border-top: 1px solid ${Black};
