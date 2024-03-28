@@ -41,7 +41,7 @@ public class UserService {
             User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
             User saved;
             Optional<User> optionalUser = userRepository.findByDomain(user.getDomain());
-            if (optionalUser.isPresent()) {
+            if (optionalUser.isEmpty()) {
                 saved = userRepository.save(user);
                 optionService.buyOption(saved.getUserId(), 1);
                 optionService.buyOption(saved.getUserId(), 21);
