@@ -10,14 +10,19 @@ import java.util.stream.Collectors;
 @Setter
 public class ImageInfoDTO {
     private int imageInfoId;
+    private int optionId;
+    private String optionName;
     private LocalDateTime createdTime;
-    private List<Integer> selectOptionDTOList;
 
     public ImageInfoDTO(ImageInfo imageInfo) {
         this.imageInfoId = imageInfo.getImageInfoId();
         this.createdTime = imageInfo.getCreatedTime();
-        this.selectOptionDTOList = imageInfo.getSelectOptions().stream()
-                .map(s->s.getSelectOptionId())
-                .collect(Collectors.toList());
+        if (imageInfo.getOptionStore() != null) {
+            optionId = imageInfo.getOptionStore().getOptionId();
+            optionName = imageInfo.getOptionStore().getOptionName();
+        } else {
+            optionId = 0;
+            optionName = "";
+        }
     }
 }

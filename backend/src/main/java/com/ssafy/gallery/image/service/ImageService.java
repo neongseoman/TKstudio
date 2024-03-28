@@ -32,6 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -189,6 +190,7 @@ public class ImageService {
         List<ImageInfoDTO> listDto = imageInfoList.stream()
                 .map(ImageInfoDTO::new)
                 .toList();
+
         return listDto;
     }
 
@@ -203,13 +205,14 @@ public class ImageService {
 
         if (imageInfo == null) {
             // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
-            ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
-            if (imageInfoFromDB == null){ // 예외처리 필요함
-                log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
+            try{
+                ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
+                imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
+                imageRedisRepository.save(imageInfo);
+            } catch(NullPointerException e){
+                ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA);
             }
             // Redis에 이미지 정보 저장
-            imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
-            imageRedisRepository.save(imageInfo);
         }
 
         String originalImageURL = imageInfo.getOriginalImageUrl();
