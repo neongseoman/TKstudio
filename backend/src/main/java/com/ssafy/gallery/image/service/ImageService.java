@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.common.exception.GrpcExceptionEnum;
 import com.ssafy.gallery.common.exception.RedisExceptionEnum;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
@@ -32,6 +33,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +55,6 @@ public class ImageService {
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
         int sex = 0;
-        System.out.println(optionId);
 
         Optional<OptionStore> optionStore = Optional.of(optionStoreRepository.findById(Integer.valueOf(optionId))
                 .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
@@ -81,7 +82,7 @@ public class ImageService {
 
         if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
             byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
-            ByteArrayResource byteArrayResource = getBufferedImage(processedImageData);
+            ByteArrayResource byteArrayResource = getBufferedImage(processedImageData,768,1024);
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
             ImageInfo imageInfo = new ImageInfo(
@@ -100,7 +101,11 @@ public class ImageService {
                     imageInfo.getProcessedImageUrl(),
                     byteArrayResource
             );
-            grpcStubPool.returnStub(imageStub);
+            try{
+                grpcStubPool.returnStub(imageStub);
+            } catch (InterruptedException e){
+                ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
+            }
 
             return imageInfoDto;
         } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
@@ -112,6 +117,7 @@ public class ImageService {
         }
     }
 
+
     public List<ImageInfoDTO> getImageInfos(int userId) {
         List<ImageInfo> imageInfoList = imageRepository.getImageInfoListByUserId(userId);
         List<ImageInfoRedisDTO> redisImageInfoList = imageInfoList.stream()
@@ -122,6 +128,7 @@ public class ImageService {
         List<ImageInfoDTO> listDto = imageInfoList.stream()
                 .map(ImageInfoDTO::new)
                 .toList();
+
         return listDto;
     }
 
@@ -136,13 +143,14 @@ public class ImageService {
 
         if (imageInfo == null) {
             // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
-            ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
-            if (imageInfoFromDB == null){ // 예외처리 필요함
-                log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
+            try{
+                ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
+                imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
+                imageRedisRepository.save(imageInfo);
+            } catch(NullPointerException e){
+                ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA);
             }
             // Redis에 이미지 정보 저장
-            imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
-            imageRedisRepository.save(imageInfo);
         }
 
         String originalImageURL = imageInfo.getOriginalImageUrl();
@@ -205,7 +213,7 @@ public class ImageService {
         imageRepository.deleteImageInfo(imageId);
     }
 
-    private ByteArrayResource getBufferedImage(byte[] processedImageData) throws IOException {
+    private ByteArrayResource getBufferedImage(byte[] processedImageData,int width, int height) throws IOException {
         BufferedImage bufferedImage = new BufferedImage(768, 1024, BufferedImage.TYPE_3BYTE_BGR);
 
         // BufferedImage에 byte 배열 데이터 채우기
