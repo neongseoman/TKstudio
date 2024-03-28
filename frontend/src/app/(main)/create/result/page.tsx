@@ -115,7 +115,6 @@ const Result = function () {
       }
     }
 
-    reset()
     getImage()
   }, [router, reset])
 
