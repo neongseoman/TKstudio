@@ -5,6 +5,7 @@ import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.exception.CommonExceptionEnum;
 import com.ssafy.gallery.oauth.client.OauthMemberClientComposite;
 import com.ssafy.gallery.oauth.type.OauthServerType;
+import com.ssafy.gallery.option.service.OptionService;
 import com.ssafy.gallery.redis.dto.LoginTokenDto;
 import com.ssafy.gallery.redis.repository.LoginTokenRepository;
 import com.ssafy.gallery.user.exception.UserExceptionEnum;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClientException;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @Transactional
@@ -31,12 +34,20 @@ public class UserService {
     private final UserRepository userRepository;
     private final LoginLogRepository loginLogRepository;
     private final JwtUtil jwtUtil;
+    private final OptionService optionService;
 
     public void login(HttpServletRequest request, HttpServletResponse response, OauthServerType oauthServerType, String authCode) {
         try {
             User user = oauthMemberClientComposite.fetch(oauthServerType, authCode);
-            User saved = userRepository.findByDomain(user.getDomain())
-                    .orElseGet(() -> userRepository.save(user));
+            User saved;
+            Optional<User> optionalUser = userRepository.findByDomain(user.getDomain());
+            if (optionalUser.isPresent()) {
+                saved = userRepository.save(user);
+                optionService.buyOption(saved.getUserId(), 1);
+                optionService.buyOption(saved.getUserId(), 21);
+            } else {
+                saved = userRepository.findByDomain(user.getDomain()).get();
+            }
 
             String accessToken = jwtUtil.createToken("access");
             String refreshToken = jwtUtil.createToken("refresh");
