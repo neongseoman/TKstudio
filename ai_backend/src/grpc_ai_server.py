@@ -164,7 +164,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
                 end_time = time.time()
                 execution_time = end_time - start_time
                 now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-                print(f"{now} - Execution Time: {execution_time} sec")
+                print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
                 return pb2.ProcessedImageInfo(**return_value)
 
@@ -179,7 +179,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             end_time = time.time()
             execution_time = end_time - start_time
             now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time} sec")
+            print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
             return pb2.ProcessedImageInfo(**return_value)
 
@@ -226,7 +226,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             end_time = time.time()
             execution_time = end_time - start_time
             now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time} sec")
+            print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
             return pb2.ProcessedImageInfo(**return_value)
 
@@ -246,7 +246,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             end_time = time.time()
             execution_time = end_time - start_time
             now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time} sec")
+            print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
             return pb2.ProcessedImageInfo(**return_value)
 
@@ -258,7 +258,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             end_time = time.time()
             execution_time = end_time - start_time
             now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time} sec")
+            print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
             return pb2.ProcessedImageInfo(**return_value)
 
