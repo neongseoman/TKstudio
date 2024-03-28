@@ -1,5 +1,7 @@
 package com.ssafy.gallery.image.repository;
 
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.common.exception.MariaDBExceptionEnum;
 import com.ssafy.gallery.image.model.ImageInfo;
 
 import jakarta.persistence.EntityManager;
@@ -8,6 +10,7 @@ import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -29,10 +32,15 @@ public class ImageRepository {
     }
 
     public List<ImageInfo> getImageInfoListByUserId(int userId) {
-        String jpql = "SELECT i FROM ImageInfo i LEFT JOIN FETCH i.selectOptions WHERE i.userId = :userId AND i.isDeleted = false";
-        TypedQuery<ImageInfo> query = em.createQuery(jpql,ImageInfo.class);
+        String jpql = "SELECT i FROM ImageInfo i LEFT JOIN FETCH i.optionStore WHERE i.userId = :userId AND i.isDeleted = false";
+        TypedQuery<ImageInfo> query = em.createQuery(jpql, ImageInfo.class);
         query.setParameter("userId", userId);
         List<ImageInfo> list = query.getResultList();
+        if (list.isEmpty()) {
+            System.out.println("No ImageInfo records found for userId: " + userId);
+        } else {
+            ApiExceptionFactory.fromExceptionEnum(MariaDBExceptionEnum.NO_DB_DATA);
+        }
         return list;
     }
 

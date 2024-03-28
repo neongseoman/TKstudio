@@ -18,8 +18,8 @@ public class ImageInfoRedisDTO {
 
     @Id
     private int imageInfoId;
+    private int optionId;
     private String optionName;
-    private int categoryId;
     private String originalImageUrl;
     private String thumbnailImageUrl;
     private String processedImageUrl;
@@ -33,5 +33,12 @@ public class ImageInfoRedisDTO {
         thumbnailImageUrl = image.getThumbnailImageUrl();
         processedImageUrl = image.getProcessedImageUrl();
         expiration = 60000000;
+        if (image.getOptionStore() != null) {
+            optionId = image.getOptionStore().getOptionId();
+            optionName = image.getOptionStore().getOptionName();
+        } else {
+            optionId = 0;
+            optionName = "";
+        }
     }
 }
