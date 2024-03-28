@@ -4,6 +4,7 @@ import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.exception.MariaDBExceptionEnum;
 import com.ssafy.gallery.image.model.ImageInfo;
 
+import com.ssafy.gallery.option.model.OptionStore;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -27,7 +28,8 @@ public class ImageRepository {
 
     private final ImageJpaRepository imageJpaRepository;
 
-    public ImageInfo insertImageUrls(ImageInfo imageInfo) {
+    public ImageInfo insertImageUrls(ImageInfo imageInfo, OptionStore optionStore) {
+        imageInfo.setOptionStore(optionStore);
         return imageJpaRepository.save(imageInfo);
     }
 
@@ -37,7 +39,7 @@ public class ImageRepository {
         query.setParameter("userId", userId);
         List<ImageInfo> list = query.getResultList();
         if (list.isEmpty()) {
-            System.out.println("No ImageInfo records found for userId: " + userId);
+            log.info("No ImageInfo records found for userId: " + userId);
         } else {
             ApiExceptionFactory.fromExceptionEnum(MariaDBExceptionEnum.NO_DB_DATA);
         }
