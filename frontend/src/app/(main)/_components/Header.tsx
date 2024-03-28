@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Logo from '@@/assets/icons/logo-small.svg'
 import styled from 'styled-components'
 
