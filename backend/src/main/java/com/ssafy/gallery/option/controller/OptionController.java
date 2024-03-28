@@ -14,6 +14,7 @@ import com.ssafy.gallery.redis.repository.KakaoPayReadyRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,9 @@ import java.util.Optional;
 public class OptionController {
     private final OptionService optionService;
     private final KakaoPayReadyRepository kakaoPayReadyRepository;
+
+    @Value("${pay.client.redirect_uri}")
+    private String redirectUrl;
 
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
@@ -108,7 +112,7 @@ public class OptionController {
 
         optionService.buyOption(Integer.parseInt(userId), Integer.parseInt(kakaoPayApproveResponse.itemCode()));
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(null));
+        return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).build();
     }
 
     @GetMapping("/payment/cancel")
