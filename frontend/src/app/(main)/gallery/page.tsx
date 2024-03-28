@@ -112,7 +112,7 @@ function GalleryPage() {
         URL.revokeObjectURL(url)
       })
     }
-  }, [])
+  }, [urls])
 
   useEffect(() => {
     setUrls((prev) => {
