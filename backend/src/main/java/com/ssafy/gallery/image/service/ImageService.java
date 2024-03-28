@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.common.exception.GrpcExceptionEnum;
 import com.ssafy.gallery.common.exception.RedisExceptionEnum;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
@@ -54,7 +55,6 @@ public class ImageService {
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
         int sex = 0;
-        System.out.println(optionId);
 
         Optional<OptionStore> optionStore = Optional.of(optionStoreRepository.findById(Integer.valueOf(optionId))
                 .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
@@ -101,7 +101,11 @@ public class ImageService {
                     imageInfo.getProcessedImageUrl(),
                     byteArrayResource
             );
-            grpcStubPool.returnStub(imageStub);
+            try{
+                grpcStubPool.returnStub(imageStub);
+            } catch (InterruptedException e){
+                ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
+            }
 
             return imageInfoDto;
         } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
@@ -112,72 +116,6 @@ public class ImageService {
             throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
         }
     }
-
-    public CreateImageDto createImageFromBytes(byte[] imageData, int width, int height, String optionId, int userId) throws IOException {
-//        ByteString imageData = ByteString.copyFrom(image.getBytes());
-        CreateImageGrpc.CreateImageBlockingStub imageStub = null;
-        Image.ProcessedImageInfo receiveData = null;
-        int sex = 0;
-        System.out.println(optionId);
-
-        Optional<OptionStore> optionStore = Optional.of(optionStoreRepository.findById(Integer.valueOf(optionId))
-                .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
-
-        if(optionStore.get().getGender().equals("FEMALE")) {
-            sex = 1;
-        }
-        Image.Options options = Image.Options.newBuilder()
-                .setOptionName(optionStore.get().getOptionName())
-                .setSex(sex)
-                .build();
-
-        try {
-            ByteString image = ByteString.copyFrom(imageData);
-            imageStub = grpcStubPool.getStub();
-            Image.OriginalImageInfo buildImageInfo = Image.OriginalImageInfo.newBuilder()
-                    .setOriginalImage(image)
-                    .setOptions(options)
-                    .build();
-            System.out.println(buildImageInfo.getOptions().getSex());
-            receiveData = imageStub.sendImage(buildImageInfo);
-
-        } catch (IllegalStateException | InterruptedException e) {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.GRPC_ERROR);
-        }
-
-        if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
-            byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
-            ByteArrayResource byteArrayResource = getBufferedImage(processedImageData,width,height);
-            Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
-
-            ImageInfo imageInfo = new ImageInfo(
-                    userId,
-                    responseUrl.getOriginalImageUrl(),
-                    responseUrl.getThumbnailImageUrl(),
-                    responseUrl.getProcessedImageUrl());
-
-            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo);
-            log.info("DB insert Image info : " + insertResult.getImageInfoId());
-
-            CreateImageDto imageInfoDto = new CreateImageDto(
-                    imageInfo.getImageInfoId(),
-                    imageInfo.getThumbnailImageUrl(),
-                    imageInfo.getOriginalImageUrl(),
-                    imageInfo.getProcessedImageUrl(),
-                    byteArrayResource
-            );
-            grpcStubPool.returnStub(imageStub);
-
-            return imageInfoDto;
-        } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
-        } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
-        } else {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
-        }
-    }
-
 
 
     public List<ImageInfoDTO> getImageInfos(int userId) {
