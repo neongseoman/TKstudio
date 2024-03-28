@@ -36,7 +36,7 @@ public class User {
     @Embedded
     private Domain domain;
 
-    @Column(name = "nickname", columnDefinition = "VARCHAR(255) CHARACTER SET UTF8")
+    @Column(name = "nickname", columnDefinition = "VARCHAR(50) CHARACTER SET UTF8")
     private String nickname;
     private String email;
     private String gender;
