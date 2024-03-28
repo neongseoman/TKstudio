@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -68,11 +67,18 @@ public class ImageController {
         int id = (int) request.getAttribute("userId");
 
         log.info("getImageInfos request userId: " + id + LocalDateTime.now());
-        List<ImageInfoDTO> imageInfoList = imageService.getImageInfos(id);
+        List<ImageInfoDTO> imageInfoList = new ArrayList<>(imageService.getImageInfos(id));
+
+        // imageInfoList를 생성 시간에 맞춰 내림차순으로 정렬
+        imageInfoList.sort(Comparator.comparing(ImageInfoDTO::getCreatedTime).reversed());
+
+        // 정렬된 순서를 유지하기 위해 LinkedHashMap을 사용하여 responseDTO 생성
         Map<Integer, ImageInfoDTO> responseDTO = imageInfoList.stream()
                 .collect(Collectors.toMap(
                         ImageInfoDTO::getImageInfoId,
-                        Function.identity()));
+                        Function.identity(),
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new));
 
         return ResponseEntity.ok().body(responseDTO);
     }

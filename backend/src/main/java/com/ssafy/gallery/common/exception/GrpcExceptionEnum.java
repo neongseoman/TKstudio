@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum RedisExceptionEnum implements ExceptionEnum {
-    NO_REDIS_DATA(HttpStatus.INTERNAL_SERVER_ERROR, 500,"Redis no data");
+public enum GrpcExceptionEnum implements ExceptionEnum{
+    NO_STUB(HttpStatus.INTERNAL_SERVER_ERROR, 500,"grpc stub queue is full");
 
     private final HttpStatus status;
     private final int code;

@@ -1,6 +1,7 @@
 package com.ssafy.gallery.image.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.ssafy.gallery.option.model.OptionStore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -38,24 +39,24 @@ public class ImageInfo {
     @Column(nullable = false)
     private boolean isDeleted = false;
 
+    @ManyToOne
+    @JoinColumn(name = "optionId")
+    private OptionStore optionStore;
+
     public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl) {
-        // 생성자 에러 핸들링 Throws 필요함.
         this.userId = userId;
-        this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
-        this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
-        this.processedImageUrl = processedImageUrl.substring(processedImageUrl.indexOf("processedImages/"));
+        try {
+            this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
+            this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
+            this.processedImageUrl = processedImageUrl.substring(processedImageUrl.indexOf("processedImages/"));
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Invalid image URL format", e);
+        }
     }
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdTime;
-
-    @OneToMany(mappedBy = "imageInfo")
-    private List<SelectOption> selectOptions = new ArrayList<>();
-
-    public void addSelectOption(SelectOption selectOption) {
-        selectOptions.add(selectOption);
-    }
 
     public void markAsDeleted() {
         isDeleted = true;
