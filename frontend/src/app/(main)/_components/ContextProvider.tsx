@@ -57,7 +57,7 @@ function GalleryProvider({ children }: Props) {
           Authorization: localStorage.getItem('accessToken') as string,
         },
       }).then((res) => res.json())
-      
+
       for (let key in response) {
         newInfo.push(response[key])
       }
@@ -65,6 +65,7 @@ function GalleryProvider({ children }: Props) {
       const res = newInfo.sort((a, b) => (b.imageInfoId - a.imageInfoId))
       setPicInfo(res)
       setIsGetInfo(true)
+
       return res
     }
     return null
