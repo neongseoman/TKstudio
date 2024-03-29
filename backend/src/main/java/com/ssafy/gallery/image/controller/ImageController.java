@@ -1,6 +1,9 @@
 
 package com.ssafy.gallery.image.controller;
 
+import com.ssafy.gallery.common.exception.ApiException;
+import com.ssafy.gallery.common.exception.ApiExceptionFactory;
+import com.ssafy.gallery.image.exception.ImageExceptionEnum;
 import com.ssafy.gallery.image.model.*;
 import com.ssafy.gallery.image.service.ImageService;
 import com.ssafy.pjt.grpc.Image;
@@ -15,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
@@ -34,24 +38,16 @@ public class ImageController {
             HttpServletRequest request,
             @RequestParam(value = "originalImage") MultipartFile originalImage,
             @RequestParam(value = "optionId") String optionId
-    ) throws Exception {
+    ) throws IOException {
+        int id = (int) request.getAttribute("userId");
+        log.info("create Image request userId : " + id + LocalDateTime.now());
+        CreateImageDto response = imageService.createImage(originalImage, optionId, id);
 
-        try {
-            int id = (int) request.getAttribute("userId");
-            log.info("create Image request userId : " + id + LocalDateTime.now());
-            CreateImageDto response = imageService.createImage(originalImage, optionId, id);
+        return ResponseEntity.ok()
+                .header("imageInfoId", String.valueOf(response.getImageInfoId()))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
+                .body(response.getResource());
 
-            return ResponseEntity.ok()
-                    .header("imageInfoId", String.valueOf(response.getImageInfoId()))
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
-                    .body(response.getResource());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest()
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE)
-                    .body(null);
-        }
     }
 
     @GetMapping("delete/{imageInfoId}")
