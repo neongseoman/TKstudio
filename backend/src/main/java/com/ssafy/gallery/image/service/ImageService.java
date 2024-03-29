@@ -53,15 +53,16 @@ public class ImageService {
     private String bucket;
 
     public CreateImageDto createImage(MultipartFile image, String optionId, int userId) throws IOException {
+        log.info("이미지 생성 서비스 시작0");
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
         int sex = 0;
 
         Optional<OptionStore> optionStore = Optional.of(optionStoreRepository.findById(Integer.valueOf(optionId))
-                .orElseThrow(()->ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
+                .orElseThrow(() -> ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA)));
 
-        if(optionStore.get().getGender().equals("FEMALE")) {
+        if (optionStore.get().getGender().equals("FEMALE")) {
             sex = 1;
         }
         Image.Options options = Image.Options.newBuilder()
@@ -70,12 +71,13 @@ public class ImageService {
                 .build();
 
         try {
+            log.info("이미지 생성 try 시작");
             imageStub = grpcStubPool.getStub();
             Image.OriginalImageInfo buildImageInfo = Image.OriginalImageInfo.newBuilder()
                     .setOriginalImage(imageData)
                     .setOptions(options)
                     .build();
-            System.out.println(buildImageInfo.getOptions().getSex());
+            log.info("이미지 생성 성별: {}", buildImageInfo.getOptions().getSex());
             receiveData = imageStub.sendImage(buildImageInfo);
 
         } catch (IllegalStateException | InterruptedException e) {
@@ -84,7 +86,7 @@ public class ImageService {
 
         if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
             byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
-            ByteArrayResource byteArrayResource = getBufferedImage(processedImageData,768,1024);
+            ByteArrayResource byteArrayResource = getBufferedImage(processedImageData, 768, 1024);
             Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
             ImageInfo imageInfo = new ImageInfo(
@@ -93,9 +95,9 @@ public class ImageService {
                     responseUrl.getThumbnailImageUrl(),
                     responseUrl.getProcessedImageUrl(),
                     optionStore.get()
-                    );
+            );
 
-            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo,optionStore.get());
+            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo, optionStore.get());
             log.info("DB insert Image info : " + insertResult.getImageInfoId());
 
             CreateImageDto imageInfoDto = new CreateImageDto(
@@ -105,9 +107,9 @@ public class ImageService {
                     imageInfo.getProcessedImageUrl(),
                     byteArrayResource
             );
-            try{
+            try {
                 grpcStubPool.returnStub(imageStub);
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 throw ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
             }
 
@@ -147,11 +149,11 @@ public class ImageService {
 
         if (imageInfo == null) {
             // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
-            try{
+            try {
                 ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
                 imageInfo = new ImageInfoRedisDTO(imageInfoFromDB);
                 imageRedisRepository.save(imageInfo);
-            } catch(NullPointerException e){
+            } catch (NullPointerException e) {
                 ApiExceptionFactory.fromExceptionEnum(RedisExceptionEnum.NO_REDIS_DATA);
             }
             // Redis에 이미지 정보 저장
@@ -174,7 +176,7 @@ public class ImageService {
         if (imageInfo == null) {
             // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
             ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
-            if (imageInfoFromDB == null){ // 예외처리 필요함
+            if (imageInfoFromDB == null) { // 예외처리 필요함
                 log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
             }
             // Redis에 이미지 정보 저장
@@ -199,7 +201,7 @@ public class ImageService {
         if (imageInfo == null) {
             // Redis에서 찾을 수 없는 경우 ImageRepository를 사용하여 이미지 정보 조회
             ImageInfo imageInfoFromDB = imageRepository.getImage(Integer.parseInt(imageInfoId));
-            if (imageInfoFromDB == null){ // 예외처리 필요함
+            if (imageInfoFromDB == null) { // 예외처리 필요함
                 log.info("이미지 가져올 때 에러 남. " + imageInfoId + LocalDateTime.now());
             }
             // Redis에 이미지 정보 저장
@@ -217,7 +219,7 @@ public class ImageService {
         imageRepository.deleteImageInfo(imageId);
     }
 
-    private ByteArrayResource getBufferedImage(byte[] processedImageData,int width, int height) throws IOException {
+    private ByteArrayResource getBufferedImage(byte[] processedImageData, int width, int height) throws IOException {
         BufferedImage bufferedImage = new BufferedImage(768, 1024, BufferedImage.TYPE_3BYTE_BGR);
 
         // BufferedImage에 byte 배열 데이터 채우기
