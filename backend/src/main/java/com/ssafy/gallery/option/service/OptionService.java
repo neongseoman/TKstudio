@@ -3,7 +3,6 @@ package com.ssafy.gallery.option.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
-import com.ssafy.gallery.common.exception.CommonExceptionEnum;
 import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
 import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
 import com.ssafy.gallery.option.exception.OptionExceptionEnum;
@@ -80,9 +79,6 @@ public class OptionService {
         } catch (RestClientException rce) {
             log.error(rce.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.WRONG__PAYMENT_REQUEST);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
         }
     }
 
@@ -98,9 +94,6 @@ public class OptionService {
         } catch (RestClientException rce) {
             log.error(rce.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.WRONG__PAYMENT_REQUEST);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
         }
     }
 

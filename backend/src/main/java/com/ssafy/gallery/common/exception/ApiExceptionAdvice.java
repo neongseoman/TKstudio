@@ -1,14 +1,19 @@
 package com.ssafy.gallery.common.exception;
 
 import com.ssafy.gallery.common.response.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.ssafy.gallery.common.exception.CommonExceptionEnum.DATA_ACCESS_ERROR;
+import java.sql.SQLException;
 
+import static com.ssafy.gallery.common.exception.CommonExceptionEnum.DATA_ACCESS_ERROR;
+import static com.ssafy.gallery.common.exception.CommonExceptionEnum.UNKNOWN_ERROR;
+
+@Slf4j
 @RestControllerAdvice
 public class ApiExceptionAdvice {
 
@@ -26,5 +31,21 @@ public class ApiExceptionAdvice {
         return ResponseEntity
                 .status(DATA_ACCESS_ERROR.getStatus())
                 .body(ApiResponse.error(DATA_ACCESS_ERROR.getMessage()));
+    }
+
+    @ExceptionHandler(SQLException.class)
+    @ResponseStatus
+    public ResponseEntity<ApiResponse<?>> handleSQLException() {
+        return ResponseEntity
+                .status(DATA_ACCESS_ERROR.getStatus())
+                .body(ApiResponse.error(DATA_ACCESS_ERROR.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus
+    public ResponseEntity<ApiResponse<?>> handleException() {
+        return ResponseEntity
+                .status(UNKNOWN_ERROR.getStatus())
+                .body(ApiResponse.error(UNKNOWN_ERROR.getMessage()));
     }
 }
