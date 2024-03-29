@@ -146,20 +146,96 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
         print(f"{now} - AI Server: Success loading template image")
 
-        try:
-            start_time = time.time()
-            # Detect face from input img
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - AI Server: Start detecting face from the original image")
-            faces = faceswap_app.get(original_image)
+        # try:
+        start_time = time.time()
+        # Detect face from input img
+        now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+        print(f"{now} - AI Server: Start detecting face from the original image")
+        faces = faceswap_app.get(original_image)
 
-            # Many faces in input img
-            if len(faces) > 1:
+        # Many faces in input img
+        if len(faces) > 1:
+            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+            print(
+                f"{now} - AI Server: There are more than one face in the original image"
+            )
+            return_value = self.makeReturnValue(status="MANY_FACE")
+
+            end_time = time.time()
+            execution_time = end_time - start_time
+            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+            print(f"{now} - Execution Time: {execution_time:.3f} sec")
+
+            return pb2.ProcessedImageInfo(**return_value)
+
+        # No face in input img
+        elif len(faces) < 1:
+            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+            print(f"{now} - AI Server: There are no face in the original image")
+            return_value = self.makeReturnValue(status="NO_FACE")
+
+            end_time = time.time()
+            execution_time = end_time - start_time
+            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+            print(f"{now} - Execution Time: {execution_time:.3f} sec")
+
+            return pb2.ProcessedImageInfo(**return_value)
+
+        # except Exception as err:
+        #     now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+        #     print(
+        #         f"{now} - AI Server: Error detecting face in the original image, {err}"
+        #     )
+        #     return_value = self.makeReturnValue(status="NO_FACE")
+
+        #     end_time = time.time()
+        #     execution_time = end_time - start_time
+        #     now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+        #     print(f"{now} - Execution Time: {execution_time:.3f} sec")
+
+        #     return pb2.ProcessedImageInfo(**return_value)
+
+        # One face detected
+        else:
+            # Swap face from template img to input img
+            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+            print(f"{now} - AI Server: Start swapping faces...")
+            source_face = faces[0]
+            processed_image = template_img.copy()
+            processed_image = swapper.get(
+                template_img, template_face, source_face, paste_back=True
+            )
+
+            processed_image = cv2.cvtColor(
+                processed_image, cv2.COLOR_BGR2RGB
+            )  # BGR -> RGB 채널 변경
+
+            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+            print(f"{now} - AI Server: SWAPPING FACES SUCCESS")
+
+            # Output image save
+            save_path = "./image/output_image.png"
+            cv2.imwrite(save_path, processed_image)
+
+            # Ndarray to bytes
+            processed_image = processed_image.tobytes()
+
+            # Codes to save image in S3 server
+            try:
+                processed_image_url = self.uploadToS3(save_path, "processed")
+                now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+                print(f"{now} - AI Server: Processed image upload SUCCESS!")
+
+                thumbnail_image_url = self.uploadToS3(save_path, "thumbnail")
+                now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+                print(f"{now} - AI Server: Thumbnail image upload SUCCESS!")
+
+            except Exception as err:
                 now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
                 print(
-                    f"{now} - AI Server: There are more than one face in the original image"
+                    f"{now} - AI Server: Error uploading Processed Image to AWS S3 server, {err}"
                 )
-                return_value = self.makeReturnValue(status="MANY_FACE")
+                return_value = self.makeReturnValue(status="NO_FACE")
 
                 end_time = time.time()
                 execution_time = end_time - start_time
@@ -168,99 +244,39 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
                 return pb2.ProcessedImageInfo(**return_value)
 
-        # Handle error: No face detected or other issues
-        except Exception as err:
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(
-                f"{now} - AI Server: Error detecting face in the original image, {err}"
-            )
-            return_value = self.makeReturnValue(status="NO_FACE")
+            response_url = {
+                "originalImageUrl": original_image_url,
+                "processedImageUrl": processed_image_url,
+                "thumbnailImageUrl": thumbnail_image_url,
+            }
 
-            end_time = time.time()
-            execution_time = end_time - start_time
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time:.3f} sec")
+            try:
+                return_value = self.makeReturnValue(
+                    processed_image=processed_image, response_url=response_url
+                )
+                now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+                print(f"{now} - AI Server: Success to return to Spring Server")
 
-            return pb2.ProcessedImageInfo(**return_value)
+                end_time = time.time()
+                execution_time = end_time - start_time
+                now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+                print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
-        # Swap face from template img to input img
-        now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-        print(f"{now} - AI Server: Start swapping faces...")
-        source_face = faces[0]
-        processed_image = template_img.copy()
-        processed_image = swapper.get(
-            template_img, template_face, source_face, paste_back=True
-        )
+                return pb2.ProcessedImageInfo(**return_value)
 
-        processed_image = cv2.cvtColor(
-            processed_image, cv2.COLOR_BGR2RGB
-        )  # BGR -> RGB 채널 변경
+            except Exception as err:
+                return_value = self.makeReturnValue(status="NO_FACE")
+                now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+                print(
+                    f"{now} - AI Server Error: Failed to return to Spring Server, {err}"
+                )
 
-        now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-        print(f"{now} - AI Server: SWAPPING FACES SUCCESS")
+                end_time = time.time()
+                execution_time = end_time - start_time
+                now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
+                print(f"{now} - Execution Time: {execution_time:.3f} sec")
 
-        # Output image save
-        save_path = "./image/output_image.png"
-        cv2.imwrite(save_path, processed_image)
-
-        # Ndarray to bytes
-        processed_image = processed_image.tobytes()
-
-        # Codes to save image in S3 server
-        try:
-            processed_image_url = self.uploadToS3(save_path, "processed")
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - AI Server: Processed image upload SUCCESS!")
-
-            thumbnail_image_url = self.uploadToS3(save_path, "thumbnail")
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - AI Server: Thumbnail image upload SUCCESS!")
-
-        except Exception as err:
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(
-                f"{now} - AI Server: Error uploading Processed Image to AWS S3 server, {err}"
-            )
-            return_value = self.makeReturnValue(status="NO_FACE")
-
-            end_time = time.time()
-            execution_time = end_time - start_time
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time:.3f} sec")
-
-            return pb2.ProcessedImageInfo(**return_value)
-
-        response_url = {
-            "originalImageUrl": original_image_url,
-            "processedImageUrl": processed_image_url,
-            "thumbnailImageUrl": thumbnail_image_url,
-        }
-
-        try:
-            return_value = self.makeReturnValue(
-                processed_image=processed_image, response_url=response_url
-            )
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - AI Server: Success to return to Spring Server")
-
-            end_time = time.time()
-            execution_time = end_time - start_time
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time:.3f} sec")
-
-            return pb2.ProcessedImageInfo(**return_value)
-
-        except Exception as err:
-            return_value = self.makeReturnValue(status="NO_FACE")
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - AI Server Error: Failed to return to Spring Server, {err}")
-
-            end_time = time.time()
-            execution_time = end_time - start_time
-            now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-            print(f"{now} - Execution Time: {execution_time:.3f} sec")
-
-            return pb2.ProcessedImageInfo(**return_value)
+                return pb2.ProcessedImageInfo(**return_value)
 
 
 def serve():
