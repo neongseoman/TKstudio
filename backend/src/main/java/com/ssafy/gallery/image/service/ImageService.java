@@ -6,13 +6,15 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
-import com.ssafy.gallery.common.exception.ApiException;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.exception.GrpcExceptionEnum;
 import com.ssafy.gallery.common.exception.RedisExceptionEnum;
 import com.ssafy.gallery.common.stub.GrpcStubPool;
 import com.ssafy.gallery.image.exception.ImageExceptionEnum;
-import com.ssafy.gallery.image.model.*;
+import com.ssafy.gallery.image.model.CreateImageDto;
+import com.ssafy.gallery.image.model.ImageInfo;
+import com.ssafy.gallery.image.model.ImageInfoDTO;
+import com.ssafy.gallery.image.model.ImageInfoRedisDTO;
 import com.ssafy.gallery.image.repository.ImageRedisRepository;
 import com.ssafy.gallery.image.repository.ImageRepository;
 import com.ssafy.gallery.option.model.OptionStore;
@@ -24,18 +26,15 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +52,7 @@ public class ImageService {
     private String bucket;
 
     public CreateImageDto createImage(MultipartFile image, String optionId, int userId) throws IOException {
-        log.info("이미지 생성 서비스 시작0");
+        log.info("이미지 생성 서비스 시작");
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
@@ -73,6 +72,7 @@ public class ImageService {
         try {
             log.info("이미지 생성 try 시작");
             imageStub = grpcStubPool.getStub();
+            log.info("이미지 스텁: {}", imageStub);
             Image.OriginalImageInfo buildImageInfo = Image.OriginalImageInfo.newBuilder()
                     .setOriginalImage(imageData)
                     .setOptions(options)
@@ -84,42 +84,45 @@ public class ImageService {
             throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.GRPC_ERROR);
         }
 
-        if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
-            byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
-            ByteArrayResource byteArrayResource = getBufferedImage(processedImageData, 768, 1024);
-            Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
+        try {
+            if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
+                byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
+                ByteArrayResource byteArrayResource = getBufferedImage(processedImageData, 768, 1024);
+                Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
 
-            ImageInfo imageInfo = new ImageInfo(
-                    userId,
-                    responseUrl.getOriginalImageUrl(),
-                    responseUrl.getThumbnailImageUrl(),
-                    responseUrl.getProcessedImageUrl(),
-                    optionStore.get()
-            );
+                ImageInfo imageInfo = new ImageInfo(
+                        userId,
+                        responseUrl.getOriginalImageUrl(),
+                        responseUrl.getThumbnailImageUrl(),
+                        responseUrl.getProcessedImageUrl(),
+                        optionStore.get()
+                );
 
-            ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo, optionStore.get());
-            log.info("DB insert Image info : " + insertResult.getImageInfoId());
+                ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo, optionStore.get());
+                log.info("DB insert Image info : " + insertResult.getImageInfoId());
 
-            CreateImageDto imageInfoDto = new CreateImageDto(
-                    imageInfo.getImageInfoId(),
-                    imageInfo.getThumbnailImageUrl(),
-                    imageInfo.getOriginalImageUrl(),
-                    imageInfo.getProcessedImageUrl(),
-                    byteArrayResource
-            );
-            try {
+                CreateImageDto imageInfoDto = new CreateImageDto(
+                        imageInfo.getImageInfoId(),
+                        imageInfo.getThumbnailImageUrl(),
+                        imageInfo.getOriginalImageUrl(),
+                        imageInfo.getProcessedImageUrl(),
+                        byteArrayResource
+                );
+
                 grpcStubPool.returnStub(imageStub);
-            } catch (InterruptedException e) {
-                throw ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
+                return imageInfoDto;
+            } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
+                grpcStubPool.returnStub(imageStub);
+                throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
+            } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
+                grpcStubPool.returnStub(imageStub);
+                throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
+            } else {
+                grpcStubPool.returnStub(imageStub);
+                throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
             }
-
-            return imageInfoDto;
-        } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
-        } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
-        } else {
-            throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
+        } catch (InterruptedException e) {
+            throw ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
         }
     }
 
