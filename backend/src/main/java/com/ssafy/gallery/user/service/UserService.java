@@ -2,7 +2,6 @@ package com.ssafy.gallery.user.service;
 
 import com.ssafy.gallery.auth.jwt.util.JwtUtil;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
-import com.ssafy.gallery.common.exception.CommonExceptionEnum;
 import com.ssafy.gallery.oauth.client.OauthMemberClientComposite;
 import com.ssafy.gallery.oauth.type.OauthServerType;
 import com.ssafy.gallery.option.service.OptionService;
@@ -62,9 +61,6 @@ public class UserService {
         } catch (WebClientException wce) {
             log.error(wce.getMessage());
             throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.WRONG_CODE);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
         }
     }
 
@@ -74,22 +70,17 @@ public class UserService {
             throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.NEED_REFRESH_TOKEN);
         }
 
-        try {
-            if (loginTokenRepository.findById(refreshToken).isPresent()) {
-                LoginTokenDto loginTokenDto = loginTokenRepository.findById(refreshToken).get();
+        if (loginTokenRepository.findById(refreshToken).isPresent()) {
+            LoginTokenDto loginTokenDto = loginTokenRepository.findById(refreshToken).get();
 
-                String accessToken = loginTokenDto.getAccessToken();
-                if (accessToken == null) {
-                    throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.NEED_REFRESH_TOKEN);
-                }
-
-                loginTokenRepository.deleteById(accessToken);
-                loginTokenRepository.deleteById(refreshToken);
-                log.info("{} 유저 로그아웃", loginTokenDto.getUserId());
+            String accessToken = loginTokenDto.getAccessToken();
+            if (accessToken == null) {
+                throw ApiExceptionFactory.fromExceptionEnum(UserExceptionEnum.NEED_REFRESH_TOKEN);
             }
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ApiExceptionFactory.fromExceptionEnum(CommonExceptionEnum.UNKNOWN_ERROR);
+
+            loginTokenRepository.deleteById(accessToken);
+            loginTokenRepository.deleteById(refreshToken);
+            log.info("{} 유저 로그아웃", loginTokenDto.getUserId());
         }
     }
 
