@@ -33,9 +33,6 @@ public class OptionController {
     private final OptionService optionService;
     private final KakaoPayReadyRepository kakaoPayReadyRepository;
 
-    @Value("${pay.client.redirect_uri}")
-    private String redirectUrl;
-
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
         log.info("옵션 리스트 요청");
@@ -113,7 +110,7 @@ public class OptionController {
 
         optionService.buyOption(Integer.parseInt(userId), Integer.parseInt(kakaoPayApproveResponse.itemCode()));
 
-        return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).build();
+        return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/store").build();
     }
 
     @GetMapping("/payment/cancel")
