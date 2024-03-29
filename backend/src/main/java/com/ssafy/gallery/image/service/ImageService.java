@@ -52,7 +52,6 @@ public class ImageService {
     private String bucket;
 
     public CreateImageDto createImage(MultipartFile image, String optionId, int userId) throws IOException {
-        log.info("이미지 생성 서비스 시작");
         ByteString imageData = ByteString.copyFrom(image.getBytes());
         CreateImageGrpc.CreateImageBlockingStub imageStub = null;
         Image.ProcessedImageInfo receiveData = null;
@@ -70,9 +69,7 @@ public class ImageService {
                 .build();
 
         try {
-            log.info("이미지 생성 try 시작");
             imageStub = grpcStubPool.getStub();
-            log.info("이미지 스텁: {}", imageStub);
             Image.OriginalImageInfo buildImageInfo = Image.OriginalImageInfo.newBuilder()
                     .setOriginalImage(imageData)
                     .setOptions(options)
