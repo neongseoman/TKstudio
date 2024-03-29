@@ -1,12 +1,9 @@
 
 package com.ssafy.gallery.image.controller;
 
-import com.ssafy.gallery.common.exception.ApiException;
-import com.ssafy.gallery.common.exception.ApiExceptionFactory;
-import com.ssafy.gallery.image.exception.ImageExceptionEnum;
-import com.ssafy.gallery.image.model.*;
+import com.ssafy.gallery.image.model.CreateImageDto;
+import com.ssafy.gallery.image.model.ImageInfoDTO;
 import com.ssafy.gallery.image.service.ImageService;
-import com.ssafy.pjt.grpc.Image;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +37,7 @@ public class ImageController {
             @RequestParam(value = "optionId") String optionId
     ) throws IOException {
         int id = (int) request.getAttribute("userId");
-        log.info("create Image request userId : " + id + LocalDateTime.now());
+        log.info("create Image request userId : " + id);
         CreateImageDto response = imageService.createImage(originalImage, optionId, id);
 
         return ResponseEntity.ok()
@@ -62,7 +59,7 @@ public class ImageController {
     public ResponseEntity<Map<Integer, ImageInfoDTO>> getImageInfos(HttpServletRequest request) {
         int id = (int) request.getAttribute("userId");
 
-        log.info("getImageInfos request userId: " + id + LocalDateTime.now());
+        log.info("getImageInfos request userId: " + id);
         List<ImageInfoDTO> imageInfoList = new ArrayList<>(imageService.getImageInfos(id));
 
         // imageInfoList를 생성 시간에 맞춰 내림차순으로 정렬
