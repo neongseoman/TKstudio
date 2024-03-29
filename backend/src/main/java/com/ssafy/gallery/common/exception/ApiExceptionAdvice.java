@@ -20,8 +20,10 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(ApiException.class)
     @ResponseStatus
     public ResponseEntity<ApiResponse<?>> handleApiException(ApiException e) {
+        System.out.println("this is control advice");
         return ResponseEntity
                 .status(e.getStatus())
+                .header("error","error")
                 .body(ApiResponse.error(e.getMessage()));
     }
 
