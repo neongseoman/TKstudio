@@ -10,7 +10,7 @@ public enum OptionPaymentExceptionEnum {
             "<html lang=\"en\">\n" +
             "<head>\n" +
             "    <meta charset=\"UTF-8\">\n" +
-            "    <meta http-equiv=\"refresh\" content=\"1; url=../../../../../store\">" +
+            "    <meta http-equiv=\"refresh\" content=\"1; url=/store\">" +
             "    <title>결제 취소 안내</title>\n" +
             "</head>\n" +
             "<body>\n" +
@@ -25,7 +25,7 @@ public enum OptionPaymentExceptionEnum {
             "<html lang=\"en\">\n" +
             "<head>\n" +
             "    <meta charset=\"UTF-8\">\n" +
-            "    <meta http-equiv=\"refresh\" content=\"1; url=../../../../../store\">" +
+            "    <meta http-equiv=\"refresh\" content=\"1; url=/store\">" +
             "    <title>결제 실패 안내</title>\n" +
             "</head>\n" +
             "<body>\n" +
