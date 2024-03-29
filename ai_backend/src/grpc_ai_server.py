@@ -181,20 +181,6 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
             return pb2.ProcessedImageInfo(**return_value)
 
-        # except Exception as err:
-        #     now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-        #     print(
-        #         f"{now} - AI Server: Error detecting face in the original image, {err}"
-        #     )
-        #     return_value = self.makeReturnValue(status="NO_FACE")
-
-        #     end_time = time.time()
-        #     execution_time = end_time - start_time
-        #     now = time.strftime("%H:%M:%S", time.gmtime(time.time()))
-        #     print(f"{now} - Execution Time: {execution_time:.3f} sec")
-
-        #     return pb2.ProcessedImageInfo(**return_value)
-
         # One face detected
         else:
             # Swap face from template img to input img
