@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import com.google.protobuf.ByteString;
+import com.ssafy.gallery.common.exception.ApiException;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.exception.GrpcExceptionEnum;
 import com.ssafy.gallery.common.exception.RedisExceptionEnum;
@@ -23,6 +24,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -106,7 +108,7 @@ public class ImageService {
             try{
                 grpcStubPool.returnStub(imageStub);
             } catch (InterruptedException e){
-                ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
+                throw ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
             }
 
             return imageInfoDto;
