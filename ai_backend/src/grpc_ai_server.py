@@ -58,7 +58,9 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         self.kst_offset = 9 * 3600
 
     def logTime(self):
-        now = time.strftime("%H:%M:%S", time.gmtime(time.time() + self.kst_offset))
+        now = time.strftime(
+            "[%Y-%m-%d - %H:%M:%S]", time.gmtime(time.time() + self.kst_offset)
+        )
 
         return now
 
