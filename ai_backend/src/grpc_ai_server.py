@@ -59,7 +59,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
     def logTime(self):
         now = time.strftime(
-            "[%Y-%m-%d - %H:%M:%S]", time.gmtime(time.time() + self.kst_offset)
+            "[%Y-%m-%d %H:%M:%S]", time.gmtime(time.time() + self.kst_offset)
         )
 
         return now
@@ -111,7 +111,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         original_image_bytes: bytearray = request.originalImage
 
         now = self.logTime()
-        print(f"{now} - AI Server: Got image from Spring Server.")
+        print(f"{now} - AI Server: SUCCESS - Got image from Spring Server.")
 
         # Bytes to ndarray
         image_array = np.frombuffer(original_image_bytes, dtype=np.uint8)
@@ -125,7 +125,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         original_image_url = self.uploadToS3(save_path, "original")
 
         now = self.logTime()
-        print(f"{now} - AI Server: Original image upload SUCCESS!")
+        print(f"{now} - AI Server: SUCCESS - Uploaded Original image")
 
         # Select options by request
         options = request.options
@@ -138,7 +138,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
         now = self.logTime()
         print(
-            f"{now} - AI Server: Got user info as 'sex: {sex}, option name: {suit_option_name}'"
+            f"{now} - AI Server: SUCCESS - Got user info as 'sex: {sex}, option name: {suit_option_name}'"
         )
 
         # DETECT FACE FROM TEMPLATE IMAGE
@@ -151,7 +151,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         template_face = template_faces[0]
 
         now = self.logTime()
-        print(f"{now} - AI Server: Success loading template image")
+        print(f"{now} - AI Server: SUCCESS - Loaded template image")
 
         # try:
         start_time = time.time() + self.kst_offset
@@ -164,27 +164,27 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         if len(faces) > 1:
             now = self.logTime()
             print(
-                f"{now} - AI Server: There are more than one face in the original image"
+                f"{now} - AI Server: FAIL - There are MORE THAN ONE FACE in the original image"
             )
             return_value = self.makeReturnValue(status="MANY_FACE")
 
             end_time = time.time() + self.kst_offset
             execution_time = end_time - start_time
             now = self.logTime()
-            print(f"{now} - Execution Time: {execution_time:.3f} sec")
+            print(f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec")
 
             return pb2.ProcessedImageInfo(**return_value)
 
         # No face in input img
         elif len(faces) < 1:
             now = self.logTime()
-            print(f"{now} - AI Server: There are no face in the original image")
+            print(f"{now} - AI Server: FAIL -  There are NO FACE in the original image")
             return_value = self.makeReturnValue(status="NO_FACE")
 
             end_time = time.time() + self.kst_offset
             execution_time = end_time - start_time
             now = self.logTime()
-            print(f"{now} - Execution Time: {execution_time:.3f} sec")
+            print(f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec")
 
             return pb2.ProcessedImageInfo(**return_value)
 
@@ -204,7 +204,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             )  # BGR -> RGB 채널 변경
 
             now = self.logTime()
-            print(f"{now} - AI Server: SWAPPING FACES SUCCESS")
+            print(f"{now} - AI Server: SUCCESS - Successfully swapped faces")
 
             # Output image save
             save_path = "./image/output_image.png"
@@ -217,23 +217,25 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             try:
                 processed_image_url = self.uploadToS3(save_path, "processed")
                 now = self.logTime()
-                print(f"{now} - AI Server: Processed image upload SUCCESS!")
+                print(f"{now} - AI Server: SUCCESS - Processed image uploaded!")
 
                 thumbnail_image_url = self.uploadToS3(save_path, "thumbnail")
                 now = self.logTime()
-                print(f"{now} - AI Server: Thumbnail image upload SUCCESS!")
+                print(f"{now} - AI Server: SUCCESS - Thumbnail image uploaded!")
 
             except Exception as err:
                 now = self.logTime()
                 print(
-                    f"{now} - AI Server: Error uploading Processed Image to AWS S3 server, {err}"
+                    f"{now} - AI Server: FAIL - Error uploading Processed Image to AWS S3 server, {err}"
                 )
                 return_value = self.makeReturnValue(status="NO_FACE")
 
                 end_time = time.time() + self.kst_offset
                 execution_time = end_time - start_time
                 now = self.logTime()
-                print(f"{now} - Execution Time: {execution_time:.3f} sec")
+                print(
+                    f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec"
+                )
 
                 return pb2.ProcessedImageInfo(**return_value)
 
@@ -248,12 +250,14 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
                     processed_image=processed_image, response_url=response_url
                 )
                 now = self.logTime()
-                print(f"{now} - AI Server: Success to return to Spring Server")
+                print(f"{now} - AI Server: SUCCESS - Responding to Spring Server")
 
                 end_time = time.time() + self.kst_offset
                 execution_time = end_time - start_time
                 now = self.logTime()
-                print(f"{now} - Execution Time: {execution_time:.3f} sec")
+                print(
+                    f"{now} - AI Server: SUCCESS - Execution Time: {execution_time:.3f} sec"
+                )
 
                 return pb2.ProcessedImageInfo(**return_value)
 
@@ -261,13 +265,15 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
                 return_value = self.makeReturnValue(status="NO_FACE")
                 now = self.logTime()
                 print(
-                    f"{now} - AI Server Error: Failed to return to Spring Server, {err}"
+                    f"{now} - AI Server: FAIL - Error responding to Spring Server, {err}"
                 )
 
                 end_time = time.time() + self.kst_offset
                 execution_time = end_time - start_time
                 now = self.logTime()
-                print(f"{now} - Execution Time: {execution_time:.3f} sec")
+                print(
+                    f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec"
+                )
 
                 return pb2.ProcessedImageInfo(**return_value)
 
