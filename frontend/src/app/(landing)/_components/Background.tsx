@@ -20,7 +20,7 @@ const MainDiv = styled.div`
   align-items: center;
   overflow: hidden;
 
-  div {
+  .content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -105,6 +105,7 @@ function Background({ children }: Props) {
       <MainDiv>
         <Image src={BackGround} alt="back-ground" priority={true} />
         <div
+          className="content"
           style={{
             position: 'absolute',
             backgroundColor: `${Black}99`,
@@ -114,7 +115,7 @@ function Background({ children }: Props) {
             left: 0,
           }}
         >
-          <div className="logo" >
+          <div className="logo">
             <Logo />
           </div>
           <span
