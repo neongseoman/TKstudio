@@ -285,8 +285,6 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=None))
     pb2_grpc.add_CreateImageServicer_to_server(CreateImageService(), server)
     server.add_insecure_port(f"[::]:{PORT_NUM}")
-    print()
-    print("server port is", PORT_NUM)
     server.start()
     print()
 
@@ -296,9 +294,9 @@ def serve():
         print(bucket.name)
 
     print("End of Bucket list")
-
     print()
     print("grpc server is now running")
+    print()
 
     server.wait_for_termination()
 
