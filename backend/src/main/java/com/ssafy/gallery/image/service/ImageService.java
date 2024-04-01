@@ -243,14 +243,12 @@ public class ImageService {
         return resource;
     }
 
-    private Resource getS3Image(String imageURL) throws IOException {
-
+    public Resource getS3Image(String imageURL) throws IOException {
         S3Object object = amazonS3.getObject(new GetObjectRequest(bucket, imageURL));
         S3ObjectInputStream objectInputStream = object.getObjectContent();
         byte[] data = IOUtils.toByteArray(objectInputStream);
         ByteArrayResource resource = new ByteArrayResource(data);
 
         return resource;
-
     }
 }
