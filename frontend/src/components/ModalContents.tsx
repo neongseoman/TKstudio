@@ -21,7 +21,7 @@ const Lists = styled.ul`
     border-top: 1px solid ${LightGray};
     border-bottom: 1px solid ${LightGray};
     box-sizing: border-box;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: light;
     height: 3rem;
     padding: 0.5rem 0;
