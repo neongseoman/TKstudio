@@ -67,9 +67,11 @@ interface Props {
 function AlertModal({ children, handleClose }: Props) {
   const [show, setShow] = useState<boolean>(false)
   const Wait = async () => {
-    await new Promise(() => setTimeout(() => {
-      setShow(true)
-    }, 170))
+    await new Promise(() =>
+      setTimeout(() => {
+        setShow(true)
+      }, 170),
+    )
   }
 
   Wait()
@@ -91,7 +93,7 @@ function AlertModal({ children, handleClose }: Props) {
             <CircleAlert color={MainRed} width="40px" height="40px" />
             {children}
             <Button
-             $fontSize='1.25rem'
+              $fontSize="1.25rem"
               $padding="6px 15px"
               $backgroundColor={MainRed}
               onClick={(e) => {
