@@ -5,7 +5,6 @@ import com.ssafy.gallery.common.response.ApiResponse;
 import com.ssafy.gallery.image.service.ImageService;
 import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
 import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
-import com.ssafy.gallery.option.dto.OptionImageUrlDto;
 import com.ssafy.gallery.option.dto.OptionListDto;
 import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.exception.OptionPaymentExceptionEnum;
@@ -18,7 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,12 +57,16 @@ public class OptionController {
     }
 
     @GetMapping("/image/{optionId}")
-    public ResponseEntity<Resource> getImage(int optionId) throws Exception {
+    public ResponseEntity<Resource> getImage(@PathVariable int optionId) throws Exception {
         log.info("옵션 이미지 요청");
 
-        OptionImageUrlDto imageUrl = optionService.getImageUrl(optionId);
-        Resource imageResource = imageService.getS3Image(imageUrl.getOptionS3Url());
-        return ResponseEntity.status(HttpStatus.OK).body(imageResource);
+        String imageUrl = optionService.getImageUrl(optionId);
+        if (imageUrl == null) {
+            throw ApiExceptionFactory.fromExceptionEnum(OptionExceptionEnum.NO_OPTION);
+        }
+
+        Resource imageResource = imageService.getS3Image(imageUrl);
+        return ResponseEntity.status(HttpStatus.OK).header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE).body(imageResource);
     }
 
 
