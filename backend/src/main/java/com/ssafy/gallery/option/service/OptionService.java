@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
 import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
-import com.ssafy.gallery.option.dto.OptionImageUrlDto;
 import com.ssafy.gallery.option.dto.OptionListDto;
 import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
@@ -17,18 +16,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,9 +50,9 @@ public class OptionService {
     }
 
     @Cacheable(cacheNames = "optionImageUrl", cacheManager = "cacheManager")
-    public OptionImageUrlDto getImageUrl(int optionId) {
+    public String getImageUrl(int optionId) {
         Optional<OptionStore> optionStore = optionStoreRepository.findById(optionId);
-        return optionStore.map(this::convertToOptionImageUrlDto).orElse(null);
+        return optionStore.map(OptionStore::getOptionS3Url).orElse(null);
     }
 
     public Optional<OptionStore> getOption(int optionId) {
@@ -145,15 +140,5 @@ public class OptionService {
 
     private OptionListDto convertToOptionListDto(OptionStore optionStore) {
         return new OptionListDto(optionStore);
-    }
-
-    private OptionImageUrlDto convertToOptionImageUrlDto(OptionStore optionStore) {
-        return new OptionImageUrlDto(optionStore);
-    }
-
-    public byte[] resourceToBytes(Resource resource) throws IOException {
-        try (InputStream inputStream = resource.getInputStream()) {
-            return FileCopyUtils.copyToByteArray(inputStream);
-        }
     }
 }
