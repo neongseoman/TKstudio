@@ -28,7 +28,6 @@ public class OptionStore {
     private String optionName;
     private int cost;
     private String optionS3Url;
-    private int categoryId;
     private String gender;
     @Setter
     @ColumnDefault("false")

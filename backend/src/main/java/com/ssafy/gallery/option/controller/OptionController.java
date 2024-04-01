@@ -2,12 +2,14 @@ package com.ssafy.gallery.option.controller;
 
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.response.ApiResponse;
+import com.ssafy.gallery.image.service.ImageService;
 import com.ssafy.gallery.option.dto.KakaoPayApproveResponse;
 import com.ssafy.gallery.option.dto.KakaoPayReadyResponse;
+import com.ssafy.gallery.option.dto.OptionImageUrlDto;
+import com.ssafy.gallery.option.dto.OptionListDto;
 import com.ssafy.gallery.option.exception.OptionExceptionEnum;
 import com.ssafy.gallery.option.exception.OptionPaymentExceptionEnum;
 import com.ssafy.gallery.option.model.OptionBuyLog;
-import com.ssafy.gallery.option.model.OptionCategory;
 import com.ssafy.gallery.option.model.OptionStore;
 import com.ssafy.gallery.option.service.OptionService;
 import com.ssafy.gallery.redis.dto.KakaoPayReadyDto;
@@ -15,7 +17,7 @@ import com.ssafy.gallery.redis.repository.KakaoPayReadyRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,15 +34,16 @@ import java.util.Optional;
 public class OptionController {
     private final OptionService optionService;
     private final KakaoPayReadyRepository kakaoPayReadyRepository;
+    private final ImageService imageService;
 
     @GetMapping("/list")
     ResponseEntity<ApiResponse<?>> optionList(HttpServletRequest request) {
         log.info("옵션 리스트 요청");
 
         int userId = (int) request.getAttribute("userId");
-        List<OptionStore> optionList = optionService.getList();
-        HashMap<Integer, OptionStore> result = new HashMap<>();
-        for (OptionStore o : optionList) {
+        List<OptionListDto> optionList = optionService.getList();
+        HashMap<Integer, OptionListDto> result = new HashMap<>();
+        for (OptionListDto o : optionList) {
             result.put(o.getOptionId(), o);
         }
 
@@ -52,12 +55,15 @@ public class OptionController {
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(result.values()));
     }
 
-    @GetMapping("/category")
-    ResponseEntity<ApiResponse<?>> optionCategory() {
-        log.info("옵션 카테고리 요청");
-        List<OptionCategory> category = optionService.getCategory();
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(category));
+    @GetMapping("/image/{optionId}")
+    public ResponseEntity<Resource> getImage(int optionId) throws Exception {
+        log.info("옵션 이미지 요청");
+
+        OptionImageUrlDto imageUrl = optionService.getImageUrl(optionId);
+        Resource imageResource = imageService.getS3Image(imageUrl.getOptionS3Url());
+        return ResponseEntity.status(HttpStatus.OK).body(imageResource);
     }
+
 
     @PostMapping("/payment/ready")
     ResponseEntity<ApiResponse<?>> paymentReadyReq(HttpServletRequest request, @RequestBody Map<String, Object> params) {
