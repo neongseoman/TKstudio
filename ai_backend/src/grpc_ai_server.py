@@ -118,14 +118,8 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         original_image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
         # Input image save
-        save_path = "./image/input_image.png"
-        cv2.imwrite(save_path, original_image)
-
-        # Codes to save ORIGINAL image in S3 server
-        original_image_url = self.uploadToS3(save_path, "original")
-
-        now = self.logTime()
-        print(f"{now} - AI Server: SUCCESS - Uploaded Original image")
+        original_image_save_path = "./image/input_image.png"
+        cv2.imwrite(original_image_save_path, original_image)
 
         # Select options by request
         options = request.options
@@ -164,27 +158,33 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
         if len(faces) > 1:
             now = self.logTime()
             print(
-                f"{now} - AI Server: FAIL - There are MORE THAN ONE FACE in the original image"
+                f"{now} - AI Server: FAILED - There are MORE THAN ONE FACE in the original image"
             )
             return_value = self.makeReturnValue(status="MANY_FACE")
 
             end_time = time.time() + self.kst_offset
             execution_time = end_time - start_time
             now = self.logTime()
-            print(f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec")
+            print(
+                f"{now} - AI Server: FAILED - Execution Time: {execution_time:.3f} sec"
+            )
 
             return pb2.ProcessedImageInfo(**return_value)
 
         # No face in input img
         elif len(faces) < 1:
             now = self.logTime()
-            print(f"{now} - AI Server: FAIL -  There are NO FACE in the original image")
+            print(
+                f"{now} - AI Server: FAILED -  There are NO FACE in the original image"
+            )
             return_value = self.makeReturnValue(status="NO_FACE")
 
             end_time = time.time() + self.kst_offset
             execution_time = end_time - start_time
             now = self.logTime()
-            print(f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec")
+            print(
+                f"{now} - AI Server: FAILED - Execution Time: {execution_time:.3f} sec"
+            )
 
             return pb2.ProcessedImageInfo(**return_value)
 
@@ -215,18 +215,21 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
 
             # Codes to save image in S3 server
             try:
+                # Codes to save ORIGINAL image in S3 server
+                original_image_url = self.uploadToS3(
+                    original_image_save_path, "original"
+                )
+                now = self.logTime()
+                print(f"{now} - AI Server: SUCCESS - Original image uploaded!")
+
                 processed_image_url = self.uploadToS3(save_path, "processed")
                 now = self.logTime()
                 print(f"{now} - AI Server: SUCCESS - Processed image uploaded!")
 
-                thumbnail_image_url = self.uploadToS3(save_path, "thumbnail")
-                now = self.logTime()
-                print(f"{now} - AI Server: SUCCESS - Thumbnail image uploaded!")
-
             except Exception as err:
                 now = self.logTime()
                 print(
-                    f"{now} - AI Server: FAIL - Error uploading Processed Image to AWS S3 server, {err}"
+                    f"{now} - AI Server: FAILED - Error uploading Images to AWS S3 server, {err}"
                 )
                 return_value = self.makeReturnValue(status="NO_FACE")
 
@@ -234,7 +237,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
                 execution_time = end_time - start_time
                 now = self.logTime()
                 print(
-                    f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec"
+                    f"{now} - AI Server: FAILED - Execution Time: {execution_time:.3f} sec"
                 )
 
                 return pb2.ProcessedImageInfo(**return_value)
@@ -242,7 +245,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             response_url = {
                 "originalImageUrl": original_image_url,
                 "processedImageUrl": processed_image_url,
-                "thumbnailImageUrl": thumbnail_image_url,
+                "thumbnailImageUrl": processed_image_url,
             }
 
             try:
@@ -265,14 +268,14 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
                 return_value = self.makeReturnValue(status="NO_FACE")
                 now = self.logTime()
                 print(
-                    f"{now} - AI Server: FAIL - Error responding to Spring Server, {err}"
+                    f"{now} - AI Server: FAILED - Error responding to Spring Server, {err}"
                 )
 
                 end_time = time.time() + self.kst_offset
                 execution_time = end_time - start_time
                 now = self.logTime()
                 print(
-                    f"{now} - AI Server: FAIL - Execution Time: {execution_time:.3f} sec"
+                    f"{now} - AI Server: FAILED - Execution Time: {execution_time:.3f} sec"
                 )
 
                 return pb2.ProcessedImageInfo(**return_value)
@@ -282,21 +285,20 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=None))
     pb2_grpc.add_CreateImageServicer_to_server(CreateImageService(), server)
     server.add_insecure_port(f"[::]:{PORT_NUM}")
-    print("\n" * 1)
+    print()
     print("server port is", PORT_NUM)
     server.start()
-    print("grpc server is now running")
     print()
 
     # Check bucket names
     print("Existing buckets:")
     for bucket in s3.buckets.all():
         print(bucket.name)
-    print()
+
     print("End of Bucket list")
 
-    print("if you want to quit the grpc server, press 'ctrl + C'")
     print()
+    print("grpc server is now running")
 
     server.wait_for_termination()
 
