@@ -222,9 +222,15 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
                 now = self.logTime()
                 print(f"{now} - AI Server: SUCCESS - Original image uploaded!")
 
+                # Codes to save PROCESSED image in S3 server
                 processed_image_url = self.uploadToS3(save_path, "processed")
                 now = self.logTime()
                 print(f"{now} - AI Server: SUCCESS - Processed image uploaded!")
+
+                # Codes to save THUMBNAIL image in S3 server
+                thumbnail_image_url = self.uploadToS3(save_path, "thumbnail")
+                now = self.logTime()
+                print(f"{now} - AI Server: SUCCESS - Thumbnail image uploaded!")
 
             except Exception as err:
                 now = self.logTime()
@@ -245,7 +251,7 @@ class CreateImageService(pb2_grpc.CreateImageServicer):
             response_url = {
                 "originalImageUrl": original_image_url,
                 "processedImageUrl": processed_image_url,
-                "thumbnailImageUrl": processed_image_url,
+                "thumbnailImageUrl": thumbnail_image_url,
             }
 
             try:
