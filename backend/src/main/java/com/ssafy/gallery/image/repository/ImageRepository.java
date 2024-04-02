@@ -3,21 +3,14 @@ package com.ssafy.gallery.image.repository;
 import com.ssafy.gallery.common.exception.ApiExceptionFactory;
 import com.ssafy.gallery.common.exception.MariaDBExceptionEnum;
 import com.ssafy.gallery.image.model.ImageInfo;
-
-import com.ssafy.gallery.option.model.OptionStore;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.core.io.Resource;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Repository
@@ -28,13 +21,12 @@ public class ImageRepository {
 
     private final ImageJpaRepository imageJpaRepository;
 
-    public ImageInfo insertImageUrls(ImageInfo imageInfo, OptionStore optionStore) {
-        imageInfo.setOptionStore(optionStore);
+    public ImageInfo insertImageUrls(ImageInfo imageInfo) {
         return imageJpaRepository.save(imageInfo);
     }
 
     public List<ImageInfo> getImageInfoListByUserId(int userId) {
-        String jpql = "SELECT i FROM ImageInfo i LEFT JOIN FETCH i.optionStore WHERE i.userId = :userId AND i.isDeleted = false";
+        String jpql = "SELECT i FROM ImageInfo i LEFT JOIN FETCH i.optionId WHERE i.userId = :userId AND i.isDeleted = false";
         TypedQuery<ImageInfo> query = em.createQuery(jpql, ImageInfo.class);
         query.setParameter("userId", userId);
         List<ImageInfo> list = query.getResultList();
@@ -47,7 +39,7 @@ public class ImageRepository {
     }
 
     public void deleteImageInfo(int imageInfoId) {
-        log.info(imageInfoId +" is delete");
+        log.info(imageInfoId + " is delete");
         imageJpaRepository.findById(imageInfoId)
                 .map(imageInfo -> {
                     imageInfo.markAsDeleted();
