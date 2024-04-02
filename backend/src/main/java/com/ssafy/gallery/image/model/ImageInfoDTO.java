@@ -17,9 +17,9 @@ public class ImageInfoDTO {
     public ImageInfoDTO(ImageInfo imageInfo) {
         this.imageInfoId = imageInfo.getImageInfoId();
         this.createdTime = imageInfo.getCreatedTime();
-        if (imageInfo.getOptionStore() != null) {
-            optionId = imageInfo.getOptionStore().getOptionId();
-            optionName = imageInfo.getOptionStore().getOptionName();
+        if (imageInfo.getOptionId() != 0) {
+            optionId = imageInfo.getOptionId();
+            optionName = imageInfo.getOptionName();
         } else {
             optionId = 0;
             optionName = "";
