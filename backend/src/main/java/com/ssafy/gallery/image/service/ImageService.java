@@ -83,13 +83,10 @@ public class ImageService {
 
         try {
             if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
-                log.info("이미지 생성 성공");
                 byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
-                log.info("{}", processedImageData);
                 ByteArrayResource byteArrayResource = getBufferedImage(processedImageData, 768, 1024);
-                log.info("{}", byteArrayResource);
                 Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
-                log.info("{}", responseUrl);
+                log.info("이미지 생성 성공: {}", responseUrl);
 
                 ImageInfo imageInfo = new ImageInfo(
                         userId,
@@ -98,6 +95,7 @@ public class ImageService {
                         responseUrl.getProcessedImageUrl(),
                         optionStore.get()
                 );
+                log.info("이미지 정보: {}", imageInfo);
 
                 ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo, optionStore.get());
                 log.info("DB insert Image info : " + insertResult.getImageInfoId());
@@ -110,20 +108,24 @@ public class ImageService {
                         byteArrayResource
                 );
 
-                grpcStubPool.returnStub(imageStub);
+//                grpcStubPool.returnStub(imageStub);
                 return imageInfoDto;
             } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
-                grpcStubPool.returnStub(imageStub);
+//                grpcStubPool.returnStub(imageStub);
                 throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
             } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
-                grpcStubPool.returnStub(imageStub);
+//                grpcStubPool.returnStub(imageStub);
                 throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
             } else {
-                grpcStubPool.returnStub(imageStub);
+//                grpcStubPool.returnStub(imageStub);
                 throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
             }
-        } catch (InterruptedException e) {
-            throw ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
+        } finally {
+            try {
+                grpcStubPool.returnStub(imageStub);
+            } catch (InterruptedException e) {
+                throw ApiExceptionFactory.fromExceptionEnum(GrpcExceptionEnum.NO_STUB);
+            }
         }
     }
 
