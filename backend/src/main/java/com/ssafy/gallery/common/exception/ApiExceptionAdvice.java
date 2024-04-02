@@ -29,7 +29,8 @@ public class ApiExceptionAdvice {
 
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus
-    public ResponseEntity<ApiResponse<?>> handleDataException() {
+    public ResponseEntity<ApiResponse<?>> handleDataException(DataAccessException e) {
+        log.error("에러 메시지: {}", e.getMessage());
         return ResponseEntity
                 .status(DATA_ACCESS_ERROR.getStatus())
                 .body(ApiResponse.error(DATA_ACCESS_ERROR.getMessage()));
@@ -37,7 +38,8 @@ public class ApiExceptionAdvice {
 
     @ExceptionHandler(SQLException.class)
     @ResponseStatus
-    public ResponseEntity<ApiResponse<?>> handleSQLException() {
+    public ResponseEntity<ApiResponse<?>> handleSQLException(SQLException e) {
+        log.error("에러 메시지: {}", e.getMessage());
         return ResponseEntity
                 .status(DATA_ACCESS_ERROR.getStatus())
                 .body(ApiResponse.error(DATA_ACCESS_ERROR.getMessage()));
@@ -45,7 +47,8 @@ public class ApiExceptionAdvice {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus
-    public ResponseEntity<ApiResponse<?>> handleException() {
+    public ResponseEntity<ApiResponse<?>> handleException(Exception e) {
+        log.error("에러 메시지: {}", e.getMessage());
         return ResponseEntity
                 .status(UNKNOWN_ERROR.getStatus())
                 .body(ApiResponse.error(UNKNOWN_ERROR.getMessage()));
