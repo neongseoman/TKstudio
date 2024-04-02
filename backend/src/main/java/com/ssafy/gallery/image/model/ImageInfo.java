@@ -38,18 +38,16 @@ public class ImageInfo {
 
     @Column
     private String optionName;
+    @Column
+    private int optionId;
 
-    @ManyToOne
-    @JoinColumn(name = "optionId")
-    private OptionStore optionStore;
-
-    public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl,OptionStore optionStore) {
+    public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl, OptionStore optionStore) {
         this.userId = userId;
         try {
             this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
             this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
             this.processedImageUrl = processedImageUrl.substring(processedImageUrl.indexOf("processedImages/"));
-            this.optionStore = optionStore;
+            this.optionId = optionStore.getOptionId();
             this.optionName = optionStore.getOptionName();
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Invalid image URL format", e);
