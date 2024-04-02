@@ -19,7 +19,7 @@ public class CreateImageDto {
 
     public CreateImageDto(int imageInfoId, String thumbnailImageUrl, String originalImageUrl, String processedImageUrl,ByteArrayResource resource) {
         this.imageInfoId = imageInfoId;
-        this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("processedImages/"));
+        this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
         this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
         this.processedImageUrl = processedImageUrl.substring(processedImageUrl.indexOf("processedImages/"));
         this.resource = resource;
