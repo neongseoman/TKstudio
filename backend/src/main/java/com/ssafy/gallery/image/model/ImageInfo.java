@@ -44,7 +44,7 @@ public class ImageInfo {
     public ImageInfo(int userId, String originalImageUrl, String thumbnailImageUrl, String processedImageUrl, OptionStore optionStore) {
         this.userId = userId;
         try {
-            this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("thumbnailImages/"));
+            this.thumbnailImageUrl = thumbnailImageUrl.substring(thumbnailImageUrl.indexOf("processedImages/"));
             this.originalImageUrl = originalImageUrl.substring(originalImageUrl.indexOf("originalImages/"));
             this.processedImageUrl = processedImageUrl.substring(processedImageUrl.indexOf("processedImages/"));
             this.optionId = optionStore.getOptionId();
