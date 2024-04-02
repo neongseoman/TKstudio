@@ -83,9 +83,13 @@ public class ImageService {
 
         try {
             if (Image.ImageProcessingResult.SUCCESS.equals(receiveData.getResult())) {
+                log.info("이미지 생성 성공");
                 byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
+                log.info("{}", processedImageData);
                 ByteArrayResource byteArrayResource = getBufferedImage(processedImageData, 768, 1024);
+                log.info("{}", byteArrayResource);
                 Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
+                log.info("{}", responseUrl);
 
                 ImageInfo imageInfo = new ImageInfo(
                         userId,
