@@ -86,7 +86,7 @@ public class ImageService {
                 byte[] processedImageData = receiveData.getProcessedImage().toByteArray();
                 ByteArrayResource byteArrayResource = getBufferedImage(processedImageData, 768, 1024);
                 Image.ResponseUrl responseUrl = receiveData.getResponseUrl();
-                log.info("이미지 생성 성공: {}", responseUrl);
+                log.info("{}", responseUrl);
 
                 ImageInfo imageInfo = new ImageInfo(
                         userId,
@@ -95,9 +95,8 @@ public class ImageService {
                         responseUrl.getProcessedImageUrl(),
                         optionStore.get()
                 );
-                log.info("이미지 정보: {}", imageInfo);
 
-                ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo);
+                ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo, optionStore.get());
                 log.info("DB insert Image info : " + insertResult.getImageInfoId());
 
                 CreateImageDto imageInfoDto = new CreateImageDto(
