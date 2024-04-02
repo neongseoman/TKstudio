@@ -58,7 +58,7 @@ public class OptionController {
 
     @GetMapping("/image/{optionId}")
     public ResponseEntity<Resource> getImage(@PathVariable int optionId) throws Exception {
-        log.info("옵션 이미지 요청");
+        log.info("{} 옵션 이미지 요청", optionId);
 
         String imageUrl = optionService.getImageUrl(optionId);
         if (imageUrl == null) {
