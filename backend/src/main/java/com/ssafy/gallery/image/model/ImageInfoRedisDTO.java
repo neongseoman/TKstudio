@@ -33,9 +33,9 @@ public class ImageInfoRedisDTO {
         thumbnailImageUrl = image.getThumbnailImageUrl();
         processedImageUrl = image.getProcessedImageUrl();
         expiration = 60000000;
-        if (image.getOptionStore() != null) {
-            optionId = image.getOptionStore().getOptionId();
-            optionName = image.getOptionStore().getOptionName();
+        if (image.getOptionId() != 0) {
+            optionId = image.getOptionId();
+            optionName = image.getOptionName();
         } else {
             optionId = 0;
             optionName = "";
