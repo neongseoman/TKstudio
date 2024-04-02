@@ -97,7 +97,7 @@ public class ImageService {
                 );
                 log.info("이미지 정보: {}", imageInfo);
 
-                ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo, optionStore.get());
+                ImageInfo insertResult = imageRepository.insertImageUrls(imageInfo);
                 log.info("DB insert Image info : " + insertResult.getImageInfoId());
 
                 CreateImageDto imageInfoDto = new CreateImageDto(
@@ -108,16 +108,12 @@ public class ImageService {
                         byteArrayResource
                 );
 
-//                grpcStubPool.returnStub(imageStub);
                 return imageInfoDto;
             } else if (Image.ImageProcessingResult.NO_FACE.equals(receiveData.getResult())) {
-//                grpcStubPool.returnStub(imageStub);
                 throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_FACE);
             } else if (Image.ImageProcessingResult.MANY_FACE.equals(receiveData.getResult())) {
-//                grpcStubPool.returnStub(imageStub);
                 throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.MANY_FACE);
             } else {
-//                grpcStubPool.returnStub(imageStub);
                 throw ApiExceptionFactory.fromExceptionEnum(ImageExceptionEnum.NO_INFO);
             }
         } finally {
